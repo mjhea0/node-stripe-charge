@@ -1,0 +1,63 @@
+!!! 5
+html
+  head
+    title= title
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    link(href='/css/bootstrap.min.css', rel='stylesheet', media='screen')
+    link(href='/css/main.css', rel='stylesheet', media='screen')
+    script(src='http://code.jquery.com/jquery.js')
+    script(src='js/bootstrap.min.js')
+    script(type='text/javascript', src='https://js.stripe.com/v1/')
+    script(src='js/main.js')
+  body
+    .container              
+      h1 Node + Stripe + Express
+      p.lead Now go make some money.
+      a(href="/") Go home
+      br
+      a(href="/ping") Ping
+      br
+      br
+      p Use this data for testing: 
+      ul
+        li CC # - 4242424242424242
+        li CCV - 123
+        li Any future data for expiration
+      h2 One time payment
+      form#payment-form(role='form', action='/stripe', method='POST')
+        .form-row
+          label Card Number
+          input.card-number.form-control(type='text', size='20', autocomplete='off')
+        .form-row
+          label CVC
+          input.card-cvc.form-control(type='text', size='4', autocomplete='off')
+        .form-row
+          label Expiration (MM)
+          input.card-expiry-month.form-control(type='text', size='2')
+          label Expiration (YYYY)
+          input.card-expiry-year.form-control(type='text', size='4')
+        .payment-errors
+        br
+        button.btn.btn-default.submit-button(type='submit') Submit Payment
+      br
+      br
+      h2 Recurring payment
+      form#recurring-form(role='form', action='/recurring', method='POST')
+        .form-row
+          label Card Number
+          input.number.form-control(type='text', size='20', autocomplete='off')
+        .form-row
+          label CVC
+          input.cvc.form-control(type='text', size='4', autocomplete='off')
+        .form-row
+          label Expiration (MM)
+          input.expiry-month.form-control(type='text', size='2')
+          label Expiration (YYYY)
+          input.expiry-year.form-control(type='text', size='4')
+        .recurring-errors
+        br
+        button.btn.btn-default.submit(type='submit') Submit Payment
+        br
+        br
+
+
