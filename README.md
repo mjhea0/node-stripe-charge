@@ -13,4 +13,5 @@
 4. add email field to form for customer creation
 5. unit- FREAKING - testing
 6. better error messages
+7. more
 
