@@ -1,4 +1,4 @@
-var Customer = require('./models.js');
+var Customer = require('./models/customer.js');
 var stripeKeys = require('./config.js');
 var stripe = require('stripe')(stripeKeys.secretKey);
 

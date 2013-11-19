@@ -37,7 +37,7 @@ var mongo = process.env.MONGOLAB_URI || 'mongodb://localhost/node-stripe-charge'
 mongoose.connect(mongo);
 
 // mongo model
-var Customer = require('./models.js');
+var Customer = require('./models/customer.js');
 
 // passport config
 // var Account = require('./models/account');

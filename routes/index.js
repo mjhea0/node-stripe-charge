@@ -1,5 +1,5 @@
 var path = require("path");
-var Customer = require('../models.js');
+var Customer = require('../models/customer.js');
 
 exports.index = function(req, res){
   res.render('index', { title: "Node-Stripe"});
