@@ -7,11 +7,7 @@
 
 ## to do
 
-1. add passport
-2. add mongose
-3. handle responses
-4. add email field to form for customer creation
-5. unit- FREAKING - testing
-6. better error messages
-7. more
+1. add mongose to store StripeID
+2. handle responses
+3. unit- FREAKING - testing
 
