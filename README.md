@@ -13,3 +13,4 @@ This is a template for you to use in your own project for processing one time ch
 
 1. unit- FREAKING - testing
 2. admin
+3. add passport for loging to admin
