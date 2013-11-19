@@ -5,9 +5,9 @@ This is a template for you to use in your own project for processing one time ch
 ## quick start
 
 1. Clone:
-  ```sh
-  $ git clone git@github.com:mjhea0/node-stripe-template.git your_app
-  ```
+```sh
+$ git clone git@github.com:mjhea0/node-stripe-template.git your_app
+```
 
 2. Install dependencies:
 ```sh
@@ -17,8 +17,7 @@ $ npm install
 
 4. Rename "config_sample.js" to "config.js" and add your Stripe Keys
 5. Add your PublishableKey to "main.js"
-6. Run: 
-
+6. Run:
 ```sh
 $ node app`
 ```
