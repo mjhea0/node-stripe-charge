@@ -12,6 +12,7 @@ module.exports = function(app){
   app.post('/stripe',
     function(req,res) {
       // obtain StripeToken
+      // !!!add token to monogo!!!
       var transaction = req.body;
       var stripeToken = transaction.stripeToken;
       // create charge

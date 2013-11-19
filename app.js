@@ -21,7 +21,6 @@ app.use(express.bodyParser());
 
 // requirements
 require('./charge.js')(app);
-require('./recurring.js')(app);
 
 // routes
 app.get('/', routes.index);

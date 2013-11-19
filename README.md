@@ -1,3 +1,7 @@
+## Node + Stripe + Express
+
+This is a template for you to use in your own project for processing one time charges. Follow the directions below for getting started quickly. You will obviously want to customize this template to meet your needs. 
+
 ## quick start
 
 1. `$ git clone git@github.com:mjhea0/node-stripe-template.git your_app`
