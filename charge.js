@@ -13,7 +13,6 @@ module.exports = function(app){
       // obtain token
       var transaction = req.body;
       var stripeToken = transaction.stripeToken;
-
       // create charge
       var charge =
       {
@@ -31,8 +30,9 @@ module.exports = function(app){
               res.json(charge);
               console.log('Successful charge sent to Stripe!');
             };
-        }
+        }       
       );
+    res.send("success!", 200);
     }
   );
 };

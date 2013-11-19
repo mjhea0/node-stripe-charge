@@ -24,9 +24,11 @@ require('./charge.js')(app);
 require('./recurring.js')(app);
 
 // routes
-app.get('/ping', routes.ping);
 app.get('/', routes.index);
+app.get('/ping', routes.ping);
+app.get('/charge', routes.charge);
 
+// run server
 app.listen(app.get('port'), function(){
-  ("Express server listening on port " + app.get('port'))
+  console.log('Listening on port ' + app.get('port'));
 });

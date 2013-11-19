@@ -2,18 +2,15 @@
 Stripe.setPublishableKey('pk_test_1ejKLCjIWwvKauXLgvNrC7Vx');
 
 $(document).ready(function() {
-  $("#payment-form").submit(function(event) {
-    // disable the submit button to prevent repeated clicks
-    $('.submit-button').attr("disabled", "disabled");
-    Stripe.createToken({
-      number: $('.card-number').val(),
-      cvc: $('.card-cvc').val(),
-      exp_month: $('.card-expiry-month').val(),
-      exp_year: $('.card-expiry-year').val()
-    }, stripeResponseHandler);
-    // prevent the form from submitting with the default action
+  $('#payment-form').submit(function(event) {
+    var $form = $(this);
+    // Disable the submit button to prevent repeated clicks
+    $form.find('button').prop('disabled', true);
+    Stripe.card.createToken($form, stripeResponseHandler);
+    // Prevent the form from submitting with the default action
     return false;
   });
+
 
   $("#recurring-form").submit(function(event) {
     // disable the submit button to prevent repeated clicks
