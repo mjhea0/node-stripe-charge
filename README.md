@@ -12,5 +12,6 @@ This is a template for you to use in your own project for processing one time ch
 ## to do
 
 1. unit- FREAKING - testing
-2. admin
+2. update admin. add charts, graphs, etc.
 3. add passport for loging to admin
+4. add keys to config file

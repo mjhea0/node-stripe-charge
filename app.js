@@ -34,8 +34,9 @@ require('./charge.js')(app);
 app.get('/', routes.index);
 app.get('/ping', routes.ping);
 app.get('/charge', routes.charge);
+app.get('/admin', routes.admin);
 
 // run server
 app.listen(app.get('port'), function(){
-  console.log('Listening on port ' + app.get('port'));
+  console.log('\nListening on port ' + app.get('port'));
 });
