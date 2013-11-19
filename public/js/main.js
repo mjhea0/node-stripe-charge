@@ -1,4 +1,3 @@
-// this identifies your website in the createToken call below
 Stripe.setPublishableKey('pk_test_1ejKLCjIWwvKauXLgvNrC7Vx');
 
 $(document).ready(function() {

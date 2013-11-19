@@ -1,6 +1,6 @@
-// make sure to update the secret key
-var stripe = require('stripe')('sk_test_Yg1k3ukwmBM6nEg6e26dk1us');
 var Customer = require('./models.js');
+var stripeKeys = require('./config.js');
+var stripe = require('stripe')('sk_test_Yg1k3ukwmBM6nEg6e26dk1us');
 
 module.exports = function(app){
   app.get('/stripe',
