@@ -15,9 +15,11 @@ $ cd your_app
 $ npm install
 ```
 
-4. Rename "config_sample.js" to "config.js" and add your Stripe Keys
-5. Add your PublishableKey to "main.js"
-6. Run:
+3. Rename "config_sample.js" to "config.js" and add your Stripe Keys
+
+4. Add your PublishableKey to "main.js"
+
+5. Run:
 ```sh
 $ node app`
 ```
