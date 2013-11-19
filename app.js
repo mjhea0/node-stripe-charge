@@ -4,7 +4,7 @@ var express = require('express');
 var routes = require('./routes');
 var path = require('path');
 var app = express();
-
+var mongoose = require('mongoose');
 
 // config
 app.set('port', process.env.PORT || 1337);
@@ -15,6 +15,21 @@ app.use(express.bodyParser());
 app.use(express.methodOverride());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
+
+// mongo config
+var MONGOLAB_URI= "add_your_mongolab_uri_here"
+var mongo = process.env.MONGOLAB_URI || 'mongodb://localhost/node-stripe-charge'
+mongoose.connect(mongo);
+
+// mongo model
+Customer = mongoose.model('StripeCustomers', {
+  token: String,
+	time: {type: Date, default: Date.now}
+});
+
+// test
+var quote = new Customer({token: "test" })
+quote.save();
 
 // parse objects through POST
 app.use(express.bodyParser());
