@@ -21,7 +21,7 @@ $ npm install
 
 5. Run:
 ```sh
-$ node app`
+$ node app
 ```
 
 ## to do
