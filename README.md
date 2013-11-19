@@ -5,10 +5,9 @@ This is a template for you to use in your own project for processing one time ch
 ## quick start
 
 1. Clone:
-
-```sh
-$ git clone git@github.com:mjhea0/node-stripe-template.git your_app
-```
+ ```sh
+ $ git clone git@github.com:mjhea0/node-stripe-template.git your_app
+ ```
 
 2. Install dependencies:
 
