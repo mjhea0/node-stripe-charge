@@ -1,22 +1,13 @@
-!!! 5
-html
-  head
-    title= title
-    meta(name='viewport', content='width=device-width, initial-scale=1.0')
-    link(href='/css/bootstrap.min.css', rel='stylesheet', media='screen')
-    link(href='/css/main.css', rel='stylesheet', media='screen')
-    script(src='http://code.jquery.com/jquery.js')
-    script(src='js/bootstrap.min.js')
-    script(type='text/javascript', src='https://js.stripe.com/v1/')
-    script(src='js/main.js')
-  body
-    .container              
-      h1 Customer Data
-      p.lead Spot some trends.
-      a(href="/") Go home
-      br
-      br
-      h4 Total Sales: 
-        span.total= total
-      allTokens= allTokens
+extends layout
+
+block content
+  .container              
+    h1 Customer Data
+    p.lead Spot some trends.
+    a(href="/") Go home
+    br
+    br
+    h4 Total Sales: 
+      span.total= total
+    allTokens= allTokens
 

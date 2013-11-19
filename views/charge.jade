@@ -1,38 +1,29 @@
-!!! 5
-html
-  head
-    title= title
-    meta(name='viewport', content='width=device-width, initial-scale=1.0')
-    link(href='/css/bootstrap.min.css', rel='stylesheet', media='screen')
-    link(href='/css/main.css', rel='stylesheet', media='screen')
-    script(src='http://code.jquery.com/jquery.js')
-    script(src='js/bootstrap.min.js')
-    script(type='text/javascript', src='https://js.stripe.com/v1/')
-    script(src='js/main.js')
-  body
-    .container              
+extends layout
+
+block content
+  .container              
+    br
+    a(href="/") Back home
+    br
+    br
+    h4 Use this data for testing: 
+    ul
+      li Card Number - 4242424242424242
+      li CCV - any three digits
+      li Expiration - any date in the future
+    h2 One time payment
+    form#payment-form(role='form', action='/stripe', method='POST', style='max-width: 300px;')
+      #charge-error.alert.alert-danger.payment-errors
+      .form-row
+        label Card Number
+        input.card-number.form-control(type='text', size='20', autocomplete='off', data-stripe='number')
+      .form-row
+        label CVC
+        input.card-cvc.form-control(type='text', size='4', autocomplete='off', data-stripe='cvc')
+      .form-row
+        label Expiration (MM)
+        input.card-expiry-month.form-control(type='text', size='2', data-stripe='exp-month')
+        label Expiration (YYYY)
+        input.card-expiry-year.form-control(type='text', size='4', data-stripe='exp-year')
       br
-      a(href="/") Back home
-      br
-      br
-      h4 Use this data for testing: 
-      ul
-        li Card Number - 4242424242424242
-        li CCV - any three digits
-        li Expiration - any date in the future
-      h2 One time payment
-      form#payment-form(role='form', action='/stripe', method='POST')
-        #charge-error.alert.alert-danger.payment-errors
-        .form-row
-          label Card Number
-          input.card-number.form-control(type='text', size='20', autocomplete='off', data-stripe='number')
-        .form-row
-          label CVC
-          input.card-cvc.form-control(type='text', size='4', autocomplete='off', data-stripe='cvc')
-        .form-row
-          label Expiration (MM)
-          input.card-expiry-month.form-control(type='text', size='2', data-stripe='exp-month')
-          label Expiration (YYYY)
-          input.card-expiry-year.form-control(type='text', size='4', data-stripe='exp-year')
-        br
-        button.btn.btn-default.submit-button(type='submit') Submit Payment
+      button.btn.btn-default.submit-button(type='submit') Submit Payment

@@ -34,6 +34,7 @@ require('./charge.js')(app);
 app.get('/', routes.index);
 app.get('/ping', routes.ping);
 app.get('/charge', routes.charge);
+app.get('/login', routes.login);
 app.get('/admin', routes.admin);
 
 // run server
