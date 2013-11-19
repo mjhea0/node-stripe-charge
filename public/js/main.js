@@ -2,7 +2,9 @@
 Stripe.setPublishableKey('pk_test_1ejKLCjIWwvKauXLgvNrC7Vx');
 
 $(document).ready(function() {
+  $("#charge-error").hide()
   $('#payment-form').submit(function(event) {
+    $("#charge-error").hide()
     var $form = $(this);
     // Disable the submit button to prevent repeated clicks
     $form.find('button').prop('disabled', true);
@@ -30,6 +32,7 @@ $(document).ready(function() {
 function stripeResponseHandler(status, response) {
   if (response.error) {
     // show the errors on the form
+    $("#charge-error").show()
     $(".payment-errors").text(response.error.message);
     $(".submit-button").removeAttr("disabled");
   } else {
