@@ -29,4 +29,3 @@ $ node app
 1. unit- FREAKING -testing
 2. update admin. add charts, graphs, etc.
 3. add passport for loging to admin
-4. Add layout.jade file
