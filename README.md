@@ -10,7 +10,6 @@ This is a template for you to use in your own project for processing one time ch
   ```
 
 2. Install dependencies:
-
 ```sh
 $ cd your_app
 $ npm install
