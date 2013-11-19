@@ -11,7 +11,5 @@ This is a template for you to use in your own project for processing one time ch
 
 ## to do
 
-1. add mongose to store StripeID
-2. handle responses
-3. unit- FREAKING - testing
-
+1. unit- FREAKING - testing
+2. admin

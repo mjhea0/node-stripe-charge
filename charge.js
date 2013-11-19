@@ -1,5 +1,6 @@
 // make sure to update the secret key
 var stripe = require('stripe')('sk_test_Yg1k3ukwmBM6nEg6e26dk1us');
+var Customer = require('./models.js');
 
 module.exports = function(app){
   app.get('/stripe',
@@ -12,9 +13,16 @@ module.exports = function(app){
   app.post('/stripe',
     function(req,res) {
       // obtain StripeToken
-      // !!!add token to monogo!!!
       var transaction = req.body;
       var stripeToken = transaction.stripeToken;
+      var newCustomer = new Customer({token: stripeToken });
+      newCustomer.save(function(err) {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log("Success!");
+        }
+      });
       // create charge
       var charge =
       {
@@ -38,33 +46,3 @@ module.exports = function(app){
     }
   );
 };
-
-
-
-// test
-// var quote = new Customer({token: "test" })
-// quote.save();
-
-
-//   app.post('/applicant', function(req, res) {
-//     var newApp;
-//     newApp = new Application({
-//       name: req.body.name,
-//       bio: req.body.bio,
-//       skills: req.body.skills.split(','),
-//       experience: req.body.years,
-//       why: req.body.why
-//     });
-//     return newApp.save(function(err) {
-//       if (err) {
-//         return res.send(err);
-//       } else {
-//         return Application.find({}, function(err, appData) {
-//           return res.send({
-//             success: 'Success!',
-//             applicants: appData
-//           });
-//         });
-//       }
-//     });
-//   });

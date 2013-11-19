@@ -23,9 +23,6 @@ mongoose.connect(mongo);
 
 // mongo model
 var Customer = require('./models.js');
-// test
-var quote = new Customer({token: "tester" })
-quote.save();
 
 // parse objects through POST
 app.use(express.bodyParser());
