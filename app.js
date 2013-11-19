@@ -22,13 +22,9 @@ var mongo = process.env.MONGOLAB_URI || 'mongodb://localhost/node-stripe-charge'
 mongoose.connect(mongo);
 
 // mongo model
-Customer = mongoose.model('StripeCustomers', {
-  token: String,
-	time: {type: Date, default: Date.now}
-});
-
+var Customer = require('./models.js');
 // test
-var quote = new Customer({token: "test" })
+var quote = new Customer({token: "tester" })
 quote.save();
 
 // parse objects through POST

@@ -38,3 +38,33 @@ module.exports = function(app){
     }
   );
 };
+
+
+
+// test
+// var quote = new Customer({token: "test" })
+// quote.save();
+
+
+//   app.post('/applicant', function(req, res) {
+//     var newApp;
+//     newApp = new Application({
+//       name: req.body.name,
+//       bio: req.body.bio,
+//       skills: req.body.skills.split(','),
+//       experience: req.body.years,
+//       why: req.body.why
+//     });
+//     return newApp.save(function(err) {
+//       if (err) {
+//         return res.send(err);
+//       } else {
+//         return Application.find({}, function(err, appData) {
+//           return res.send({
+//             success: 'Success!',
+//             applicants: appData
+//           });
+//         });
+//       }
+//     });
+//   });

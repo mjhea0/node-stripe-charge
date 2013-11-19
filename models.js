@@ -1,8 +1,9 @@
 var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
 
-var stripeSchema = mongoose.Schema({
-	token: String,
-	time: {type: Date, default: Date.now}
+var Customer = new Schema({
+  token: String,
+  time: {type: Date, default: Date.now}
 });
 
-mongoose.model('Stripe', stripeSchema)
+module.exports = mongoose.model('Customer', Customer);
