@@ -15,11 +15,11 @@ html
       a(href="/") Back home
       br
       br
-      p Use this data for testing: 
+      h4 Use this data for testing: 
       ul
-        li CC # - 4242424242424242
-        li CCV - 123
-        li Any future data for expiration
+        li Card Number - 4242424242424242
+        li CCV - any three digits
+        li Expiration - any date in the future
       h2 One time payment
       form#payment-form(role='form', action='/stripe', method='POST')
         #charge-error.alert.alert-danger.payment-errors

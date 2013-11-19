@@ -4,13 +4,14 @@ var stripe = require('stripe')('sk_test_Yg1k3ukwmBM6nEg6e26dk1us');
 module.exports = function(app){
   app.get('/stripe',
     function(req,res){
-      res.json({});
+      // add a page here indicating that there is nothing to see
+      res.send("Scram!")
     }
   );
 
   app.post('/stripe',
     function(req,res) {
-      // obtain token
+      // obtain StripeToken
       var transaction = req.body;
       var stripeToken = transaction.stripeToken;
       // create charge
@@ -20,7 +21,6 @@ module.exports = function(app){
         currency: 'USD',
         card: stripeToken
       };
-
       stripe.charges.create(charge,
         function(err, charge) {
           if(err)
@@ -32,7 +32,8 @@ module.exports = function(app){
             };
         }       
       );
-    res.send("success!", 200);
+    // render congrats page
+    res.render('congrats', { title: "Congrats!", charge: charge.amount/100.00});
     }
   );
 };
