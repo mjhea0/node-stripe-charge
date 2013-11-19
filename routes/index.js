@@ -18,7 +18,7 @@ exports.admin = function(req, res){
     if (err) {
       return console.log('err');
     } else {
-      return res.render('admin', {'allTokens': data});
+      return res.render('admin', {'allTokens':data, 'total':data.length});
     }
   });
 };
