@@ -20,10 +20,13 @@ block content
     table.table.table-hover
         thead
             tr
+              th #
               th Token
               th Date
           tbody
             -for(var key in allTokens)
              tr
-             td #{allTokens[key].token}             
+             td #{parseInt(key)+1}
+             td 
+               a(href='https://manage.stripe.com/test/search?query=#{allTokens[key].token}', target='_blank') #{allTokens[key].token}            
              td #{allTokens[key].time}
