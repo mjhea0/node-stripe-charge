@@ -32,7 +32,7 @@ $ node app
 
 ## tests
 
-1. Run `make test` and observe the results on the command line.
+1. Run `make test` and observe the results on the command line. (not ready yet)
 
 
 ## to do
