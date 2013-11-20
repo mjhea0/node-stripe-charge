@@ -19,7 +19,11 @@ $ npm install
 
 4. Add your PublishableKey to "main.js"
 
-5. Run:
+5. Rename "users_sample.js" to "users.js" and update the admin user info
+
+5. Make sure to add both "config.js" and "users.js" to your ".gitignore" file
+
+7. Run:
 ```sh
 $ node app
 ```
@@ -28,4 +32,3 @@ $ node app
 
 1. unit- FREAKING -testing
 2. update admin. add charts, graphs, etc.
-3. add passport for loging to admin
