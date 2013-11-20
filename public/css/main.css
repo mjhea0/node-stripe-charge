@@ -1,4 +1,9 @@
 .container {
-	max-width: 450px;
+	max-width: 500px;
 	padding: 30px 10px;
 }
+
+.form-row {
+	padding-top: 7px;
+}
+
