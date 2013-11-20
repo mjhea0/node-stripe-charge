@@ -57,4 +57,4 @@ $ node app
 
 ### admin page
 
-![admin](https://raw.github.com/mjhea0/node-stripe-charge/master/screenshots/main.png)
+![admin](https://raw.github.com/mjhea0/node-stripe-charge/master/screenshots/admin.png)
