@@ -1,3 +1,16 @@
+/* tests
+
+test charge
+- success: returns congrats page / creates token
+- error: show specific error (card, cvc, expiration)
+
+test admin login
+
+test to make sure create token is added to the admin page
+
+
+*/
+
 describe('The appendDiv() function', function () {
     var container = document.getElementById('test');
 
