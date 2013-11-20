@@ -4,7 +4,8 @@
   "description": "stripe integration with node and express",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js "
+    "start": "node app.js",
+    "test": "make test"
   },
   "repository": {
     "type": "git",
@@ -30,6 +31,9 @@
     "mongoose": "~3.8.0",
     "passport": "~0.1.17",
     "passport-local": "~0.1.6",
-    "underscore": "~1.5.2"
+    "underscore": "~1.5.2",
+    "mocha-phantomjs": "~3.1.6",
+    "phantomjs": "~1.9.2-3",
+    "expect.js": "~0.2.0"
   }
 }

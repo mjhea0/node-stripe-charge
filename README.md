@@ -30,9 +30,13 @@ $ node app
 
 8. Once you get everything working, make sure to update the links within the admin page, depending upon if you're using the test account or live account.
 
+## tests
+
+1. Run `make test` and observe the results on the command line.
+
+
 ## to do
 
 1. unit- FREAKING -tests
 2. update admin page. add charts, graphs, sortable table, trim time from dates ..
-3. login errors
-
+3. add login error messaging
