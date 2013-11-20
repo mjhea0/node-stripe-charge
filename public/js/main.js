@@ -1,5 +1,6 @@
 Stripe.setPublishableKey('pk_test_1ejKLCjIWwvKauXLgvNrC7Vx');
 
+
 $(document).ready(function() {
   $("#charge-error").hide()
   $('#payment-form').submit(function(event) {

@@ -1,8 +1,9 @@
 var path = require("path");
 var Customer = require('../models/customer.js');
+var _ = require("underscore")
 
 exports.index = function(req, res){
-  res.render('index', { title: "Node-Stripe"});
+  res.render('index', { title: "Node-Stripe", user : req.user});
 };
 
 exports.ping = function(req, res){
@@ -27,7 +28,12 @@ exports.admin = function(req, res){
     if (err) {
       return console.log('err');
     } else {
-      return res.render('admin', {title: "Admin Page", 'allTokens':data, 'total':data.length, user : req.user});
+      return res.render('admin', {
+        title: "Admin Page", 
+        'allTokens':data.token, // for loop perhaps
+        'total':data.length, 
+        user : req.user
+      });
     }
   });
 };

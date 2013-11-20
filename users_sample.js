@@ -1,5 +1,5 @@
 var users = [
-  { id: 1, username: 'admin', password: 'admin', email: 'michael@mherman.org' }
+  { id: 1, username: 'admin', password: 'admin' }
 ];
 
 module.exports = users;
