@@ -6,6 +6,9 @@ block content
     p.lead Spot some trends.
     a(href="/") Go home
     br
+    p You are currently logged in as #{user.username}
+    a(href="/logout") Logout
+    br
     br
     h4 Total Sales: 
       span.total= total

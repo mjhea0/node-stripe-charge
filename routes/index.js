@@ -14,7 +14,12 @@ exports.charge = function(req, res){
 };
 
 exports.login = function(req, res){
-  res.render('login', { title: "Login to the Admin Page"});
+  res.render('login', { title: "Login to the Admin Page", user : req.user});
+};
+
+exports.logout = function(req, res){
+  req.logout();
+  res.redirect('/');
 };
 
 exports.admin = function(req, res){
@@ -22,7 +27,7 @@ exports.admin = function(req, res){
     if (err) {
       return console.log('err');
     } else {
-      return res.render('admin', {title: "Admin Page", 'allTokens':data, 'total':data.length});
+      return res.render('admin', {title: "Admin Page", 'allTokens':data, 'total':data.length, user : req.user});
     }
   });
 };
