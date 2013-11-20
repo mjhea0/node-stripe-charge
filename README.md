@@ -40,3 +40,21 @@ $ node app
 1. unit- FREAKING -tests
 2. update admin page. add charts, graphs, sortable table, trim time from dates ..
 3. add login error messaging
+
+## screenshots
+
+### main page
+
+![main](https://raw.github.com/mjhea0/node-stripe-charge/master/screenshots/main.png)
+
+### charge page
+
+![charge](https://raw.github.com/mjhea0/node-stripe-charge/master/screenshots/charge.png)
+
+### successful charge
+
+![success](https://raw.github.com/mjhea0/node-stripe-charge/master/screenshots/success.png)
+
+### admin page
+
+![admin](https://raw.github.com/mjhea0/node-stripe-charge/master/screenshots/main.png)
