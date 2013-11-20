@@ -30,8 +30,8 @@ $ node app
 
 ## to do
 
-1. unit- FREAKING -testing
-2. update admin page. add charts, graphs, etc.
+1. unit- FREAKING -tests
+2. update admin page. add charts, graphs, sortable table, trim time from dates ..
 3. login errors
 4. update charge.jade
 
