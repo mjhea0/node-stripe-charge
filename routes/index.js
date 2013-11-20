@@ -30,7 +30,7 @@ exports.admin = function(req, res){
     } else {
       return res.render('admin', {
         title: "Admin Page", 
-        'allTokens':data, // for loop perhaps (data[i].token) or datatables
+        'allTokens':data, 
         'total':data.length, 
         user : req.user
       });
