@@ -16,5 +16,14 @@ block content
     br
     h4 Total Sales: 
       span.total= total
-    allTokens= allTokens
-
+    br
+    table.table.table-hover
+        thead
+            tr
+              th Token
+              th Date
+          tbody
+            -for(var key in allTokens)
+             tr
+             td #{allTokens[key].token}             
+             td #{allTokens[key].time}
