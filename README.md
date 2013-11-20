@@ -32,3 +32,5 @@ $ node app
 
 1. unit- FREAKING -testing
 2. update admin page. add charts, graphs, etc.
+3. login errors
+
