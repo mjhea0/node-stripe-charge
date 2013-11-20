@@ -21,9 +21,56 @@ block content
         label CVC
         input.card-cvc.form-control(type='text', size='4', autocomplete='off', data-stripe='cvc')
       .form-row
-        label Expiration (MM)
-        input.card-expiry-month.form-control(type='text', size='2', data-stripe='exp-month')
-        label Expiration (YYYY)
-        input.card-expiry-year.form-control(type='text', size='4', data-stripe='exp-year')
+        label Expiration
+        br
+        .col-lg-4
+          input.card-expiry-month.form-control(type='text', data-stripe='exp-month')
+        .col-lg-8
+          input.card-expiry-year.form-control(type='text', data-stripe='exp-year')
       br
       button.btn.btn-default.submit-button(type='submit') Submit Payment
+
+
+  .container
+    .row
+      .col-xs-4.col-md-4
+        .panel.panel-default
+          .panel-heading
+            h3.panel-title
+              | Payment Details
+            .checkbox.pull-right
+              label
+                input(type='checkbox')
+                | Remember
+          .panel-body
+            form(role='form')
+              .form-group
+                label(for='cardNumber')
+                  | CARD NUMBER
+                .input-group
+                  input#cardNumber.form-control(type='text', placeholder='Valid Card Number', required='required', autofocus='autofocus')
+                  span.input-group-addon
+                    span.glyphicon.glyphicon-lock
+              .row
+                .col-xs-7.col-md-7
+                  .form-group
+                    label(for='expityMonth')
+                      | EXPIRY DATE
+                    .col-lg-6.pl-ziro
+                      input#expityMonth.form-control(type='text', placeholder='MM', required='required')
+                    .col-lg-6.pl-ziro
+                      input#expityYear.form-control(type='text', placeholder='YY', required='required')
+                .col-xs-5.col-md-5.pull-right
+                  .form-group
+                    label(for='cvCode')
+                      | CV CODE
+                    input#cvCode.form-control(type='password', placeholder='CV', required='required')
+        ul.nav.nav-pills.nav-stacked
+          li.active
+            a(href='#')
+              span.badge.pull-right
+                span.glyphicon.glyphicon-usd
+                | $10.00
+              | Final Payment
+        br
+        a.btn.btn-success.btn-lg.btn-block(href='http://www.jquery2dotnet.com', role='button') Pay
