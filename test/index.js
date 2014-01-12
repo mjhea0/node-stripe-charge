@@ -31,15 +31,19 @@ describe('node-stripe-charge', function(){
     });
   });
 
-
-
-  // describe('when requesting resource /missing', function(){
-  //   it('should respond with 404', function(done){
-  //     request(app)
-  //       .get('/missing')
-  //       .expect(404, done);
-  //   })
-  // });
+  describe('when requesting resource /scram', function(){
+    it('should return a view', function(done){
+      request(app)
+      .get('/stripe')
+      .expect('Content-Type', /html/)
+      .expect(200)
+      .end(function(err, res){
+        if (err) throw err;
+          assert(res.text == 'Scram!');
+      });
+      done();
+    });
+  });
 
 });
 
