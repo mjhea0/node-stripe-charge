@@ -1,5 +1,6 @@
 var app = require('../app');
 var request = require('supertest');
+var assert = require('assert');
 
 describe('node-stripe-charge', function(){
   describe('when requesting resource /', function(){
@@ -12,12 +13,16 @@ describe('node-stripe-charge', function(){
   });
 
   describe('when requesting resource /ping', function(){
-    it('should respond with 200', function(done){
+    it('should return a view', function(done){
       request(app)
-        .get('/ping')
-        .expect('Content-Type', /html/)
-        // .expect('text', 'pong!')
-        .expect(200, done);
+      .get('/ping')
+      .expect('Content-Type', /html/)
+      .expect(200)
+      .end(function(err, res){
+        if (err) throw err;
+          assert.equal(res.text, 'pong!');
+      });
+      done();
     });
   });
 
