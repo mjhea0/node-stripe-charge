@@ -3,12 +3,17 @@ var request = require('supertest');
 var assert = require('assert');
 
 describe('node-stripe-charge', function(){
+
   describe('when requesting resource /', function(){
-    it('should respond with 200', function(done){
+    it('should return a view', function(done){
       request(app)
-        .get('/')
-        .expect('Content-Type', /html/)
-        .expect(200, done);
+      .get('/')
+      .expect('Content-Type', /html/)
+      .expect(200, done)
+      .end(function(err, res){
+        if (err) throw err;
+      });
+      done();
     });
   });
 
@@ -20,7 +25,7 @@ describe('node-stripe-charge', function(){
       .expect(200)
       .end(function(err, res){
         if (err) throw err;
-          assert.equal(res.text, 'pong!');
+          assert(res.text == 'pong!');
       });
       done();
     });
