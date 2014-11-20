@@ -1,19 +1,21 @@
 ## Node + Stripe + Express
 
-This is a template for you to use in your own project for processing one time charges. Follow the directions below for getting started quickly. You will obviously want to customize this template to meet your needs. 
+This is a template for you to use in your own project for processing one time charges. Follow the directions below for getting started quickly. You will obviously want to customize this template to meet your needs.
 
 ## quick start
 
 1. Clone:
-```sh
-$ git clone git@github.com:mjhea0/node-stripe-template.git your_app
-```
+
+    ```sh
+    $ git clone git@github.com:mjhea0/node-stripe-template.git your_app
+    ```
 
 2. Install dependencies:
-```sh
-$ cd your_app
-$ npm install
-```
+
+    ```sh
+    $ cd your_app
+    $ npm install
+    ```
 
 3. Rename "config_sample.js" to "config.js" and add your Stripe Keys
 
@@ -24,9 +26,10 @@ $ npm install
 5. Make sure to add both "config.js" and "users.js" to your ".gitignore" file
 
 7. Run:
-```sh
-$ node app
-```
+
+    ```sh
+    $ node app
+    ```
 
 8. Once you get everything working, make sure to update the links within the admin page, depending upon if you're using the test account or live account.
 
