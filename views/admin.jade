@@ -1,20 +1,20 @@
 extends layout
 
 block content
-  .container              
+  .container
     h1 Customer Data
     p.lead Spot some trends.
     a(href="/") Go home
     br
     br
     if (user)
-      span You are currently logged in as 
+      span You are currently logged in as
         strong #{user.username}
       br
       a(href="/logout") Logout
     br
     br
-    h4 Total Sales: 
+    h4 Total Sales:
       span.total= total
     br
     table.table.table-hover
@@ -27,6 +27,6 @@ block content
             -for(var key in allTokens)
              tr
              td #{parseInt(key)+1}
-             td 
-               a(href='https://manage.stripe.com/test/search?query=#{allTokens[key].token}', target='_blank') #{allTokens[key].token}            
-             td #{allTokens[key].time}
+             td
+               a(href='https://manage.stripe.com/test/search?query=#{allTokens[key].token}', target='_blank') #{allTokens[key].token}
+             td #{moment(allTokens[key].time).format("MM-DD-YYYY HH:mm")}

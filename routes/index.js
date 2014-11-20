@@ -1,6 +1,7 @@
 var path = require("path");
 var Customer = require('../models/customer.js');
 var _ = require("underscore")
+var moment = require('moment');
 
 exports.index = function(req, res){
   res.render('index', { title: "Node-Stripe", user : req.user});
@@ -29,9 +30,10 @@ exports.admin = function(req, res){
       return console.log('err');
     } else {
       return res.render('admin', {
-        title: "Admin Page", 
-        'allTokens':data, 
-        'total':data.length, 
+        title: "Admin Page",
+        'allTokens':data,
+        moment: moment,
+        'total':data.length,
         user : req.user
       });
     }
