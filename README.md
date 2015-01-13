@@ -23,15 +23,20 @@ This is a template for you to use in your own project for processing one time ch
 
 5. Rename "users_sample.js" to "users.js" and update the admin user info
 
-5. Make sure to add both "config.js" and "users.js" to your ".gitignore" file
+6. Make sure to add both "config.js" and "users.js" to your ".gitignore" file
 
-7. Run:
+7. Ensure mondodb is running (use `pwd` for current directory or use directory of choice [mongodb docs](http://docs.mongodb.org/manual/tutorial/manage-mongodb-processes/))
+```sh
+    mongod --dbpath `pwd` 
+```
+
+8. Run:
 
     ```sh
     $ node app
     ```
 
-8. Once you get everything working, make sure to update the links within the admin page, depending upon if you're using the test account or live account.
+9 Once you get everything working, make sure to update the links within the admin page, depending upon if you're using the test account or live account.
 
 ## tests
 
