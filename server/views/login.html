@@ -1,0 +1,26 @@
+{% extends '_base.html' %}
+
+{% block title %}{% endblock %}
+
+
+{% block content %}
+
+<div class="container">
+  <h1>Login</h1>
+  <p class="lead">Enter your credentials.</p>
+  <a href="/">Go home</a>
+  <br><br>
+  <form role="form" action="/login" method="post" style="max-width: 300px;">
+    <div class="form-group">
+      <input type="email" name="username" placeholder="Enter Email" class="form-control"/>
+    </div>
+    <div class="form-group">
+      <input type="password" name="password" placeholder="Password" class="form-control"/>
+    </div>
+    <button type="submit" class="btn btn-default">Submit</button>
+    &nbsp;
+    <a href="/"><button type="button" class="btn btn-primary">Cancel</button></a>
+  </form>
+</div>
+
+{% endblock %}

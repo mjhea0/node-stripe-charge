@@ -1,10 +1,5 @@
-/log/*.log
-/tmp
-.DS_Store
-.idea/
-.sass-cache
-*~
 node_modules
-*.out
-config.js
-users.js
+.DS_Store
+npm-debug.log
+coverage/
+_config.js

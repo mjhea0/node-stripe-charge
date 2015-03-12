@@ -1,0 +1,44 @@
+{% extends '_base.html' %}
+
+{% block title %}{% endblock %}
+
+
+{% block content %}
+
+<div class="container">
+  <h1>Customer Data</h1>
+  <p class="lead">Spot some trends.</p>
+  <a href="/">Go home</a>
+  <br><br>
+  {% if user %}
+    <span>You are currently logged in as <strong>{{user.username}}</strong></span>
+    <br>
+    <a href="logout">Logout</a>
+  {% endif %}
+  <br><br>
+  <h4>Total Sales: <span class="total">{{total}}</span></h4><br>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Token</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for key in allTokens %}
+      <tr>
+        <td>{{loop.index}}</td>
+        <td>
+          <a href="https://manage.stripe.com/test/search?query={{key.token}}" target="_blank">
+            {{key.token}}
+          </a>
+        </td>
+        <td>{{moment(key.time).format("MM-DD-YYYY HH:mm")}}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}

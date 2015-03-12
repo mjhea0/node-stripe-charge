@@ -1,0 +1,28 @@
+{% extends '_base.html' %}
+
+{% block title %}{% endblock %}
+
+
+{% block content %}
+
+<div class="container">
+  <h1>Node + Stripe + Express</h1>
+  <p class="lead">Go make some money.</p>
+  <a href="/">Go home</a>
+  <br>
+  <a href="/ping">Ping</a>
+  <br><br>
+  <a href="/charge">Process a charge</a>
+  <br>
+  <a href="/login">Login as admin</a>
+  <br><br>
+  {% if user %}
+    <span>You are currently logged in as <strong>{{user.username}}</strong></span>
+    <br>
+    <a href="/admin">View the admin page</a>
+    <br>
+    <a href="/logout">Logout</a>
+  {% endif %}
+</div>
+
+{% endblock %}

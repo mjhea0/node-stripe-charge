@@ -1,4 +1,5 @@
-var app = require('../app');
+process.env.NODE_ENV = 'test';
+var app = require('../server/app');
 var request = require('supertest');
 var assert = require('assert');
 

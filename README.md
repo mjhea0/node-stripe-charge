@@ -1,68 +1,46 @@
 ## Node + Stripe + Express
 
-This is a template for you to use in your own project for processing one time charges. Follow the directions below for getting started quickly. You will obviously want to customize this template to meet your needs.
+This is a template for you to use in your own project for processing one-time Stripe charges. Follow the directions below to get started quickly. You will obviously want to customize this template to meet your needs. *The user login is only for admins*.
 
-## quick start
+## Quick Start
 
-1. Clone:
+1. Clone: `git clone git@github.com:mjhea0/node-stripe-template.git`
+1. Install the dependencies: `cd node-stripe-template && npm install`
+1. Rename *server/_config_sample.js* to *server/_config.js* and add your Stripe Keys
+1. Add your `PublishableKey` to *main.js*
+1. Run `mongod` in a seperate terminal window
+1. Run the app: `npm start` or `gulp`
 
-    ```sh
-    $ git clone git@github.com:mjhea0/node-stripe-template.git your_app
-    ```
+> The database is seeded with an admin user - username: *ad@min.com* / password: *admin*
 
-2. Install dependencies:
+## Tests
 
-    ```sh
-    $ cd your_app
-    $ npm install
-    ```
+1. Run - `make test` and/or `make coverage`
 
-3. Rename "config_sample.js" to "config.js" and add your Stripe Keys
+## Todo
 
-4. Add your PublishableKey to "main.js"
+1. Add more tests
+2. Update admin page. Add charts, graphs, sortable table(s), trim time from dates, etc.
+3. Better error handling
 
-5. Rename "users_sample.js" to "users.js" and update the admin user info
+## Changelog
 
-6. Make sure to add both "config.js" and "users.js" to your ".gitignore" file
+1. 03/11/2015 - updated to Express 4.x
 
-7. Ensure mondodb is running (use `pwd` for current directory or use directory of choice [mongodb docs](http://docs.mongodb.org/manual/tutorial/manage-mongodb-processes/))
-```sh
-    mongod --dbpath `pwd` 
-```
+## Screenshots
 
-8. Run:
+### Main Page
 
-    ```sh
-    $ node app
-    ```
+![main](https://raw.github.com/mjhea0/node-stripe-charge/master/images/main.png)
 
-9 Once you get everything working, make sure to update the links within the admin page, depending upon if you're using the test account or live account.
+### Charge Page
 
-## tests
+![charge](https://raw.github.com/mjhea0/node-stripe-charge/master/images/charge.png)
 
-1. Run `make test` and `make coverage`
+### Successful Charge
 
+![success](https://raw.github.com/mjhea0/node-stripe-charge/master/images/success.png)
 
-## to do
+### Admin Page
 
-1. unit- FREAKING -tests
-2. update admin page. add charts, graphs, sortable table, trim time from dates ..
-3. add login error messaging
-
-## screenshots
-
-### main page
-
-![main](https://raw.github.com/mjhea0/node-stripe-charge/master/screenshots/main.png)
-
-### charge page
-
-![charge](https://raw.github.com/mjhea0/node-stripe-charge/master/screenshots/charge.png)
-
-### successful charge
-
-![success](https://raw.github.com/mjhea0/node-stripe-charge/master/screenshots/success.png)
-
-### admin page
-
-![admin](https://raw.github.com/mjhea0/node-stripe-charge/master/screenshots/admin.png)
+![admin](https://raw.github.com/mjhea0/node-stripe-charge/master/images/admin.png)

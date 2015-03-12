@@ -1,0 +1,38 @@
+{% extends '_base.html' %}
+
+{% block title %}{% endblock %}
+
+
+{% block content %}
+
+<div class="container">
+  <h1>Charge</h1>
+  <br>
+  <a href="/">Back home</a>
+  <br><br>
+  <h4>Use this data for testing: </h4>
+  <ul>
+    <li>Card Number - 4242424242424242</li>
+    <li>CVC Code - any three digits</li>
+    <li>Expiration - any date in the future</li>
+  </ul>
+  <h2>One time payment</h2>
+  <form id="payment-form" role="form" action="/stripe" method="POST" style="max-width: 300px;">
+    <div id="charge-error" class="alert alert-danger payment-errors"></div>
+    <div class="form-row">
+      <label>Credit Card Info</label>
+      <input type="text" autocomplete="off" data-stripe="number" placeholder="Card Number" class="card-number form-control"/>
+    </div>
+    <div class="form-row">
+      <input type="text" autocomplete="off" data-stripe="cvc" placeholder="CVC Code" class="card-cvc form-control"/>
+    </div>
+    <div class="form-row">
+      <label>Expiration Date</label><br/>
+      <input type="text" data-stripe="exp-month" placeholder="MM" class="card-expiry-month form-control"/>
+      <input type="text" data-stripe="exp-year" placeholder="YYYY" class="card-expiry-year form-control"/>
+    </div><br/>
+    <button type="submit" class="btn btn-default submit-button btn-block">Submit Payment</button>
+  </form>
+</div>
+
+{% endblock %}

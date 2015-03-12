@@ -6,4 +6,5 @@ var Customer = new Schema({
   time: {type: Date, default: Date.now}
 });
 
-module.exports = mongoose.model('Customer', Customer);
+
+module.exports = mongoose.model('customers', Customer);
