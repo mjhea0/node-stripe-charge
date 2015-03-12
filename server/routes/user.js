@@ -11,12 +11,20 @@ router.get('/login', function(req, res, next){
 
 router.post('/login',
   passport.authenticate('local', { failureRedirect: '/login'}), function(req, res) {
+    req.flash('success', 'Successfully logged in.');
     res.redirect('/admin');
   }
 );
 
+// router.post('/login', passport.authenticate('local', {
+//   successRedirect : '/admin',
+//   failureRedirect : '/login',
+//   failureFlash : true
+// }));
+
 router.get('/logout', ensureAuthenticated, function(req, res){
   req.logout();
+  req.flash('success', 'Successfully logged out.');
   res.redirect('/');
 });
 
