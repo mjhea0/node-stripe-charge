@@ -6,8 +6,8 @@ This is a template for you to use in your own project for processing one-time St
 
 ## Quick Start
 
-1. Clone: `git clone git@github.com:mjhea0/node-stripe-template.git`
-1. Install the dependencies: `cd node-stripe-template && npm install`
+1. Download - `npm install node-stripe-template`
+1. Install the dependencies - `cd node-stripe-template && npm install`
 1. Add Stripe Keys to env variables (see *_config.js*)
 1. Add your `PublishableKey` to *main.js*
 1. Run `mongod` in a seperate terminal window
