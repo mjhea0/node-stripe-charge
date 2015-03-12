@@ -18,6 +18,19 @@ describe('charge.js Routes', function(){
     });
   });
 
+  describe('GET /charge', function(){
+    it('should return a view', function(done){
+      request(app)
+      .get('/charge')
+      .expect('Content-Type', /html/)
+      .expect(200)
+      .end(function(err, res){
+        res.text.should.containEql('<h1>Charge</h1>');
+      });
+      done();
+    });
+  });
+
 });
 
 
