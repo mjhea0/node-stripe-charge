@@ -1,46 +1,31 @@
 process.env.NODE_ENV = 'test';
 var app = require('../server/app');
 var request = require('supertest');
-var assert = require('assert');
+var should = require('should');
 
-describe('node-stripe-charge', function(){
+describe('index.js Routes', function(){
 
-  describe('when requesting resource /', function(){
+  describe('GET /', function(){
     it('should return a view', function(done){
       request(app)
       .get('/')
       .expect('Content-Type', /html/)
-      .expect(200, done)
+      .expect(200)
       .end(function(err, res){
-        if (err) throw err;
+        res.text.should.include('Node + Stripe + Express');
       });
       done();
     });
   });
 
-  describe('when requesting resource /ping', function(){
+  describe('GET /ping', function(){
     it('should return a view', function(done){
       request(app)
       .get('/ping')
       .expect('Content-Type', /html/)
       .expect(200)
       .end(function(err, res){
-        if (err) throw err;
-          assert(res.text == 'pong!');
-      });
-      done();
-    });
-  });
-
-  describe('when requesting resource /scram', function(){
-    it('should return a view', function(done){
-      request(app)
-      .get('/stripe')
-      .expect('Content-Type', /html/)
-      .expect(200)
-      .end(function(err, res){
-        if (err) throw err;
-          assert(res.text == 'Scram!');
+        res.text.should.equal('pong!');
       });
       done();
     });
