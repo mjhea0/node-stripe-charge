@@ -11,9 +11,12 @@ config.mongoURI = {
 };
 
 // stripe keys
+// Add as env variables
+// export "stripePublishableKey=pk_test_GET_YOUR_OWN"
+// export "githubClientSecret=sk_test_test_GET_YOUR_OWN"
 config.StripeKeys = {
-  publishableKey: 'pk_test_GET_YOUR_OWN',
-  secretKey: 'sk_test_GET_YOUR_OWNs'
+  publishableKey: process.env.stripePublishableKey,
+  secretKey: process.env.stripeSecretKey
 };
 
 

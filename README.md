@@ -1,6 +1,6 @@
 ## Node + Stripe + Express
 
-Travis sticker
+[![Build Status](https://travis-ci.org/mjhea0/node-stripe-charge.svg?branch=master)](https://travis-ci.org/mjhea0/node-stripe-charge)
 
 This is a template for you to use in your own project for processing one-time Stripe charges. Follow the directions below to get started quickly. You will obviously want to customize this template to meet your needs. *The user login is only for admins*.
 
@@ -8,7 +8,7 @@ This is a template for you to use in your own project for processing one-time St
 
 1. Clone: `git clone git@github.com:mjhea0/node-stripe-template.git`
 1. Install the dependencies: `cd node-stripe-template && npm install`
-1. Rename *server/_config_sample.js* to *server/_config.js* and add your Stripe Keys
+1. Add Stripe Keys to env variables (see *_config.js*)
 1. Add your `PublishableKey` to *main.js*
 1. Run `mongod` in a seperate terminal window
 1. Run the app: `npm start` or `gulp`
