@@ -16,12 +16,6 @@ router.post('/login',
   }
 );
 
-// router.post('/login', passport.authenticate('local', {
-//   successRedirect : '/admin',
-//   failureRedirect : '/login',
-//   failureFlash : true
-// }));
-
 router.get('/logout', ensureAuthenticated, function(req, res){
   req.logout();
   req.flash('success', 'Successfully logged out.');

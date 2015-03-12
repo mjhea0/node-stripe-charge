@@ -12,7 +12,7 @@ describe('index.js Routes', function(){
       .expect('Content-Type', /html/)
       .expect(200)
       .end(function(err, res){
-        res.text.should.include('Node + Stripe + Express');
+        res.text.should.containEql('<h1>Node + Stripe + Express</h1>');
       });
       done();
     });
@@ -25,7 +25,7 @@ describe('index.js Routes', function(){
       .expect('Content-Type', /html/)
       .expect(200)
       .end(function(err, res){
-        res.text.should.equal('pong!');
+        res.text.should.eql('pong!');
       });
       done();
     });

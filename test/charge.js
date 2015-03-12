@@ -1,7 +1,7 @@
 process.env.NODE_ENV = 'test';
 var app = require('../server/app');
 var request = require('supertest');
-var assert = require('assert');
+var should = require('should');
 
 describe('charge.js Routes', function(){
 
@@ -12,8 +12,7 @@ describe('charge.js Routes', function(){
       .expect('Content-Type', /html/)
       .expect(200)
       .end(function(err, res){
-        if (err) throw err;
-          assert(res.text == 'Scram!');
+        res.text.should.eql('Scram!');
       });
       done();
     });

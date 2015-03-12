@@ -4,7 +4,7 @@
   "description": "stripe integration with node and express",
   "scripts": {
     "start": "node ./server/bin/www",
-    "test": "make test"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
