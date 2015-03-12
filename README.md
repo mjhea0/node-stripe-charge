@@ -2,6 +2,8 @@
 
 [![Build Status](https://travis-ci.org/mjhea0/node-stripe-charge.svg?branch=master)](https://travis-ci.org/mjhea0/node-stripe-charge)
 
+[![npm version](https://badge.fury.io/js/node-stripe-charge.svg)](http://badge.fury.io/js/node-stripe-charge)
+
 This is a template for you to use in your own project for processing one-time Stripe charges. Follow the directions below to get started quickly. You will obviously want to customize this template to meet your needs. *The user login is only for admins*.
 
 ## Quick Start
