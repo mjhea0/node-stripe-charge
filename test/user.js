@@ -56,7 +56,18 @@ describe("users.js Routes", function() {
         });
         done();
     });
-  });
 
+    it ('should return a view if user is logged in', function(done) {
+      request(app)
+        .post('/login')
+        .send({username: 'test@test.com', password: 'test' })
+        .expect(200)
+        .end(function (err, res) {
+          res.header.location.should.eql('/admin');
+        });
+        done();
+    });
+
+  });
 
 });
