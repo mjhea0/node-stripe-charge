@@ -15,10 +15,12 @@ var express = require('express'),
 
 
 // *** seed the database *** //
-var seedAdmin = require('./models/seeds/admin.js');
-var productAdmin = require('./models/seeds/product.js');
-seedAdmin();     // disable in production!
-productAdmin();  // disable in production!
+if (process.env.NODE_ENV === 'development') {
+  var seedAdmin = require('./models/seeds/admin.js');
+  var productAdmin = require('./models/seeds/product.js');
+  seedAdmin();
+  productAdmin();
+}
 
 
 // *** config file *** //
@@ -70,6 +72,7 @@ app.use(express.static(path.join(__dirname, '../', 'public')));
 // *** mongo *** //
 app.set('dbUrl', config.mongoURI[app.settings.env]);
 mongoose.connect(app.get('dbUrl'));
+
 
 // *** main routes *** //
 app.use('/', mainRoutes);

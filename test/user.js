@@ -6,7 +6,7 @@ var mongoose = require('mongoose');
 var User = require("../server/models/user.js");
 
 
-describe("users.js Routes", function() {
+describe("user.js Routes", function() {
 
   before(function(done) {
     var user = new User({
@@ -21,8 +21,7 @@ describe("users.js Routes", function() {
   });
 
   after(function(done) {
-    User.remove({});
-    mongoose.disconnect();
+    User.collection.drop();
     done();
   });
 
@@ -30,6 +29,13 @@ describe("users.js Routes", function() {
     User.findOne({username: 'test@test.com'}, function(err, user) {
       user.username.should.eql('test@test.com');
       user.admin.should.eql(true);
+      done();
+    });
+  });
+
+  it('finds all users', function(done) {
+    User.find({}, function(err, user) {
+      user.length.should.eql(1);
       done();
     });
   });
