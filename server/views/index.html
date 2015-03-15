@@ -14,14 +14,14 @@
   <br><br>
   <a href="/charge">Process a charge</a>
   <br>
-  <a href="/login">Log in as admin</a>
+  <a href="/auth/login">Log in as admin</a>
   <br><br>
   {% if user %}
     <span>You are currently logged in as <strong>{{user.username}}</strong></span>
     <br>
     <a href="/admin">View the admin page</a>
     <br>
-    <a href="/logout">Logout</a>
+    <a href="/auth/logout">Logout</a>
   {% endif %}
 </div>
 

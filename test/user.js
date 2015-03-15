@@ -37,10 +37,10 @@ describe("users.js Routes", function() {
   describe('GET /logout', function(){
     it ('should redirect if user is not logged in', function(done) {
       request(app)
-        .get('/logout')
+        .get('/auth/logout')
         .expect(200)
         .end(function (err, res) {
-          res.header.location.should.eql('/login');
+          res.header.location.should.eql('/auth/login');
         });
         done();
     });
@@ -49,21 +49,21 @@ describe("users.js Routes", function() {
   describe('GET /admin', function(){
     it ('should redirect if user is not logged in', function(done) {
       request(app)
-        .get('/admin')
+        .get('/auth/admin')
         .expect(200)
         .end(function (err, res) {
-          res.header.location.should.eql('/login');
+          res.header.location.should.eql('/auth/login');
         });
         done();
     });
 
     it ('should return a view if user is logged in', function(done) {
       request(app)
-        .post('/login')
+        .post('/auth/login')
         .send({username: 'test@test.com', password: 'test' })
         .expect(200)
         .end(function (err, res) {
-          res.header.location.should.eql('/admin');
+          res.header.location.should.eql('/');
         });
         done();
     });

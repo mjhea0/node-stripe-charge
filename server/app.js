@@ -15,7 +15,10 @@ var express = require('express'),
 
 
 // *** seed the database *** //
-require('./models/seed.js');
+var seedAdmin = require('./models/seeds/admin.js');
+var productAdmin = require('./models/seeds/product.js');
+seedAdmin();     // disable in production!
+productAdmin();  // disable in production!
 
 
 // *** config file *** //
@@ -24,7 +27,7 @@ var config = require('./_config');
 
 // *** routes *** //
 var mainRoutes = require('./routes/index');
-var userRoutes = require('./routes/user');
+var authRoutes = require('./routes/auth');
 var chargeRoutes = require('./routes/charge');
 var productAPIRoutes = require('./routes/product');
 
@@ -70,8 +73,8 @@ mongoose.connect(app.get('dbUrl'));
 
 // *** main routes *** //
 app.use('/', mainRoutes);
-app.use('/', userRoutes);
 app.use('/', chargeRoutes);
+app.use('/auth', authRoutes);
 app.use('/api', productAPIRoutes);
 
 
