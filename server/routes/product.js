@@ -33,40 +33,42 @@ router.get('/product/:id', function(req, res, next) {
 });
 
 // POST product
-router.post('/product/:id', function(req, res, next) {
+// router.post('/products', function(req, res, next) {
 
-  var newProduct = req.body;
-  var product = new Product(newProduct);
+//   var newProduct = req.body;
+//   var product = new Product(newProduct);
 
-  product.save(function(err, results){
-    if(err) {
-      res.send(err);
-    } else {
-      res.send(results);
-    }
-  });
+//   product.save(function(err, results){
+//     if(err) {
+//       res.send(err);
+//     } else {
+//       res.send(results);
+//     }
+//   });
 
-});
+// });
 
 // PUT product
-router.put('/product/:id', function(req, res, next) {
+// router.put('/product/:id', function(req, res, next) {
 
-  // var productID = req.params.SOMETHING;
+//   // var productID = req.params.id;
 
-  Product.findByIdAndUpdate(productID, PAYLOAD, function(err, results){
-    if(err) {
-      res.send(err);
-    } else {
-      res.send(results);
-    }
-  });
+//   Product.findByIdAndUpdate(productID, PAYLOAD, function(err, results){
+//     if(err) {
+//       res.send(err);
+//     } else {
+//       res.send(results);
+//     }
+//   });
 
-});
+// });
 
 // DELETE product
 router.delete('/product/:id', function(req, res, next) {
 
-  Product.findByIdAndRemove(id, function(err, results){
+  var productID = req.params.id;
+
+  Product.findByIdAndRemove(productID, function(err, results){
     if(err) {
       res.send(err);
     } else {

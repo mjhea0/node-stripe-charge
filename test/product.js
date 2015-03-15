@@ -32,8 +32,9 @@ describe("product.js Routes", function() {
       request(app)
         .get('/api/products')
         .expect(200)
-         .expect('Content-Type', /json/)
+        .expect('Content-Type', /json/)
         .end(function (err, res) {
+          // res.body.should.have.property('posts').and.be.instanceof(Array);
           res.body.length.should.eql(1);
           res.body[0].name.should.eql('Concunut Water');
         });
