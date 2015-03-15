@@ -22,7 +22,9 @@ router.get('/products', function(req, res, next) {
 // GET product
 router.get('/product/:id', function(req, res, next) {
 
-  Product.findById(id, function(err, results) {
+  var productID = req.params.id;
+
+  Product.findById(productID, function(err, results) {
     if(err) {
       res.send(err);
     } else {

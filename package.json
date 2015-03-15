@@ -4,7 +4,7 @@
   "description": "stripe integration with node and express",
   "scripts": {
     "start": "node ./server/bin/www",
-    "test": "mocha"
+    "test": "gulp test"
   },
   "repository": {
     "type": "git",
@@ -44,6 +44,7 @@
     "assert": "^1.3.0",
     "gulp": "^3.8.11",
     "gulp-jshint": "^1.9.2",
+    "gulp-mocha": "^2.0.0",
     "gulp-nodemon": "^1.0.5",
     "istanbul": "^0.3.7",
     "mocha": "^2.2.1",

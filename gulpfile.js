@@ -10,7 +10,13 @@ gulp.task('lint', function () {
 
 gulp.task('test', function () {
   return gulp.src('./test/*.js', {read: false})
-    .pipe(mocha());
+    .pipe(mocha())
+    .once('error', function () {
+      process.exit(1);
+    })
+    .once('end', function () {
+      process.exit();
+    });
 });
 
 gulp.task('default', function () {
