@@ -31,7 +31,7 @@ var config = require('./_config');
 var mainRoutes = require('./routes/index');
 var authRoutes = require('./routes/auth');
 var chargeRoutes = require('./routes/charge');
-var productAPIRoutes = require('./routes/product');
+var apiRoutes = require('./routes/api');
 
 
 // *** express instance *** //
@@ -48,7 +48,7 @@ app.set('view engine', 'html');
 app.set('views', path.join(__dirname, './views'));
 
 
-// *** middeleware *** //
+// *** config middleware *** //
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -78,7 +78,7 @@ mongoose.connect(app.get('dbUrl'));
 app.use('/', mainRoutes);
 app.use('/', chargeRoutes);
 app.use('/auth', authRoutes);
-app.use('/api', productAPIRoutes);
+app.use('/api/v1/', apiRoutes);
 
 
 // *** error handlers *** //

@@ -1,4 +1,4 @@
-## Node + Stripe + Express
+_## Node + Stripe + Express
 
 [![Build Status](https://travis-ci.org/mjhea0/node-stripe-charge.svg?branch=master)](https://travis-ci.org/mjhea0/node-stripe-charge)
 
@@ -24,7 +24,7 @@ This is a template for you to use in your own project for processing one-time St
 ## Todo
 
 1. Add more tests
-1. Update admin page. Add charts, graphs, sortable table(s), trim time from dates, etc.
+1. Update admin page. Add charts, graphs, sortable table(s), etc.
 1. Better error handling
 1. Coveralls
 1. API - users, products (WIP)

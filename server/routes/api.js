@@ -1,14 +1,37 @@
 var express = require('express'),
-    Product = require('../models/product'),
     router = express.Router(),
-    passport = require('../auth');
+    passport = require('../auth'),
+    Customer = require('../models/customer'),
+    Product = require('../models/product');
 
 
-// ensure authenticated - add!
+// customers
 
-// GET products
-router.get('/products', function(req, res, next) {
+router.get('/customers', ensureAuthenticated, function(req, res, next) {
+  Customer.find({}, function(err, data) {
+    if (err) {
+      return console.log('err');
+    } else {
+      return res.send(data);
+    }
+  });
+});
 
+router.get('/customer/:id', ensureAuthenticated, function(req, res, next) {
+  var userID = req.params.id;
+  Customer.findById(userID, function(err, data) {
+    if (err) {
+      return console.log('err');
+    } else {
+      return res.send(data);
+    }
+  });
+});
+
+
+// products
+
+router.get('/products', ensureAuthenticated, function(req, res, next) {
   Product.find({}, function (err, results) {
     if(err) {
       res.send(err);
@@ -19,11 +42,8 @@ router.get('/products', function(req, res, next) {
 
 });
 
-// GET product
 router.get('/product/:id', function(req, res, next) {
-
   var productID = req.params.id;
-
   Product.findById(productID, function(err, results) {
     if(err) {
       res.send(err);
@@ -65,25 +85,26 @@ router.get('/product/:id', function(req, res, next) {
 
 // });
 
-// DELETE product
-router.delete('/product/:id', function(req, res, next) {
+// // DELETE product
+// router.delete('/product/:id', function(req, res, next) {
 
-  var productID = req.params.id;
+//   var productID = req.params.id;
 
-  Product.findByIdAndRemove(productID, function(err, results){
-    if(err) {
-      res.send(err);
-    } else {
-      res.send(results);
-    }
-  });
+//   Product.findByIdAndRemove(productID, function(err, results){
+//     if(err) {
+//       res.send(err);
+//     } else {
+//       res.send(results);
+//     }
+//   });
 
-});
+// });
 
 
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) { return next(); }
   res.redirect('/auth/login');
 }
+
 
 module.exports = router;
