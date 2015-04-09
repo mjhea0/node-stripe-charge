@@ -42,6 +42,19 @@ describe("auth.js Routes", function() {
     });
   });
 
+  describe('GET /login', function(){
+    it ('should return a view', function(done) {
+      request(app)
+        .get('/auth/login')
+        .end(function (err, res) {
+          assert.equal(res.statusCode, 200);
+          assert.equal(res.status, 200);
+          res.text.should.containEql('<h1>Login</h1>\n');
+          done();
+        });
+    });
+  });
+
   describe('GET /logout', function(){
     it ('should redirect if user is not logged in', function(done) {
       request(app)

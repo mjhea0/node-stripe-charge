@@ -13,11 +13,21 @@ config.mongoURI = {
 // stripe keys
 // Add as env variables
 // export "stripePublishableKey=pk_test_GET_YOUR_OWN"
-// export "githubClientSecret=sk_test_test_GET_YOUR_OWN"
+// export "githubClientSecret=sk_test_GET_YOUR_OWN"
 config.StripeKeys = {
   publishableKey: process.env.stripePublishableKey,
   secretKey: process.env.stripeSecretKey
 };
+
+// mailgun keys
+// Add as env variables
+// export "mailgunUsername=GET_YOUR_OWN"
+// export "mailgunPassword=GET_YOUR_OWN"
+config.mailgun = {
+  username: process.env.mailgunUsername,
+  password: process.env.mailgunPassword
+};
+
 
 
 module.exports = config;
