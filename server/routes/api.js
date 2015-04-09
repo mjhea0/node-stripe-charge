@@ -7,7 +7,7 @@ var express = require('express'),
 
 // customers
 
-router.get('/customers', ensureAuthenticated, function(req, res, next) {
+router.get('/customers', function(req, res, next) {
   Customer.find({}, function(err, data) {
     if (err) {
       return console.log('err');
@@ -17,7 +17,7 @@ router.get('/customers', ensureAuthenticated, function(req, res, next) {
   });
 });
 
-router.get('/customer/:id', ensureAuthenticated, function(req, res, next) {
+router.get('/customer/:id', function(req, res, next) {
   var userID = req.params.id;
   Customer.findById(userID, function(err, data) {
     if (err) {
@@ -31,7 +31,7 @@ router.get('/customer/:id', ensureAuthenticated, function(req, res, next) {
 
 // products
 
-router.get('/products', ensureAuthenticated, function(req, res, next) {
+router.get('/products', function(req, res, next) {
   Product.find({}, function (err, results) {
     if(err) {
       res.send(err);

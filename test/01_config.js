@@ -1,17 +1,14 @@
 process.env.NODE_ENV = 'test';
-var app = require('../server/app');
-// var request = require('supertest');
-var should = require("should");
-var mongoose = require('mongoose');
+var app = require('../server/app'),
+    mongoose = require('mongoose'),
+    assert = require("assert");
 
-
-// console.log(process.env.NODE_ENV);
 
 describe('app environment', function(){
   it ('should be "test"', function(done) {
-    process.env.NODE_ENV.should.eql('test');
-    process.env.NODE_ENV.should.not.eql('development');
-    process.env.NODE_ENV.should.not.eql('stage');
+    assert.equal(process.env.NODE_ENV, 'test');
+    assert.notEqual(process.env.NODE_ENV, 'development');
+    assert.notEqual(process.env.NODE_ENV, 'stage');
     done();
   });
 });
