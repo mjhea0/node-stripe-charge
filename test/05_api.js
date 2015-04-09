@@ -80,7 +80,6 @@ describe("api.js Routes", function() {
           assert.equal(res.status, 200);
           assert.equal(res.type, 'application/json');
           assert.equal(res.body.length, 1);
-          console.log(res.body);
           assert.equal(res.body[0].token, '12345');
           (res.body).should.be.instanceof(Object);
           (res.body).should.be.instanceof(Array);

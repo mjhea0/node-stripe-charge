@@ -5,3 +5,5 @@ node_js:
   - '0.11'
 
 services: mongodb
+
+script: npm run-script send-coverage
