@@ -45,4 +45,22 @@ describe("api.js Routes", function() {
     });
   });
 
+  describe('GET api/v1/product/:id', function(){
+    it ('should return a single product', function(done) {
+      Product.findOne({}, function (err, results) {
+        var productID = results._id;
+        request(app)
+        .get('/api/v1/product/'+productID)
+        .end(function (err, res) {
+          assert.equal(res.statusCode, 200);
+          assert.equal(res.status, 200);
+          assert.equal(res.type, 'application/json');
+          assert.equal(res.body.name, 'Coconut Water');
+          (res.body).should.be.instanceof(Object);
+          done();
+        });
+      });
+    });
+  });
+
 });

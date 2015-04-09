@@ -25,7 +25,7 @@ router.get('/logout', ensureAuthenticated, function(req, res){
 router.get('/admin', ensureAuthenticated, function(req, res){
   return Customer.find({}, function(err, data) {
     if (err) {
-      return console.log('err');
+      if (err) { return next(err); }
     } else {
       return res.render('admin', {
         'allTokens': data,

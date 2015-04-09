@@ -27,7 +27,6 @@ This is a template for you to use in your own project for processing one-time St
 1. Update admin page. Add charts, graphs, sortable table(s), etc.
 1. Better error handling
 1. Coveralls
-1. API - users, products (WIP)
 1. Add more products. Add ability for admins to add projects.
 1. Mailgun transaction emails.
 

@@ -20,7 +20,7 @@ router.post('/stripe', function(req, res, next) {
   var newCustomer = new Customer({token: stripeToken });
   newCustomer.save(function(err) {
     if (err) {
-      console.log(err);
+      if (err) { return next(err); }
     } else {
       console.log("Success!");
     }
@@ -35,16 +35,13 @@ router.post('/stripe', function(req, res, next) {
   stripe.charges.create(charge,
     function(err, charge) {
       if(err) {
-        console.log(err);
+        if (err) { return next(err); }
       } else {
-        // res.send(charge);
         console.log('Successful charge sent to Stripe!');
         res.render('congrats', { charge: charge.amount/100.00});
       }
     }
   );
-  // render congrats page
-  // res.render('congrats', { charge: charge.amount/100.00});
 });
 
 
