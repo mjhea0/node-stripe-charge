@@ -1,6 +1,5 @@
-.container {
-  max-width: 500px;
-  padding: 30px 10px;
+.body {
+  padding-top: 70px;
 }
 
 .form-row {
