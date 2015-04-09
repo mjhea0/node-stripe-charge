@@ -1,4 +1,4 @@
-_## Node + Stripe + Express
+## Node + Stripe + Express
 
 [![Build Status](https://travis-ci.org/mjhea0/node-stripe-charge.svg?branch=master)](https://travis-ci.org/mjhea0/node-stripe-charge)
 
