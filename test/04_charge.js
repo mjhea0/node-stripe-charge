@@ -13,8 +13,8 @@ describe('charge.js Routes', function(){
       .expect(200)
       .end(function(err, res){
         res.text.should.eql('Scram!');
+        done();
       });
-      done();
     });
   });
 
@@ -26,8 +26,8 @@ describe('charge.js Routes', function(){
       .expect(200)
       .end(function(err, res){
         res.text.should.containEql('<h1>Charge</h1>');
+        done();
       });
-      done();
     });
   });
 

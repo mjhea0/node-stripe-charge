@@ -1,7 +1,8 @@
 process.env.NODE_ENV = 'test';
-var app = require('../server/app');
-var request = require('supertest');
-var should = require('should');
+var app = require('../server/app'),
+    request = require('supertest'),
+    assert = require("assert");
+
 
 describe('index.js Routes', function(){
 
@@ -9,12 +10,13 @@ describe('index.js Routes', function(){
     it('should return a view', function(done){
       request(app)
       .get('/')
-      .expect('Content-Type', /html/)
-      .expect(200)
       .end(function(err, res){
-        res.text.should.containEql('<h1>Node + Stripe + Express</h1>');
+        assert.equal(res.statusCode, 200);
+        assert.equal(res.status, 200);
+        assert.equal(res.type, 'text/html');
+        assert.notStrictEqual(res.text, '<h1>Node + Stripe + Express</h1>');
+        done();
       });
-      done();
     });
   });
 
@@ -25,9 +27,12 @@ describe('index.js Routes', function(){
       .expect('Content-Type', /html/)
       .expect(200)
       .end(function(err, res){
-        res.text.should.eql('pong!');
+        assert.equal(res.statusCode, 200);
+        assert.equal(res.status, 200);
+        assert.equal(res.type, 'text/html');
+        assert.equal(res.text, 'pong!');
+        done();
       });
-      done();
     });
   });
 

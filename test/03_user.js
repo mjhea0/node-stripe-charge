@@ -48,8 +48,8 @@ describe("user.js Routes", function() {
         .expect(302)
         .end(function (err, res) {
           res.header.location.should.eql('/auth/login');
+          done();
         });
-        done();
     });
   });
 
@@ -60,8 +60,8 @@ describe("user.js Routes", function() {
         .expect(302)
         .end(function (err, res) {
           res.header.location.should.eql('/auth/login');
+          done();
         });
-        done();
     });
 
     // it ('should return a view if user is logged in', function(done) {
@@ -71,8 +71,8 @@ describe("user.js Routes", function() {
     //     .expect(302)
     //     .end(function (err, res) {
     //       res.header.location.should.eql('/');
+    //       done();
     //     });
-    //     done();
     // });
 
   });
