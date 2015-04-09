@@ -14,7 +14,7 @@ describe('index.js Routes', function(){
         assert.equal(res.statusCode, 200);
         assert.equal(res.status, 200);
         assert.equal(res.type, 'text/html');
-        assert.notStrictEqual(res.text, '<h1>Node + Stripe + Express</h1>');
+        res.text.should.containEql('<h1>Node + Stripe + Express</h1>');
         done();
       });
     });
@@ -24,8 +24,6 @@ describe('index.js Routes', function(){
     it('should return a view', function(done){
       request(app)
       .get('/ping')
-      .expect('Content-Type', /html/)
-      .expect(200)
       .end(function(err, res){
         assert.equal(res.statusCode, 200);
         assert.equal(res.status, 200);

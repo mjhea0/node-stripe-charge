@@ -1,12 +1,13 @@
 process.env.NODE_ENV = 'test';
-var app = require('../server/app');
-var request = require('supertest');
-var should = require("should");
-var mongoose = require('mongoose');
-var User = require("../server/models/user.js");
+var app = require('../server/app'),
+    request = require('supertest'),
+    should = require("should"),
+    mongoose = require('mongoose'),
+    User = require("../server/models/user.js"),
+    assert = require("assert");
 
 
-describe("user.js Routes", function() {
+describe("auth.js Routes", function() {
 
   before(function(done) {
     var user = new User({
@@ -28,15 +29,15 @@ describe("user.js Routes", function() {
 
   it('finds a user by username', function(done) {
     User.findOne({username: 'test@test.com'}, function(err, user) {
-      user.username.should.eql('test@test.com');
-      user.admin.should.eql(true);
+      assert.equal(user.username, 'test@test.com');
+      assert.equal(user.admin, true);
       done();
     });
   });
 
   it('finds all users', function(done) {
     User.find({}, function(err, user) {
-      user.length.should.eql(1);
+      assert.equal(user.length, 1);
       done();
     });
   });
@@ -45,9 +46,10 @@ describe("user.js Routes", function() {
     it ('should redirect if user is not logged in', function(done) {
       request(app)
         .get('/auth/logout')
-        .expect(302)
         .end(function (err, res) {
-          res.header.location.should.eql('/auth/login');
+          assert.equal(res.statusCode, 302);
+          assert.equal(res.status, 302);
+          assert.equal(res.header.location, '/auth/login');
           done();
         });
     });
@@ -57,9 +59,10 @@ describe("user.js Routes", function() {
     it ('should redirect if user is not logged in', function(done) {
       request(app)
         .get('/auth/admin')
-        .expect(302)
         .end(function (err, res) {
-          res.header.location.should.eql('/auth/login');
+          assert.equal(res.statusCode, 302);
+          assert.equal(res.status, 302);
+          assert.equal(res.header.location, '/auth/login');
           done();
         });
     });

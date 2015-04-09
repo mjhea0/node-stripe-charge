@@ -1,7 +1,7 @@
 process.env.NODE_ENV = 'test';
-var app = require('../server/app');
-var request = require('supertest');
-var should = require('should');
+var app = require('../server/app'),
+    request = require('supertest'),
+    assert = require("assert");
 
 describe('charge.js Routes', function(){
 
@@ -9,10 +9,11 @@ describe('charge.js Routes', function(){
     it('should return a view', function(done){
       request(app)
       .get('/stripe')
-      .expect('Content-Type', /html/)
-      .expect(200)
       .end(function(err, res){
-        res.text.should.eql('Scram!');
+        assert.equal(res.statusCode, 200);
+        assert.equal(res.status, 200);
+        assert.equal(res.type, 'text/html');
+        assert.equal(res.text, 'Scram!');
         done();
       });
     });
@@ -22,9 +23,10 @@ describe('charge.js Routes', function(){
     it('should return a view', function(done){
       request(app)
       .get('/charge')
-      .expect('Content-Type', /html/)
-      .expect(200)
       .end(function(err, res){
+        assert.equal(res.statusCode, 200);
+        assert.equal(res.status, 200);
+        assert.equal(res.type, 'text/html');
         res.text.should.containEql('<h1>Charge</h1>');
         done();
       });
