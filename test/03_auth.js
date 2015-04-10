@@ -83,10 +83,13 @@ describe("auth.js Routes", function() {
     // it ('should return a view if user is logged in', function(done) {
     //   request(app)
     //     .post('/auth/login')
-    //     .send({username: 'test@test.com', password: 'test' })
-    //     .expect(302)
+    //     .send('username=test@test.com')
+    //     .send('password=test')
     //     .end(function (err, res) {
-    //       res.header.location.should.eql('/');
+    //       console.log(res);
+    //       should.not.exist(err);
+    //       assert.equal(res.statusCode, 302);
+    //       assert.equal(res.header.location, '/auth/admin');
     //       done();
     //     });
     // });
