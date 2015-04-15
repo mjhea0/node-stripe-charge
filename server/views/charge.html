@@ -29,8 +29,13 @@
     </div>
     <div class="form-group">
       <label>Card Expiration Date</label>
-      <input type="text" data-stripe="exp-month" placeholder="MM" class="card-expiry-month form-control">
-      <input type="text" data-stripe="exp-year" placeholder="YYYY" class="card-expiry-year form-control">
+      <input type="text" data-stripe="exp-month" placeholder="MM" class="card-expiry-month form-control" required>
+      <input type="text" data-stripe="exp-year" placeholder="YYYY" class="card-expiry-year form-control" required>
+    </div>
+    <div class="form-group">
+      <label>User Information</label>
+      <input type="text" name='username' placeholder="username" class="form-control" required>
+      <input type="password" name='password' placeholder="password" class="form-control" required>
     </div>
     <button type="submit" class="btn btn-default submit-button btn-block">Submit</button>
   </form>

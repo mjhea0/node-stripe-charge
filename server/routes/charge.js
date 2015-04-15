@@ -3,6 +3,7 @@ var router = express.Router();
 var Customer = require('../models/customer.js');
 var config = require('../_config.js');
 var stripe = require('stripe')(config.StripeKeys.secretKey);
+var passport = require('passport');
 
 
 router.get('/charge', function(req, res, next) {
@@ -15,16 +16,20 @@ router.get('/stripe', function(req, res, next) {
 
 router.post('/stripe', function(req, res, next) {
   // Obtain StripeToken
-  var transaction = req.body;
-  var stripeToken = transaction.stripeToken;
-  var newCustomer = new Customer({token: stripeToken });
-  newCustomer.save(function(err) {
-    if (err) {
-      if (err) { return next(err); }
-    } else {
-      console.log("Success!");
+  var stripeToken = req.body.stripeToken;
+  Customer.register(new Customer(
+    { username : req.body.username, token: stripeToken }),
+    req.body.password,
+    function(err, user) {
+      if (err) {
+        if (err) { return next(err); }
+      } else {
+        passport.authenticate('local')(req, res, function () {
+          console.log("Success!");
+        });
+      }
     }
-  });
+  );
   // Create Charge
   var charge =
   {
