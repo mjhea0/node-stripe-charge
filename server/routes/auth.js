@@ -52,11 +52,19 @@ router.get('/logout', ensureAuthenticated, function(req, res){
 
 router.get('/admin', ensureAuthenticated, function(req, res){
   return User.find({}, function(err, data) {
-    console.log(data);
     if (err) {
       if (err) { return next(err); }
     } else {
-      return res.render('admin', {data: data});
+      var allProducts = [];
+      for (var i = 0; i < data.length; i++) {
+        if (data[i].products.length > 0) {
+          for (var j = 0; j < data[i].products.length; j++) {
+            allProducts.push(data[i].products[j]);
+          }
+        }
+      }
+      console.log(allProducts);
+      return res.render('admin', {data: allProducts, moment: moment, user: req.user});
     }
   });
 });

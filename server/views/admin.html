@@ -30,7 +30,7 @@
   <br>
 
   <div>
-    <h4>Total Sales: <span class="total">{{total}}</span></h4><br>
+    <h4>Total Sales: <span class="total">{{data.length}}</span></h4><br>
     <table class="table table-hover">
       <thead>
         <tr>
@@ -40,15 +40,15 @@
         </tr>
       </thead>
       <tbody>
-      {% for key in allTokens %}
+      {% for product in data %}
         <tr>
           <td>{{loop.index}}</td>
           <td>
-            <a href="https://manage.stripe.com/test/search?query={{key.token}}" target="_blank">
-              {{key.token}}
+            <a href="https://manage.stripe.com/test/search?query={{product.token}}" target="_blank">
+              {{product.token}}
             </a>
           </td>
-          <td>{{moment(key.time).format("MM-DD-YYYY HH:mm")}}</td>
+          <td>{{moment(product.time).format("MM-DD-YYYY HH:mm")}}</td>
         </tr>
       {% endfor %}
       </tbody>

@@ -25,7 +25,6 @@ This is a template for you to use in your own project for processing one-time St
 
 ## Todo
 
-1. Update admin page.
 1. Add user profile page.
 1. Add more tests
 1. Update admin page. Add charts, graphs, sortable table(s), etc.

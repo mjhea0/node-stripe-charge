@@ -8,10 +8,10 @@ var User = new Schema({
   products: [
     {
       productID: String,
-      token: String
+      token: String,
+      time: { type: Date, default: Date.now }
     }
   ],
-  time: { type: Date, default: Date.now },
   admin: { type: Boolean, default: false }
 });
 
