@@ -12,11 +12,14 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li><a href="/products">Products</a></li>
-        {% if user %}
+        {% if user.admin === true %}
           <li><a href="/auth/admin">Admin</a></li>
           <li><a href="/auth/logout">Logout</a></li>
+        {% elseif user %}
+          <li><a href="/auth/logout">Logout</a></li>
         {% else %}
-          <li><a href="/auth/login">Admin Login</a></li>
+          <li><a href="/auth/register">Register</a></li>
+          <li><a href="/auth/login">Login</a></li>
         {% endif %}
       </ul>
     </div>

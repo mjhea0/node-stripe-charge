@@ -1,14 +1,14 @@
 var express = require('express'),
     router = express.Router(),
     passport = require('../auth'),
-    Customer = require('../models/customer'),
+    User = require('../models/user'),
     Product = require('../models/product');
 
 
-// customers
+// users
 
-router.get('/customers', function(req, res, next) {
-  Customer.find({}, function(err, data) {
+router.get('/users', function(req, res, next) {
+  User.find({}, function(err, data) {
     if (err) {
       if (err) { return next(err); }
     } else {
@@ -17,9 +17,9 @@ router.get('/customers', function(req, res, next) {
   });
 });
 
-router.get('/customer/:id', function(req, res, next) {
+router.get('/user/:id', function(req, res, next) {
   var userID = req.params.id;
-  Customer.findById(userID, function(err, data) {
+  User.findById(userID, function(err, data) {
     if (err) {
       if (err) { return next(err); }
     } else {

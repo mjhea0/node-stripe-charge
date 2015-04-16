@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var Customer = require('../models/customer.js');
+var User = require('../models/user.js');
 var Product = require('../models/product.js');
 var config = require('../_config.js');
 var stripe = require('stripe')(config.StripeKeys.secretKey);
@@ -12,18 +12,18 @@ router.get('/products', function(req, res){
     if (err) {
       if (err) { return next(err); }
     } else {
-      return res.render('products', {products: data});
+      return res.render('products', {products: data, user: req.user});
     }
   });
 });
 
-router.get('/charge/:id', function(req, res, next) {
+router.get('/charge/:id', ensureAuthenticated, function(req, res, next) {
   var productID = req.params.id;
   return Product.findById(productID, function(err, data) {
     if (err) {
       if (err) { return next(err); }
     } else {
-      return res.render('charge', {product: data});
+      return res.render('charge', {product: data, user: req.user});
     }
   });
 });
@@ -32,20 +32,18 @@ router.get('/stripe', function(req, res, next) {
   res.send("Scram!");
 });
 
-router.post('/stripe', function(req, res, next) {
+
+router.post('/stripe', ensureAuthenticated, function(req, res, next) {
   // Obtain StripeToken
   var stripeToken = req.body.stripeToken;
-  var newCustomer = new Customer({
-    productID: req.body.productID,
-    token: stripeToken
+  var userID = req.user._id;
+
+  User.findById(userID, function(err, data) {
+    if (err) { return next(err); }
+    data.products.push({ productID: req.body.productID, token: stripeToken });
+    data.save();
   });
-  newCustomer.save(function(err) {
-    if (err) {
-      if (err) { return next(err); }
-    } else {
-      console.log("Success!");
-    }
-  });
+
   // Create Charge
   var charge =
   {
@@ -59,11 +57,22 @@ router.post('/stripe', function(req, res, next) {
         if (err) { return next(err); }
       } else {
         console.log('Successful charge sent to Stripe!');
-        res.render('congrats', { charge: charge.amount/100.00, product: req.body.productName});
+        res.redirect('congrats');
       }
     }
   );
+
 });
+
+router.get('/congrats', ensureAuthenticated, function(req, res, next) {
+  res.render('congrats', { user: req.user });
+});
+
+function ensureAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) { return next(); }
+  req.flash('success', 'You must be signed in to view this page!');
+  res.redirect('/auth/login');
+}
 
 
 module.exports = router;

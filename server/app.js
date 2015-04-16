@@ -9,7 +9,6 @@ var express = require('express'),
     flash = require('connect-flash'),
     mongoose = require('mongoose'),
     swig = require('swig'),
-    Customer = require('./models/customer'),
     passport = require('./auth'),
     LocalStrategy = require('passport-local').Strategy;
 

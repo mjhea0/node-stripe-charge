@@ -5,7 +5,7 @@ var app = require('../server/app'),
     assert = require("assert"),
     mongoose = require('mongoose'),
     Product = require("../server/models/product.js"),
-    Customer = require("../server/models/customer.js");
+    User = require("../server/models/user.js");
 
 
 describe("api.js Routes", function() {
@@ -19,12 +19,12 @@ describe("api.js Routes", function() {
       forSale: true
     });
 
-    var customer = new Customer({
-      token: "12345"
+    var user = new User({
+      products: [{token: "12345"}]
     });
 
     product.save();
-    customer.save();
+    user.save();
 
     done();
 
@@ -32,7 +32,7 @@ describe("api.js Routes", function() {
 
   after(function(done) {
     Product.collection.drop();
-    Customer.collection.drop();
+    User.collection.drop();
     done();
   });
 
@@ -71,16 +71,16 @@ describe("api.js Routes", function() {
     });
   });
 
-  describe('GET api/v1/customers', function(){
-    it ('should return all customers', function(done) {
+  describe('GET api/v1/users', function(){
+    it ('should return all users', function(done) {
       request(app)
-        .get('/api/v1/customers')
+        .get('/api/v1/users')
         .end(function (err, res) {
           assert.equal(res.statusCode, 200);
           assert.equal(res.status, 200);
           assert.equal(res.type, 'application/json');
           assert.equal(res.body.length, 1);
-          assert.equal(res.body[0].token, '12345');
+          assert.equal(res.body[0].products[0].token, '12345');
           (res.body).should.be.instanceof(Object);
           (res.body).should.be.instanceof(Array);
           done();
@@ -88,17 +88,17 @@ describe("api.js Routes", function() {
     });
   });
 
-  describe('GET api/v1/customer/:id', function(){
-    it ('should return a single customer', function(done) {
-      Customer.findOne({}, function (err, results) {
-        var customerID = results._id;
+  describe('GET api/v1/user/:id', function(){
+    it ('should return a single user', function(done) {
+      User.findOne({}, function (err, results) {
+        var userID = results._id;
         request(app)
-        .get('/api/v1/customer/'+customerID)
+        .get('/api/v1/user/'+userID)
         .end(function (err, res) {
           assert.equal(res.statusCode, 200);
           assert.equal(res.status, 200);
           assert.equal(res.type, 'application/json');
-          assert.equal(res.body.token, '12345');
+          assert.equal(res.body.products[0].token, '12345');
           (res.body).should.be.instanceof(Object);
           done();
         });
