@@ -6,7 +6,8 @@ var Customer = new Schema({
   username: String,
   password: String,
   token: String,
-  time: {type: Date, default: Date.now}
+  time: { type: Date, default: Date.now },
+  admin: { type: Boolean, default: false }
 });
 
 Customer.plugin(passportLocalMongoose);

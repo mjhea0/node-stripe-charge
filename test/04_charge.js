@@ -19,19 +19,19 @@ describe('charge.js Routes', function(){
     });
   });
 
-  describe('GET /charge', function(){
-    it('should return a view', function(done){
-      request(app)
-      .get('/charge')
-      .end(function(err, res){
-        assert.equal(res.statusCode, 200);
-        assert.equal(res.status, 200);
-        assert.equal(res.type, 'text/html');
-        res.text.should.containEql('<h1>Charge</h1>');
-        done();
-      });
-    });
-  });
+  // describe('GET /charge', function(){
+  //   it('should return a view', function(done){
+  //     request(app)
+  //     .get('/charge')
+  //     .end(function(err, res){
+  //       assert.equal(res.statusCode, 200);
+  //       assert.equal(res.status, 200);
+  //       assert.equal(res.type, 'text/html');
+  //       res.text.should.containEql('<h1>Charge</h1>');
+  //       done();
+  //     });
+  //   });
+  // });
 
 });
 
