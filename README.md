@@ -21,7 +21,7 @@ This is a template for you to use in your own project for processing one-time St
 
 ## Tests
 
-1. Run - `gulp test` and/or `make coverage`
+1. Run - `gulp test` and/or `npm coverage`
 
 ## Todo
 

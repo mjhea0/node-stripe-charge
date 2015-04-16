@@ -35,7 +35,10 @@ router.get('/stripe', function(req, res, next) {
 router.post('/stripe', function(req, res, next) {
   // Obtain StripeToken
   var stripeToken = req.body.stripeToken;
-  var newCustomer = new Customer({token: stripeToken });
+  var newCustomer = new Customer({
+    productID: req.body.productID,
+    token: stripeToken
+  });
   newCustomer.save(function(err) {
     if (err) {
       if (err) { return next(err); }
@@ -46,7 +49,7 @@ router.post('/stripe', function(req, res, next) {
   // Create Charge
   var charge =
   {
-    amount: parseInt(req.body.amount)*100,
+    amount: parseInt(req.body.productAmount)*100,
     currency: 'USD',
     card: stripeToken
   };
@@ -56,7 +59,7 @@ router.post('/stripe', function(req, res, next) {
         if (err) { return next(err); }
       } else {
         console.log('Successful charge sent to Stripe!');
-        res.render('congrats', { charge: charge.amount/100.00, product: req.body.name});
+        res.render('congrats', { charge: charge.amount/100.00, product: req.body.productName});
       }
     }
   );

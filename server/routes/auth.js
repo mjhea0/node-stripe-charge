@@ -27,6 +27,7 @@ router.get('/admin', ensureAuthenticated, function(req, res){
     if (err) {
       if (err) { return next(err); }
     } else {
+      console.log(data)
       return res.render('admin', {
         'allTokens': data,
         moment: moment,
