@@ -57,7 +57,8 @@ router.post('/stripe', ensureAuthenticated, function(req, res, next) {
         if (err) { return next(err); }
       } else {
         console.log('Successful charge sent to Stripe!');
-        res.redirect('congrats');
+        req.flash('success', 'Thanks for purchasing a '+req.body.productName+'!');
+        res.redirect('auth/profile');
       }
     }
   );

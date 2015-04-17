@@ -50,6 +50,10 @@ router.get('/logout', ensureAuthenticated, function(req, res){
   res.redirect('/');
 });
 
+router.get('/profile', ensureAuthenticated, function(req, res){
+  res.render('profile', { user: req.user });
+});
+
 router.get('/admin', ensureAuthenticated, function(req, res){
   return User.find({}, function(err, data) {
     if (err) {
