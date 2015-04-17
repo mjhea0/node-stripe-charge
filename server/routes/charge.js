@@ -10,7 +10,7 @@ var passport = require('passport');
 router.get('/products', function(req, res){
   return Product.find({}, function(err, data) {
     if (err) {
-      if (err) { return next(err); }
+      return next(err);
     } else {
       return res.render('products', {products: data, user: req.user});
     }
@@ -65,9 +65,9 @@ router.post('/stripe', ensureAuthenticated, function(req, res, next) {
 
 });
 
-router.get('/congrats', ensureAuthenticated, function(req, res, next) {
-  res.render('congrats', { user: req.user });
-});
+// router.get('/congrats', ensureAuthenticated, function(req, res, next) {
+//   res.render('congrats', { user: req.user });
+// });
 
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) { return next(); }
