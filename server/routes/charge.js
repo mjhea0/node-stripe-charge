@@ -1,10 +1,10 @@
-var express = require('express');
-var router = express.Router();
-var User = require('../models/user.js');
-var Product = require('../models/product.js');
-var config = require('../_config.js');
-var stripe = require('stripe')(config.StripeKeys.secretKey);
-var passport = require('passport');
+var express = require('express'),
+    router = express.Router(),
+    User = require('../models/user.js'),
+    Product = require('../models/product.js'),
+    config = require('../_config.js'),
+    stripe = require('stripe')(config.StripeKeys.secretKey),
+    passport = require('passport');
 
 
 router.get('/products', function(req, res){

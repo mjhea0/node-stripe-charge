@@ -57,7 +57,7 @@ router.get('/profile', ensureAuthenticated, function(req, res){
 router.get('/admin', ensureAuthenticated, function(req, res){
   return User.find({}, function(err, data) {
     if (err) {
-      if (err) { return next(err); }
+      return next(err);
     } else {
       var allProducts = [];
       for (var i = 0; i < data.length; i++) {
