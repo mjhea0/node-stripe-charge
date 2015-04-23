@@ -36,6 +36,7 @@ This is a template for you to use in your own project for processing one-time St
 
 ## Changelog
 
+1. 04/23/2015 - major refactor
 1. 03/11/2015 - updated to Express 4.x
 
 ## Screenshots

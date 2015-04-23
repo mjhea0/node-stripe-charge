@@ -1,6 +1,6 @@
 {
   "name": "node-stripe-charge",
-  "version": "0.0.2",
+  "version": "1.0.0",
   "description": "stripe integration with node and express",
   "scripts": {
     "start": "node ./server/bin/www",
