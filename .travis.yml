@@ -6,4 +6,4 @@ node_js:
 
 services: mongodb
 
-script: npm run-script send-coverage
+script: npm run send-coverage
