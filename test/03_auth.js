@@ -42,7 +42,7 @@ describe("auth.js Routes", function() {
     });
   });
 
-  describe('GET /login', function(){
+  describe('GET auth/login', function(){
     it ('should return a view', function(done) {
       request(app)
         .get('/auth/login')
@@ -55,7 +55,20 @@ describe("auth.js Routes", function() {
     });
   });
 
-  describe('GET /logout', function(){
+  describe('GET auth/register', function(){
+    it ('should return a view', function(done) {
+      request(app)
+        .get('/auth/register')
+        .end(function (err, res) {
+          assert.equal(res.statusCode, 200);
+          assert.equal(res.status, 200);
+          res.text.should.containEql('<h1>Register</h1>\n');
+          done();
+        });
+    });
+  });
+
+  describe('GET auth/logout', function(){
     it ('should redirect if user is not logged in', function(done) {
       request(app)
         .get('/auth/logout')
@@ -68,7 +81,7 @@ describe("auth.js Routes", function() {
     });
   });
 
-  describe('GET /admin', function(){
+  describe('GET auth/admin', function(){
     it ('should redirect if user is not logged in', function(done) {
       request(app)
         .get('/auth/admin')

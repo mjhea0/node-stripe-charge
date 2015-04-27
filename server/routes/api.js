@@ -55,10 +55,10 @@ router.get('/product/:id', function(req, res, next) {
 });
 
 
-function ensureAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) { return next(); }
-  res.redirect('/auth/login');
-}
+// function ensureAuthenticated(req, res, next) {
+//   if (req.isAuthenticated()) { return next(); }
+//   res.redirect('/auth/login');
+// }
 
 
 module.exports = router;

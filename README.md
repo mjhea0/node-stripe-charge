@@ -10,10 +10,9 @@ This is a template for you to use in your own project for processing one-time St
 
 ## Quick Start
 
-1. Download - `npm install node-stripe-template`
-1. Install the dependencies - `cd node-stripe-template && npm install`
-1. Add Stripe Keys to env variables (see *_config.js*)
-1. Add your `PublishableKey` to *main.js*
+1. Download - `git clone git@github.com:mjhea0/node-stripe-charge.git`
+1. Install the dependencies - `cd node-stripe-charge && npm install`
+1. Add Stripe Keys as env variables (see *_config.js*)
 1. Run `mongod` in a seperate terminal window
 1. Run the app: `npm start` or `gulp`
 
@@ -25,13 +24,13 @@ This is a template for you to use in your own project for processing one-time St
 
 ## Todo
 
-1. Add user profile page.
-1. Add more tests
+1. Update user profile page.
 1. Update admin page. Add charts, graphs, sortable table(s), etc.
-1. Better error handling
-1. Add more products. Add ability for admins to add projects.
-1. Transaction emails via mailgun.
-1. Bower!
+1. Add more tests.
+1. Handle erros better.
+1. Add more products. Add ability for admins to add products.
+1. Add transaction emails via mailgun.
+1. Use Bower for managing dependencies.
 1. Fix message flashing.
 
 ## Changelog

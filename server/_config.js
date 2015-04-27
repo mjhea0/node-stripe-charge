@@ -23,10 +23,10 @@ config.StripeKeys = {
 // Add as env variables
 // export "mailgunUsername=GET_YOUR_OWN"
 // export "mailgunPassword=GET_YOUR_OWN"
-config.mailgun = {
-  username: process.env.mailgunUsername,
-  password: process.env.mailgunPassword
-};
+// config.mailgun = {
+//   username: process.env.mailgunUsername,
+//   password: process.env.mailgunPassword
+// };
 
 
 
