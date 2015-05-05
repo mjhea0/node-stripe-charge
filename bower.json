@@ -1,0 +1,20 @@
+{
+  "name": "node-stripe-charge",
+  "version": "0.0.0",
+  "homepage": "https://github.com/mjhea0/node-stripe-charge",
+  "authors": [
+    "Michael Herman <michael@mherman.org>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "font-awesome": "~4.3.0",
+    "bootstrap-social": "~4.9.0"
+  }
+}

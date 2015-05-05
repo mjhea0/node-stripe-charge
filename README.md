@@ -29,10 +29,9 @@ This is a template for you to use in your own project for processing one-time St
 1. Update user profile page.
 1. Update admin page. Add charts, graphs, sortable table(s), etc.
 1. Add more tests.
-1. Handle erros better.
-1. Add more products. Add ability for admins to add products.
+1. Handle errors better.
+1. Add GUI for admins to add products.
 1. Add transaction emails via mailgun.
-1. Use Bower for managing dependencies.
 1. Fix message flashing.
 
 ## Changelog
