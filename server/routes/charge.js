@@ -34,34 +34,53 @@ router.get('/stripe', function(req, res, next) {
 
 
 router.post('/stripe', ensureAuthenticated, function(req, res, next) {
+
   // Obtain StripeToken
   var stripeToken = req.body.stripeToken;
   var userID = req.user._id;
 
-  User.findById(userID, function(err, data) {
-    if (err) { return next(err); }
-    data.products.push({ productID: req.body.productID, token: stripeToken });
-    data.save();
-  });
-
-  // Create Charge
-  var charge =
-  {
-    amount: parseInt(req.body.productAmount)*100,
-    currency: 'USD',
-    card: stripeToken
-  };
-  stripe.charges.create(charge,
-    function(err, charge) {
-      if(err) {
-        if (err) { return next(err); }
+  // Simple validation
+  Product.findById(req.body.productID, function(err, data) {
+    if (err) {
+      if (err) { return next(err); }
+    } else {
+      if (parseInt(req.body.productAmount) !== data.amount) {
+        req.flash('success', 'Error!');
+        return res.redirect('/');
       } else {
-        console.log('Successful charge sent to Stripe!');
-        req.flash('success', 'Thanks for purchasing a '+req.body.productName+'!');
-        res.redirect('auth/profile');
+
+        // Get product details
+          User.findById(userID, function(err, data) {
+            if (err) {
+              return next(err);
+            } else {
+              data.products.push({ productID: req.body.productID, token: stripeToken });
+              data.save();
+            }
+          });
+
+          // Create Charge
+          var charge =
+          {
+            amount: parseInt(req.body.productAmount)*100,
+            currency: 'USD',
+            card: stripeToken
+          };
+          stripe.charges.create(charge,
+            function(err, charge) {
+              if(err) {
+                if (err) { return next(err); }
+              } else {
+                console.log('Successful charge sent to Stripe!');
+                req.flash('success', 'Thanks for purchasing a '+req.body.productName+'!');
+                res.redirect('auth/profile');
+              }
+            }
+          );
       }
     }
-  );
+  });
+
 
 });
 
