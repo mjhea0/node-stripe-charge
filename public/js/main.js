@@ -45,6 +45,9 @@ $(document).ready(function() {
     })
     .done(function(data) { $('#product-response').text('Yay! Product Added!'); })
     .fail(function() { $('#product-response').text('Yike! Something went wrong.'); });
+    // clear form input fields
+    $('#product-name').val('');
+    $('#product-price').val('');
   });
 
 });
