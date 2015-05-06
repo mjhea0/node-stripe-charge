@@ -53,6 +53,24 @@ describe("api.js Routes", function() {
     });
   });
 
+  describe('POST api/v1/products', function(){
+    it ('should add a product', function(done) {
+      var product = {name: 'Socks', amount: 22.99};
+      request(app)
+        .post('/api/v1/products')
+        .send(product)
+        .end(function (err, res) {
+          assert.equal(res.statusCode, 200);
+          assert.equal(res.status, 200);
+          assert.equal(res.type, 'application/json');
+          assert.equal(res.body.name, 'Socks');
+          assert.equal(res.body.amount, '22.99');
+          (res.body).should.be.instanceof(Object);
+          done();
+        });
+    });
+  });
+
   describe('GET api/v1/product/:id', function(){
     it ('should return a single product', function(done) {
       Product.findOne({}, function (err, results) {

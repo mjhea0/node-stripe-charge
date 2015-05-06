@@ -67,6 +67,7 @@ router.get('/admin', ensureAuthenticated, function(req, res){
           }
         }
       }
+      allProducts.reverse();
       return res.render('admin', {data: allProducts, moment: moment, user: req.user});
     }
   });

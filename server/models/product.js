@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 var Product = new Schema({
   name: String,
   amount: Number,
-  currency: String,
+  currency: { type: String, default: 'USD' },
   forSale: { type: Boolean, default: true }
 });
 

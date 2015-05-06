@@ -39,19 +39,28 @@ router.get('/products', function(req, res, next) {
       res.send(results);
     }
   });
+});
 
+router.post('/products', function(req, res) {
+  var product = new Product({ name: req.body.name, amount: req.body.amount });
+  product.save(function(err, results) {
+    if (err) {
+      return next(err);
+    } else {
+      res.send(results);
+    }
+  });
 });
 
 router.get('/product/:id', function(req, res, next) {
   var productID = req.params.id;
   Product.findById(productID, function(err, results) {
     if(err) {
-      if (err) { return next(err); }
+      return next(err);
     } else {
       res.send(results);
     }
   });
-
 });
 
 

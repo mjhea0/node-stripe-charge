@@ -31,4 +31,17 @@ $(document).ready(function() {
     }
   }
 
+  $('#add-product-form').submit(function(event) {
+    event.preventDefault();
+    $('#product-response').text("");
+    var payload = {name: $('#product-name').val(), amount:$('#product-price').val()};
+    $.ajax({
+      type: 'POST',
+      url: '/api/v1/products',
+      data: payload
+    })
+    .done(function(data) { $('#product-response').text('Yay! Product Added!'); })
+    .fail(function() { $('#product-response').text('Yike! Something went wrong.'); });
+  });
+
 });
