@@ -33,8 +33,11 @@ $(document).ready(function() {
 
   $('#add-product-form').submit(function(event) {
     event.preventDefault();
+    // empty response message
     $('#product-response').text("");
+    // grab values from form and create the payload
     var payload = {name: $('#product-name').val(), amount:$('#product-price').val()};
+    // handle ajax, submit appropriate message - POSSIBLY REFACTOR TO FIRE FLASH MESSSAGE
     $.ajax({
       type: 'POST',
       url: '/api/v1/products',
