@@ -20,7 +20,7 @@
     <tbody>
       {% for product in products %}
         <tr>
-          <td><a href="/charge/{{product._id.toString()}}">{{ product.name }}</a></td>
+          <td><a href="/product/{{product._id.toString()}}">{{ product.name }}</a></td>
           <td>${{ product.amount }}</td>
         </tr>
       {% endfor %}

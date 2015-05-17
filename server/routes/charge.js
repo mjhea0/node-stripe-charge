@@ -7,7 +7,7 @@ var express = require('express'),
     passport = require('passport');
 
 
-router.get('/products', function(req, res){
+router.get('/products', function(req, res, next){
   return Product.find({}, function(err, data) {
     if (err) {
       return next(err);
@@ -17,11 +17,22 @@ router.get('/products', function(req, res){
   });
 });
 
+router.get('/product/:id', function(req, res, next) {
+  var productID = req.params.id;
+  Product.findById(productID, function(err, data) {
+    if(err) {
+      return next(err);
+    } else {
+      return res.render('product', {product: data, user: req.user});
+    }
+  });
+});
+
 router.get('/charge/:id', ensureAuthenticated, function(req, res, next) {
   var productID = req.params.id;
   return Product.findById(productID, function(err, data) {
     if (err) {
-      if (err) { return next(err); }
+      return next(err);
     } else {
       return res.render('charge', {product: data, user: req.user});
     }
@@ -42,7 +53,7 @@ router.post('/stripe', ensureAuthenticated, function(req, res, next) {
   // Simple validation
   Product.findById(req.body.productID, function(err, data) {
     if (err) {
-      if (err) { return next(err); }
+      return next(err);
     } else {
       if (parseInt(req.body.productAmount) !== data.amount) {
         req.flash('success', 'Error!');
@@ -69,7 +80,7 @@ router.post('/stripe', ensureAuthenticated, function(req, res, next) {
           stripe.charges.create(charge,
             function(err, charge) {
               if(err) {
-                if (err) { return next(err); }
+                return next(err);
               } else {
                 console.log('Successful charge sent to Stripe!');
                 req.flash('success', 'Thanks for purchasing a '+req.body.productName+'!');

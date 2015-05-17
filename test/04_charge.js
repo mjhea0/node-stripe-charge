@@ -54,6 +54,25 @@ describe('charge.js Routes', function(){
     });
   });
 
+  describe('GET /product/:id', function(){
+    it('should return a view', function(done){
+      Product.findOne({}, function (err, results) {
+        var productID = results._id;
+        var productPrice = results.amount;
+        request(app)
+        .get('/product/'+productID)
+        .end(function(err, res){
+          assert.equal(res.statusCode, 200);
+          assert.equal(res.status, 200);
+          assert.equal(res.type, 'text/html');
+          res.text.should.containEql('Coconut Water');
+          res.text.should.containEql(productPrice);
+          done();
+      });
+      });
+    });
+  });
+
   describe('GET /charge', function(){
     it('should redirect if user is not logged in', function(done){
       Product.findOne({}, function (err, results) {

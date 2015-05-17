@@ -1,0 +1,20 @@
+{% extends '_base.html' %}
+
+{% block title %}{% endblock %}
+
+
+{% block content %}
+
+<div class="container">
+  <h1>{{product.name}}</h1>
+  <p class="lead">${{product.amount}}</p>
+  <a href="/products">Back to product list</a>
+  <br><br>
+  {% if user %}
+    <a class="btn btn-primary" href="/charge/{{product._id.toString()}}" role="button">Buy Now</a>
+  {% else %}
+    <h3>Please <a href="/auth/login">log in</a> to Purchase!</h3>
+  {% endif %}
+</div>
+
+{% endblock %}

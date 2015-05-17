@@ -10,7 +10,7 @@ var express = require('express'),
 router.get('/users', function(req, res, next) {
   User.find({}, function(err, data) {
     if (err) {
-      if (err) { return next(err); }
+      return next(err);
     } else {
       return res.send(data);
     }
@@ -21,7 +21,7 @@ router.get('/user/:id', function(req, res, next) {
   var userID = req.params.id;
   User.findById(userID, function(err, data) {
     if (err) {
-      if (err) { return next(err); }
+      return next(err);
     } else {
       return res.send(data);
     }
@@ -34,7 +34,7 @@ router.get('/user/:id', function(req, res, next) {
 router.get('/products', function(req, res, next) {
   Product.find({}, function (err, results) {
     if(err) {
-      if (err) { return next(err); }
+      return next(err);
     } else {
       res.send(results);
     }

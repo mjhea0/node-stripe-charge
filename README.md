@@ -24,7 +24,6 @@ This is a template for you to use in your own project for processing one-time St
 
 ## Todo
 
-1. Add product pages.
 1. Refactor passport
 1. Update user profile page.
 1. Update admin page. Add charts, graphs, sortable table(s), etc.
@@ -32,6 +31,7 @@ This is a template for you to use in your own project for processing one-time St
 1. Add GUI for admins to add/update/delete products.
 1. Add transaction emails via mailgun.
 1. Fix message flashing.
+1. Organize views folder.
 
 ## Changelog
 

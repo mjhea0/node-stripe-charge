@@ -1,6 +1,6 @@
 var config = {};
 
-// secret key (update in production!!!)
+// secret key (update in production as an env variable!!!)
 config.secretKey = process.env.secretKey || "\x1d\x0fB\x8d'\xaa\xaf\x04\xca\xfe\n\xb8Vg\x95X\x9b\xd6\x18\xd60T`\xc6";
 
 // mongo uri
