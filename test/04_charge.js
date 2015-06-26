@@ -40,19 +40,19 @@ describe('charge.js Routes', function(){
     });
   });
 
-  describe('GET /products', function(){
-    it('should return a view', function(done){
-      request(app)
-      .get('/products')
-      .end(function(err, res){
-        assert.equal(res.statusCode, 200);
-        assert.equal(res.status, 200);
-        assert.equal(res.type, 'text/html');
-        res.text.should.containEql('Coconut Water');
-        done();
-      });
-    });
-  });
+  // describe('GET /products', function(){
+  //   it('should return a view', function(done){
+  //     request(app)
+  //     .get('/products')
+  //     .end(function(err, res){
+  //       assert.equal(res.statusCode, 200);
+  //       assert.equal(res.status, 200);
+  //       assert.equal(res.type, 'text/html');
+  //       res.text.should.containEql('Coconut Water');
+  //       done();
+  //     });
+  //   });
+  // });
 
   describe('GET /product/:id', function(){
     it('should return a view', function(done){

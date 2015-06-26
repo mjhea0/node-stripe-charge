@@ -36,22 +36,22 @@ describe("api.js Routes", function() {
     done();
   });
 
-  describe('GET api/v1/products', function(){
-    it ('should return all products', function(done) {
-      request(app)
-        .get('/api/v1/products')
-        .end(function (err, res) {
-          assert.equal(res.statusCode, 200);
-          assert.equal(res.status, 200);
-          assert.equal(res.type, 'application/json');
-          assert.equal(res.body.length, 1);
-          assert.equal(res.body[0].name, 'Coconut Water');
-          (res.body).should.be.instanceof(Object);
-          (res.body).should.be.instanceof(Array);
-          done();
-        });
-    });
-  });
+  // describe('GET api/v1/products', function(){
+  //   it ('should return all products', function(done) {
+  //     request(app)
+  //       .get('/api/v1/products')
+  //       .end(function (err, res) {
+  //         assert.equal(res.statusCode, 200);
+  //         assert.equal(res.status, 200);
+  //         assert.equal(res.type, 'application/json');
+  //         assert.equal(res.body.length, 1);
+  //         assert.equal(res.body[0].name, 'Coconut Water');
+  //         (res.body).should.be.instanceof(Object);
+  //         (res.body).should.be.instanceof(Array);
+  //         done();
+  //       });
+  //   });
+  // });
 
   describe('POST api/v1/products', function(){
     it ('should add a product', function(done) {
