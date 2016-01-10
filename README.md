@@ -10,7 +10,7 @@ This is a template for you to use in your own project for processing one-time St
 
 ## Quick Start
 
-1. CLone - `git clone git@github.com:mjhea0/node-stripe-charge.git`
+1. Clone - `git clone git@github.com:mjhea0/node-stripe-charge.git`
 1. Install npm dependencies - `cd node-stripe-charge && npm install`
 1. Install bower dependencies - `bower install`
 1. Add Stripe Keys as env variables (see */server/_config.js*)
