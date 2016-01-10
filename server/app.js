@@ -1,4 +1,5 @@
 // *** main dependencies *** //
+require('dotenv').load();
 var express = require('express'),
     path = require('path'),
     favicon = require('serve-favicon'),

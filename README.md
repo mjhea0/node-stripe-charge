@@ -10,13 +10,15 @@ This is a template for you to use in your own project for processing one-time St
 
 ## Quick Start
 
-1. Download - `git clone git@github.com:mjhea0/node-stripe-charge.git`
-1. Install the dependencies - `cd node-stripe-charge && npm install`
-1. Add Stripe Keys as env variables (see *_config.js*)
+1. CLone - `git clone git@github.com:mjhea0/node-stripe-charge.git`
+1. Install npm dependencies - `cd node-stripe-charge && npm install`
+1. Install bower dependencies - `bower install`
+1. Add Stripe Keys as env variables (see */server/_config.js*)
+1. Update *.env* file (if necessary)
 1. Run `mongod` in a seperate terminal window
 1. Run the app: `npm start` or `gulp`
 
-> The database is seeded with an admin user - username: *ad@min.com* / password: *admin*
+> The database, if empty, is seeded with an admin user - username: *ad@min.com* / password: *admin*
 
 ## Tests
 
