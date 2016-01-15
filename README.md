@@ -6,17 +6,17 @@
 
 [![npm version](https://badge.fury.io/js/node-stripe-charge.svg)](http://badge.fury.io/js/node-stripe-charge)
 
-This is a template for you to use in your own project for processing one-time Stripe charges. Follow the directions below to get started quickly. You will obviously want to customize this template to meet your needs.
+This is a template for you to use in your own project for processing one-time Stripe charges. Follow the directions below to get started quickly.
 
 ## Quick Start
 
 1. Clone - `git clone git@github.com:mjhea0/node-stripe-charge.git`
 1. Install npm dependencies - `cd node-stripe-charge && npm install`
 1. Install bower dependencies - `bower install`
-1. Add Stripe Keys as env variables (see */server/_config.js*)
+1. Add Stripe Keys as environment variables (see */server/_config.js*)
 1. Update *.env* file (if necessary)
 1. Run `mongod` in a seperate terminal window
-1. Run the app: `npm start` or `gulp`
+1. Run the app - `npm start` or `gulp`
 
 > The database, if empty, is seeded with an admin user - username: *ad@min.com* / password: *admin*
 

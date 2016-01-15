@@ -4,3 +4,4 @@ npm-debug.log
 coverage/
 env.sh
 bower_components
+.env
