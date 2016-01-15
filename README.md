@@ -13,16 +13,34 @@ This is a template for you to use in your own project for processing one-time St
 1. Clone - `git clone git@github.com:mjhea0/node-stripe-charge.git`
 1. Install npm dependencies - `cd node-stripe-charge && npm install`
 1. Install bower dependencies - `bower install`
-1. Add Stripe Keys as environment variables (see */server/_config.js*)
-1. Update *.env* file (if necessary)
+1. Rename the *.env_sample* file to *.env* and update
 1. Run `mongod` in a seperate terminal window
 1. Run the app - `npm start` or `gulp`
 
 > The database, if empty, is seeded with an admin user - username: *ad@min.com* / password: *admin*
 
+## Development Workflow
+
+1. Create feature branch
+1. Develop/test locally (hack! hack! hack!)
+1. Create PR, which triggers Travis CI
+1. After tests pass, merge the PR
+1. Tests run again on Travis CI
+1. Once tests pass, code is deployed automatically to staging server on Heroku (WIP)
+
 ## Tests
 
-1. Run - `gulp test` and/or `istanbul cover _mocha -- -R spec`
+Without code coverage:
+
+```sh
+$ gulp test
+```
+
+With code coverage:
+
+```sh
+$ istanbul cover _mocha -- -R spec
+```
 
 ## Todo
 

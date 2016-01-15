@@ -1,5 +1,6 @@
 // *** main dependencies *** //
 require('dotenv').load();
+
 var express = require('express'),
     path = require('path'),
     favicon = require('serve-favicon'),
@@ -13,7 +14,6 @@ var express = require('express'),
     passport = require('./auth'),
     LocalStrategy = require('passport-local').Strategy;
 
-
 // *** seed the database *** //
 if (process.env.NODE_ENV === 'development') {
   var seedAdmin = require('./models/seeds/admin.js');
@@ -24,7 +24,7 @@ if (process.env.NODE_ENV === 'development') {
 
 
 // *** config file *** //
-var config = require('./_config');
+var config = require('../_config');
 
 
 // *** routes *** //
@@ -54,7 +54,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(session({
-  secret: config.secretKey,
+  secret: process.env.SECRET_KEY,
   resave: false,
   saveUninitialized: true
 }));
@@ -95,9 +95,9 @@ app.use(function(req, res, next) {
 if (app.get('env') === 'development') {
   app.use(function(err, req, res, next) {
     res.status(err.status || 500);
-    res.render('error', {
-        message: err.message,
-        error: err
+    res.json({
+      message: err.message,
+      error: err
     });
   });
 }
@@ -106,7 +106,7 @@ if (app.get('env') === 'development') {
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
   res.status(err.status || 500);
-  res.render('error', {
+  res.json({
     message: err.message,
     error: {}
   });

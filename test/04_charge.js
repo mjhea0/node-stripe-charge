@@ -1,8 +1,8 @@
 process.env.NODE_ENV = 'test';
-var app = require('../server/app'),
+var app = require('../src/server/app'),
     request = require('supertest'),
     assert = require("assert"),
-    Product = require("../server/models/product.js");
+    Product = require("../src/server/models/product.js");
 
 
 describe('charge.js Routes', function(){

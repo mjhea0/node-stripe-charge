@@ -2,8 +2,7 @@ var express = require('express'),
     router = express.Router(),
     User = require('../models/user.js'),
     Product = require('../models/product.js'),
-    config = require('../_config.js'),
-    stripe = require('stripe')(config.StripeKeys.secretKey),
+    stripe = require('stripe')(process.env.STRIPE_SECRET_KEY),
     passport = require('passport');
 
 
@@ -48,6 +47,7 @@ router.post('/stripe', ensureAuthenticated, function(req, res, next) {
 
   // Obtain StripeToken
   var stripeToken = req.body.stripeToken;
+  console.log(stripeToken);
   var userID = req.user._id;
 
   // Simple validation
@@ -80,9 +80,8 @@ router.post('/stripe', ensureAuthenticated, function(req, res, next) {
           stripe.charges.create(charge,
             function(err, charge) {
               if(err) {
-                return next(err);
+                return res.json({'message': 'Invalid API Key provided'});
               } else {
-                console.log('Successful charge sent to Stripe!');
                 req.flash('success', 'Thanks for purchasing a '+req.body.productName+'!');
                 res.redirect('auth/profile');
               }

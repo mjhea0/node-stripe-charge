@@ -1,5 +1,5 @@
 process.env.NODE_ENV = 'test';
-var app = require('../server/app'),
+var app = require('../src/server/app'),
     mongoose = require('mongoose'),
     assert = require("assert");
 

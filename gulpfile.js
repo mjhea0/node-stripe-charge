@@ -13,7 +13,7 @@ var gulp = require('gulp'),
 // tasks
 
 gulp.task('lint', function() {
-  gulp.src(['./server/**/*.js', './public/js/*.js'])
+  gulp.src(['./src/server/**/*.js', './public/js/*.js'])
     .pipe(jshint())
     .pipe(jshint.reporter('default'))
     .pipe(jshint.reporter('fail'));
@@ -34,7 +34,7 @@ gulp.task('test', function () {
 // default task
 
 gulp.task('default', ['lint'], function () {
-  nodemon({ script: './server/bin/www', ext: 'html js', ignore: ['ignored.js'] })
+  nodemon({ script: './src/server/bin/www', ext: 'html js', ignore: ['ignored.js'] })
     .on('change', ['lint'])
     .on('restart', function () {
       console.log('restarted!');

@@ -1,11 +1,11 @@
 process.env.NODE_ENV = 'test';
-var app = require('../server/app'),
+var app = require('../src/server/app'),
     request = require('supertest'),
     should = require("should"),
     assert = require("assert"),
     mongoose = require('mongoose'),
-    Product = require("../server/models/product.js"),
-    User = require("../server/models/user.js");
+    Product = require("../src/server/models/product.js"),
+    User = require("../src/server/models/user.js");
 
 
 describe("api.js Routes", function() {

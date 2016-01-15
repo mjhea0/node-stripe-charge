@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "stripe integration with node and express",
   "scripts": {
-    "start": "node ./server/bin/www",
+    "start": "node ./src/server/bin/www",
     "test": "mocha",
     "send-coverage": "./node_modules/.bin/istanbul cover --report lcovonly ./node_modules/.bin/_mocha && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   },
@@ -31,6 +31,7 @@
     "dotenv": "^1.2.0",
     "express": "^4.13.3",
     "express-session": "^1.12.1",
+    "istanbul": "^0.4.2",
     "moment": "^2.11.1",
     "mongodb": "^2.1.3",
     "mongoose": "^4.3.5",

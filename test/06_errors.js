@@ -1,5 +1,5 @@
 process.env.NODE_ENV = 'test';
-var app = require('../server/app'),
+var app = require('../src/server/app'),
     request = require('supertest'),
     assert = require("assert");
 
@@ -13,7 +13,7 @@ describe('error handlers', function(){
       .end(function(err, res){
         assert.equal(res.statusCode, 404);
         assert.equal(res.status, 404);
-        assert.equal(res.type, 'text/html');
+        assert.equal(res.type, 'application/json');
         res.text.should.containEql('Not Found');
         done();
       });
