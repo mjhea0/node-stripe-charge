@@ -14,7 +14,10 @@ describe('error handlers', function(){
         assert.equal(res.statusCode, 404);
         assert.equal(res.status, 404);
         assert.equal(res.type, 'application/json');
-        res.text.should.containEql('Not Found');
+        assert.equal(
+          res.text,
+          '{"status":"error","data":null,"message":"Not Found"}'
+        );
         done();
       });
     });

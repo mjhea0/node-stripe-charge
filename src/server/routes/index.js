@@ -3,11 +3,19 @@ var router = express.Router();
 
 
 router.get('/', function(req, res, next) {
-  res.render('index', {user: req.user});
+  res.json({
+    status: 'success',
+    data: null,
+    message: 'Welcome to the API!'
+  });
 });
 
 router.get('/ping', function(req, res, next) {
-  res.send("pong!");
+  res.json({
+    status: 'success',
+    data: null,
+    message: 'pong!'
+  });
 });
 
 
