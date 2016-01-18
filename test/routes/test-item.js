@@ -41,7 +41,7 @@ describe('item.js routes when unauthenticated', function(){
         assert.equal(res.type, 'application/json');
         assert.equal(
           res.text,
-          '{"status":"success","data":[{"_id":"'+res.body.data[0]._id+'","name":"Hammer","cost":22.99,"__v":0}],"message":"Retrieved items."}'
+          '{"status":"success","data":[{"_id":"'+res.body.data[0]._id+'","name":"Hammer","description":"You can hit nails with it.","cost":22.99,"__v":0}],"message":"Retrieved items."}'
         );
         done();
       });
