@@ -34,7 +34,7 @@ $ gulp test
 With code coverage:
 
 ```sh
-$ istanbul cover _mocha -- -R spec
+$ npm cov
 ```
 
 ## API Documentation
