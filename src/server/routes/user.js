@@ -72,7 +72,7 @@ router.post('/users', function(req, res, next) {
             email: user.email,
             admin: user.admin
           },
-          message: 'Created user'
+          message: 'Created user.'
         });
       });
     }

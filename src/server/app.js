@@ -25,7 +25,7 @@ var config = require('../_config');
 // *** routes *** //
 var mainRoutes = require('./routes/index');
 var userRoutes = require('./routes/user');
-// var authRoutes = require('./routes/auth');
+var authRoutes = require('./routes/auth');
 // var chargeRoutes = require('./routes/charge');
 // var apiRoutes = require('./routes/api');
 
@@ -54,8 +54,8 @@ mongoose.connect(app.get('dbUrl'));
 // *** main routes *** //
 app.use('/', mainRoutes);
 app.use('/', userRoutes);
+app.use('/auth', authRoutes);
 // app.use('/', chargeRoutes);
-// app.use('/auth', authRoutes);
 // app.use('/api/v1/', apiRoutes);
 
 

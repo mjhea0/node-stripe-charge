@@ -80,7 +80,7 @@ describe('user.js routes when unauthenticated', function(){
         assert.equal(res.type, 'application/json');
         assert.equal(
           res.text,
-          '{"status":"success","data":{"email":"test@test.com","admin":false},"message":"Created user"}'
+          '{"status":"success","data":{"email":"test@test.com","admin":false},"message":"Created user."}'
         );
         done();
       });

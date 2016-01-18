@@ -39,4 +39,16 @@ $ npm cov
 
 ## API Documentation
 
+### User
+
+- GET `/users` - get all users
+- GET `/user/:id` - get user
+- POST `/users` - create user
+- PUT `/user/:id` - update user
+- DELETE `/user/:id` - delete user
+
+### Auth
+
+- POST `/auth/login` - login user
+
 
