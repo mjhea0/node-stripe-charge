@@ -8,6 +8,8 @@
 
 This is a template for you to use in your own project for processing one-time Stripe charges. Follow the directions below to get started quickly.
 
+*Working on new back-end api -> https://github.com/mjhea0/node-stripe-charge/tree/updated-api**
+
 ## Quick Start
 
 1. Clone - `git clone git@github.com:mjhea0/node-stripe-charge.git`
