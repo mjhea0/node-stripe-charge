@@ -64,7 +64,7 @@ router.post('/users', function(req, res, next) {
         password: req.body.password
       });
       user.save(function() {
-        var token = createToken(user);
+        var token = auth.createToken(user);
         res.status(200)
         .json({
           status: 'success',
@@ -115,18 +115,6 @@ router.delete('/user/:id', auth.ensureAdmin, function(req, res, next) {
   })
   .done();
 });
-
-
-// ** helpers ** //
-
-function createToken(user) {
-  var payload = {
-    exp: moment().add(14, 'days').unix(),
-    iat: moment().unix(),
-    sub: user._id
-  };
-  return jwt.encode(payload, config.TOKEN_SECRET);
-}
 
 
 module.exports = router;

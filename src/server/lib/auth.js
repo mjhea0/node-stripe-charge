@@ -70,7 +70,17 @@ function decodeToken() {
   }
 }
 
+function createToken(user) {
+  var payload = {
+    exp: moment().add(14, 'days').unix(),
+    iat: moment().unix(),
+    sub: user._id
+  };
+  return jwt.encode(payload, config.TOKEN_SECRET);
+}
+
 module.exports = {
   ensureAuthenticated: ensureAuthenticated,
-  ensureAdmin: ensureAdmin
+  ensureAdmin: ensureAdmin,
+  createToken: createToken
 };

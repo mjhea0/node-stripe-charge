@@ -35,7 +35,7 @@ router.post('/login', function(req, res) {
       }
       user = user.toObject();
       delete user.password;
-      var token = createToken(user);
+      var token = auth.createToken(user);
       return res.status(200)
       .json({
         status: 'success',
@@ -49,18 +49,6 @@ router.post('/login', function(req, res) {
     });
   });
 });
-
-
-// ** helpers ** //
-
-function createToken(user) {
-  var payload = {
-    exp: moment().add(14, 'days').unix(),
-    iat: moment().unix(),
-    sub: user._id
-  };
-  return jwt.encode(payload, config.TOKEN_SECRET);
-}
 
 
 module.exports = router;
