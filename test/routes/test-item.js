@@ -39,10 +39,14 @@ describe('item.js routes when unauthenticated', function(){
       .end(function(err, res){
         assert.equal(res.statusCode, 200);
         assert.equal(res.type, 'application/json');
+        assert.equal(res.body.status, 'success');
+        assert.equal(res.body.data[0].name, 'Hammer');
         assert.equal(
-          res.text,
-          '{"status":"success","data":[{"_id":"'+res.body.data[0]._id+'","name":"Hammer","description":"You can hit nails with it.","cost":22.99,"__v":0}],"message":"Retrieved items."}'
+          res.body.data[0].description,
+          'You can hit nails with it.'
         );
+        assert.equal(res.body.data[0].cost, 22.99);
+        assert.equal(res.body.message, 'Retrieved items.');
         done();
       });
     });
