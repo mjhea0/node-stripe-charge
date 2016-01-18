@@ -1,13 +1,13 @@
 // *** main dependencies *** //
 require('dotenv').load();
 
-var express = require('express'),
-    path = require('path'),
-    logger = require('morgan'),
-    cookieParser = require('cookie-parser'),
-    bodyParser = require('body-parser'),
-    session = require('express-session'),
-    mongoose = require('mongoose');
+var express = require('express');
+var path = require('path');
+var logger = require('morgan');
+var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
+var session = require('express-session');
+var mongoose = require('mongoose');
 
 // *** seed the database *** //
 // if (process.env.NODE_ENV === 'development') {
@@ -26,6 +26,7 @@ var config = require('../_config');
 var mainRoutes = require('./routes/index');
 var userRoutes = require('./routes/user');
 var authRoutes = require('./routes/auth');
+var itemRoutes = require('./routes/item');
 // var chargeRoutes = require('./routes/charge');
 // var apiRoutes = require('./routes/api');
 
@@ -55,6 +56,7 @@ mongoose.connect(app.get('dbUrl'));
 app.use('/', mainRoutes);
 app.use('/', userRoutes);
 app.use('/auth', authRoutes);
+app.use('/', itemRoutes);
 // app.use('/', chargeRoutes);
 // app.use('/api/v1/', apiRoutes);
 

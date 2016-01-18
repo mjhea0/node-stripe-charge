@@ -6,7 +6,6 @@ var mongoose = require('mongoose-q')(require('mongoose'));
 
 var auth = require('../lib/auth');
 var User = require('../models/user');
-var Product = require('../models/product');
 var config = require('../../_config');
 
 

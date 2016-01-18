@@ -12,6 +12,7 @@ var User = require('../../src/server/models/user');
 describe('auth.js routes when unauthenticated', function(){
 
   beforeEach(function(done) {
+
     mongoose.connection.db.dropDatabase();
 
     var testUser = new User({

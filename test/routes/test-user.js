@@ -12,6 +12,7 @@ var User = require('../../src/server/models/user');
 describe('user.js routes when unauthenticated', function(){
 
   beforeEach(function(done) {
+
     mongoose.connection.db.dropDatabase();
 
     var testUser = new User({
@@ -20,7 +21,7 @@ describe('user.js routes when unauthenticated', function(){
     });
 
     testUser.saveQ()
-    .then(function(user) {
+    .then(function() {
       done();
     });
 

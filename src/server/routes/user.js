@@ -6,7 +6,6 @@ var mongoose = require('mongoose-q')(require('mongoose'));
 
 var auth = require('../lib/auth');
 var User = require('../models/user');
-var Product = require('../models/product');
 var config = require('../../_config');
 
 
@@ -21,7 +20,7 @@ router.get('/users', auth.ensureAdmin, function(req, res, next) {
     .json({
       status: 'success',
       data: users,
-      message: 'Retrieved users'
+      message: 'Retrieved users.'
     });
   })
   .catch(function(err) {
@@ -38,7 +37,7 @@ router.get('/user/:id', auth.ensureAdmin, function(req, res, next) {
     .json({
       status: 'success',
       data: user,
-      message: 'Retrieved user'
+      message: 'Retrieved user.'
     });
   })
   .catch(function(err) {
@@ -107,7 +106,7 @@ router.delete('/user/:id', auth.ensureAdmin, function(req, res, next) {
     .json({
       status: 'success',
       data: user,
-      message: 'Removed user'
+      message: 'Removed user.'
     });
   })
   .then(function(err) {
