@@ -74,4 +74,65 @@ describe('item.js routes when unauthenticated', function(){
     });
   });
 
+  describe('POST /items', function() {
+    it('should return an error message', function(done){
+      var newItem = new Item({
+        'name': 'Saw',
+        'description': 'You can cut things.',
+        'cost': 18.50
+      });
+      request(app)
+      .post('/items')
+      .send(newItem)
+      .end(function(err, res){
+        assert.equal(res.statusCode, 400);
+        assert.equal(res.type, 'application/json');
+        assert.equal(
+          res.text,
+          '{"message":"You did not provide a JSON Web Token in the authorization header."}'
+        );
+        done();
+      });
+    });
+  });
+
+  describe('PUT /item/:id', function() {
+    it('should return an error', function(done) {
+      Item.findQ()
+      .then(function(result) {
+        request(app)
+        .put('/user/' + result[0]._id)
+        .send({name:'Testing Put Route'})
+        .end(function(err, res) {
+          assert.equal(res.statusCode, 400);
+          assert.equal(res.type, 'application/json');
+          assert.equal(
+            res.text,
+            '{"message":"You did not provide a JSON Web Token in the authorization header."}'
+          );
+          done();
+        });
+      });
+    });
+  });
+
+  describe('DELETE /item/:id', function() {
+    it('should return an error', function(done) {
+      Item.findQ()
+      .then(function(result) {
+        request(app)
+        .delete('/user/' + result[0]._id)
+        .end(function(err, res) {
+          assert.equal(res.statusCode, 400);
+          assert.equal(res.type, 'application/json');
+          assert.equal(
+            res.text,
+            '{"message":"You did not provide a JSON Web Token in the authorization header."}'
+          );
+          done();
+        });
+      });
+    });
+  });
+
 });

@@ -90,7 +90,12 @@ router.put('/user/:id', auth.ensureAdmin, function(req, res, next) {
   var options = {new:true, upsert:true};
   User.findByIdAndUpdateQ(id, update, options)
   .then(function(result) {
-    res.json(result);
+    res.status(200)
+    .json({
+      status: 'success',
+      data: result,
+      message: 'Updated user.'
+    });
   })
   .catch(function(err) {
     res.send(err);
