@@ -61,10 +61,13 @@ describe('item.js routes when unauthenticated', function(){
         .end(function(err, res) {
           assert.equal(res.statusCode, 200);
           assert.equal(res.type, 'application/json');
+          assert.equal(res.body.status, 'success');
+          assert.equal(res.body.data.name, 'Hammer');
           assert.equal(
-            res.text,
-            '{"status":"success","data":{"_id":"'+res.body.data._id+'","name":"Hammer","description":"You can hit nails with it.","cost":22.99,"__v":0},"message":"Retrieved item."}'
+            res.body.data.description,
+            'You can hit nails with it.'
           );
+          assert.equal(res.body.data.cost, 22.99);
           done();
         });
       });
