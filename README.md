@@ -51,4 +51,12 @@ $ npm cov
 
 - POST `/auth/login` - login user
 
+### Item
+
+- GET `/items` - get all items
+- GET `/item/:id` - get item
+- POST `/items` - create item
+- PUT `/item/:id` - update item
+- DELETE `/item/:id` - delete item
+
 
