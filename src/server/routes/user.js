@@ -12,7 +12,7 @@ var config = require('../../_config');
 
 // ** users ** //
 
-//get ALL users
+// get ALL users
 router.get('/users', auth.ensureAdmin, function(req, res, next) {
   User.findQ()
   .then(function(users) {
@@ -29,7 +29,7 @@ router.get('/users', auth.ensureAdmin, function(req, res, next) {
   .done();
 });
 
-//get SINGLE user
+// get SINGLE user
 router.get('/user/:id', auth.ensureAdmin, function(req, res, next) {
   User.findByIdQ(req.params.id)
   .then(function(user) {

@@ -11,7 +11,7 @@ var config = require('../../_config');
 
 // ** items ** //
 
-//get ALL items
+// get ALL items
 router.get('/items', function(req, res, next) {
   Item.findQ()
   .then(function(items) {
@@ -20,6 +20,23 @@ router.get('/items', function(req, res, next) {
       status: 'success',
       data: items,
       message: 'Retrieved items.'
+    });
+  })
+  .catch(function(err) {
+    return next(err);
+  })
+  .done();
+});
+
+// get SINGLE item
+router.get('/item/:id', function(req, res, next) {
+  Item.findByIdQ(req.params.id)
+  .then(function(item) {
+    res.status(200)
+    .json({
+      status: 'success',
+      data: item,
+      message: 'Retrieved item.'
     });
   })
   .catch(function(err) {

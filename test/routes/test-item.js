@@ -52,4 +52,23 @@ describe('item.js routes when unauthenticated', function(){
     });
   });
 
+  describe('GET /item/:id', function() {
+    it('should return a single item', function(done){
+      Item.findQ()
+      .then(function(result) {
+        request(app)
+        .get('/item/' + result[0].id)
+        .end(function(err, res) {
+          assert.equal(res.statusCode, 200);
+          assert.equal(res.type, 'application/json');
+          assert.equal(
+            res.text,
+            '{"status":"success","data":{"_id":"'+res.body.data._id+'","name":"Hammer","description":"You can hit nails with it.","cost":22.99,"__v":0},"message":"Retrieved item."}'
+          );
+          done();
+        });
+      });
+    });
+  });
+
 });
