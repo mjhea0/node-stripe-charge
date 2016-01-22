@@ -59,4 +59,10 @@ $ npm cov
 - PUT `/item/:id` - update item
 - DELETE `/item/:id` - delete item
 
+### Store
 
+- GET `/stores` - get all stores
+- GET `/store/:id` - get store
+- POST `/stores` - create store
+- PUT `/store/:id` - update store
+- DELETE `/store/:id` - delete store
