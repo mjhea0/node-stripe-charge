@@ -7,6 +7,7 @@ var mongoose = require('mongoose-q')(require('mongoose'));
 var app = require('../../src/server/app');
 var User = require('../../src/server/models/user');
 
+
 // *** Unauthenticated *** //
 
 describe('user.js routes when unauthenticated', function(){

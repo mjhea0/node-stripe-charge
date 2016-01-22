@@ -66,3 +66,15 @@ $ npm cov
 - POST `/stores` - create store (admin required)
 - PUT `/store/:id` - update store (admin required)
 - DELETE `/store/:id` - delete store (admin required)
+
+### Plan
+
+- GET `/plans` - get all plans
+- GET `/plan/:id` - get plan
+- POST `/plans` - create plan (admin required)
+- PUT `/plan/:id` - update plan (admin required)
+- DELETE `/plan/:id` - delete plan (admin required)
+
+### Transaction
+
+### Subscription
