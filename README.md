@@ -41,11 +41,11 @@ $ npm cov
 
 ### User
 
-- GET `/users` - get all users
-- GET `/user/:id` - get user
+- GET `/users` - get all users (admin required)
+- GET `/user/:id` - get user (admin required)
 - POST `/users` - create user
-- PUT `/user/:id` - update user
-- DELETE `/user/:id` - delete user
+- PUT `/user/:id` - update user (admin required)
+- DELETE `/user/:id` - delete user (admin required)
 
 ### Auth
 
@@ -55,14 +55,14 @@ $ npm cov
 
 - GET `/items` - get all items
 - GET `/item/:id` - get item
-- POST `/items` - create item
-- PUT `/item/:id` - update item
-- DELETE `/item/:id` - delete item
+- POST `/items` - create item (admin required)
+- PUT `/item/:id` - update item (admin required)
+- DELETE `/item/:id` - delete item (admin required)
 
 ### Store
 
 - GET `/stores` - get all stores
 - GET `/store/:id` - get store
-- POST `/stores` - create store
-- PUT `/store/:id` - update store
-- DELETE `/store/:id` - delete store
+- POST `/stores` - create store (admin required)
+- PUT `/store/:id` - update store (admin required)
+- DELETE `/store/:id` - delete store (admin required)
