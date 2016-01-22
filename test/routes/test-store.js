@@ -5,23 +5,22 @@ var assert = require("assert");
 var mongoose = require('mongoose-q')(require('mongoose'));
 
 var app = require('../../src/server/app');
-var Item = require('../../src/server/models/item');
+var Store = require('../../src/server/models/store');
 
 // *** Unauthenticated *** //
 
-describe('item.js routes when unauthenticated', function(){
+describe('store.js routes when unauthenticated', function(){
 
   beforeEach(function(done) {
 
     mongoose.connection.db.dropDatabase();
 
-    var testItem = new Item({
-      'name': 'Hammer',
-      'description': 'You can hit nails with it.',
-      'cost': 22.99
+    var testStore = new Store({
+      'name': 'My store',
+      'description': 'The only store.'
     });
 
-    testItem.saveQ()
+    testStore.saveQ()
     .then(function() {
       done();
     });
@@ -32,59 +31,56 @@ describe('item.js routes when unauthenticated', function(){
     mongoose.connection.db.dropDatabase(done);
   });
 
-  describe('GET /items', function() {
-    it('should return all items', function(done){
+  describe('GET /stores', function() {
+    it('should return all stores', function(done){
       request(app)
-      .get('/items')
+      .get('/stores')
       .end(function(err, res){
         assert.equal(res.statusCode, 200);
         assert.equal(res.type, 'application/json');
         assert.equal(res.body.status, 'success');
-        assert.equal(res.body.data[0].name, 'Hammer');
+        assert.equal(res.body.data[0].name, 'My store');
         assert.equal(
           res.body.data[0].description,
-          'You can hit nails with it.'
+          'The only store.'
         );
-        assert.equal(res.body.data[0].cost, 22.99);
-        assert.equal(res.body.message, 'Retrieved items.');
+        assert.equal(res.body.message, 'Retrieved stores.');
         done();
       });
     });
   });
 
-  describe('GET /item/:id', function() {
-    it('should return a single item', function(done){
-      Item.findQ()
+  describe('GET /store/:id', function() {
+    it('should return a single store', function(done){
+      Store.findQ()
       .then(function(result) {
         request(app)
-        .get('/item/' + result[0].id)
+        .get('/store/' + result[0].id)
         .end(function(err, res) {
           assert.equal(res.statusCode, 200);
           assert.equal(res.type, 'application/json');
           assert.equal(res.body.status, 'success');
-          assert.equal(res.body.data.name, 'Hammer');
+          assert.equal(res.body.data.name, 'My store');
           assert.equal(
             res.body.data.description,
-            'You can hit nails with it.'
+            'The only store.'
           );
-          assert.equal(res.body.data.cost, 22.99);
-          assert.equal(res.body.message, 'Retrieved item.');
+          assert.equal(res.body.message, 'Retrieved store.');
           done();
         });
       });
     });
   });
 
-  describe('POST /items', function() {
+  describe('POST /stores', function() {
     it('should return an error message', function(done){
-      var newItem = new Item({
-        'name': 'Saw',
-        'description': 'You can cut things.',
-        'cost': 18.50
+      var newStore = new Store({
+        'name': 'Your store',
+        'description': 'The second best store.'
       });
       request(app)
-      .post('/items')
-      .send(newItem)
+      .post('/stores')
+      .send(newStore)
       .end(function(err, res){
         assert.equal(res.statusCode, 400);
         assert.equal(res.type, 'application/json');
@@ -97,9 +93,9 @@ describe('item.js routes when unauthenticated', function(){
     });
   });
 
-  describe('PUT /item/:id', function() {
+  describe('PUT /store/:id', function() {
     it('should return an error', function(done) {
-      Item.findQ()
+      Store.findQ()
       .then(function(result) {
         request(app)
         .put('/user/' + result[0]._id)
@@ -117,9 +113,9 @@ describe('item.js routes when unauthenticated', function(){
     });
   });
 
-  describe('DELETE /item/:id', function() {
+  describe('DELETE /store/:id', function() {
     it('should return an error', function(done) {
-      Item.findQ()
+      Store.findQ()
       .then(function(result) {
         request(app)
         .delete('/user/' + result[0]._id)

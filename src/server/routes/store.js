@@ -4,20 +4,20 @@ var mongoose = require('mongoose-q')(require('mongoose'));
 
 var auth = require('../lib/auth');
 var User = require('../models/user');
-var Item = require('../models/item');
+var Store = require('../models/store');
 
 
-// ** items ** //
+// ** stores ** //
 
-// get ALL items
-router.get('/items', function(req, res, next) {
-  Item.findQ()
-  .then(function(items) {
+// get ALL stores
+router.get('/stores', function(req, res, next) {
+  Store.findQ()
+  .then(function(stores) {
     res.status(200)
     .json({
       status: 'success',
-      data: items,
-      message: 'Retrieved items.'
+      data: stores,
+      message: 'Retrieved stores.'
     });
   })
   .catch(function(err) {
@@ -26,15 +26,15 @@ router.get('/items', function(req, res, next) {
   .done();
 });
 
-// get SINGLE item
-router.get('/item/:id', function(req, res, next) {
-  Item.findByIdQ(req.params.id)
-  .then(function(item) {
+// get SINGLE store
+router.get('/store/:id', function(req, res, next) {
+  Store.findByIdQ(req.params.id)
+  .then(function(store) {
     res.status(200)
     .json({
       status: 'success',
-      data: item,
-      message: 'Retrieved item.'
+      data: store,
+      message: 'Retrieved store.'
     });
   })
   .catch(function(err) {
@@ -43,39 +43,39 @@ router.get('/item/:id', function(req, res, next) {
   .done();
 });
 
-// add new item
-router.post('/items', auth.ensureAdmin, function(req, res, next) {
-  var item = new Item({
+// add new store
+router.post('/stores', auth.ensureAdmin, function(req, res, next) {
+  var store = new Store({
     'name': req.body.name,
     'description': req.body.description,
     'cost': req.body.cost
   });
-  item.save(function() {
+  store.save(function() {
     res.status(200)
     .json({
       status: 'success',
       data: {
-        name: item.name,
-        description: item.description,
-        cost: item.cost
+        name: store.name,
+        description: store.description,
+        cost: store.cost
       },
-      message: 'Created item.'
+      message: 'Created store.'
     });
   });
 });
 
-// update single item
-router.put('/item/:id', auth.ensureAdmin, function(req, res, next) {
+// update single store
+router.put('/store/:id', auth.ensureAdmin, function(req, res, next) {
   var id = req.params.id;
   var update = req.body;
   var options = {new:true, upsert:true};
-  Item.findByIdAndUpdateQ(id, update, options)
+  store.findByIdAndUpdateQ(id, update, options)
   .then(function(result) {
     res.status(200)
     .json({
       status: 'success',
       data: result,
-      message: 'Updated item.'
+      message: 'Updated store.'
     });
   })
   .catch(function(err) {
@@ -84,15 +84,15 @@ router.put('/item/:id', auth.ensureAdmin, function(req, res, next) {
   .done();
 });
 
-// delete SINGLE item
-router.delete('/item/:id', auth.ensureAdmin, function(req, res, next) {
-  Item.findByIdAndRemoveQ(req.params.id)
-  .then(function(item) {
+// delete SINGLE store
+router.delete('/store/:id', auth.ensureAdmin, function(req, res, next) {
+  Store.findByIdAndRemoveQ(req.params.id)
+  .then(function(store) {
     res.status(200)
     .json({
       status: 'success',
-      data: item,
-      message: 'Removed item.'
+      data: store,
+      message: 'Removed store.'
     });
   })
   .then(function(err) {
