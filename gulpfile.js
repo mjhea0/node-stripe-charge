@@ -19,16 +19,16 @@ gulp.task('lint', function() {
     .pipe(jshint.reporter('fail'));
 });
 
-gulp.task('test', function () {
-  return gulp.src('./test/*.js', {read: false})
-    .pipe(mocha())
-    .once('error', function () {
-      process.exit(1);
-    })
-    .once('end', function () {
-      process.exit(0);
-    });
-});
+// gulp.task('test', function () {
+//   return gulp.src('./test/*.js', {read: false})
+//     .pipe(mocha())
+//     .once('error', function () {
+//       process.exit(1);
+//     })
+//     .once('end', function () {
+//       process.exit(0);
+//     });
+// });
 
 
 // default task

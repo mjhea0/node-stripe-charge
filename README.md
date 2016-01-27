@@ -28,7 +28,7 @@ This is the back-end API, which includes:
 Without code coverage:
 
 ```sh
-$ gulp test
+$ npm test
 ```
 
 With code coverage:

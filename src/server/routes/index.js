@@ -3,6 +3,10 @@ var router = express.Router();
 
 
 router.get('/', function(req, res, next) {
+  res.render('index', {user: req.user});
+});
+
+router.get('/test', function(req, res, next) {
   res.json({
     status: 'success',
     data: null,

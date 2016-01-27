@@ -8,6 +8,8 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 var mongoose = require('mongoose');
+var swig = require('swig');
+
 
 // *** seed the database *** //
 // if (process.env.NODE_ENV === 'development') {
@@ -37,6 +39,13 @@ var planRoutes = require('./routes/plan');
 var app = express();
 
 
+// *** view engine *** ///
+swig = new swig.Swig();
+app.engine('html', swig.renderFile);
+app.set('view engine', 'html');
+app.set('views', path.join(__dirname, './views'));
+
+
 // *** config middleware *** //
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -47,6 +56,7 @@ app.use(session({
   resave: false,
   saveUninitialized: true
 }));
+app.use(express.static(path.join(__dirname, '../', 'client')));
 
 
 // *** mongo *** //
