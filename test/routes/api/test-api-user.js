@@ -4,8 +4,8 @@ var request = require('supertest');
 var assert = require("assert");
 var mongoose = require('mongoose-q')(require('mongoose'));
 
-var app = require('../../src/server/app');
-var User = require('../../src/server/models/user');
+var app = require('../../../src/server/app');
+var User = require('../../../src/server/models/user');
 
 
 // *** Unauthenticated *** //
@@ -32,10 +32,10 @@ describe('user.js routes when unauthenticated', function(){
     mongoose.connection.db.dropDatabase(done);
   });
 
-  describe('GET /users', function() {
+  describe('GET /api/users', function() {
     it('should return an error message', function(done){
       request(app)
-      .get('/users')
+      .get('/api/users')
       .end(function(err, res){
         assert.equal(res.statusCode, 400);
         assert.equal(res.type, 'application/json');
@@ -48,12 +48,12 @@ describe('user.js routes when unauthenticated', function(){
     });
   });
 
-  describe('GET /user/:id', function() {
+  describe('GET /api/user/:id', function() {
     it('should return an error message', function(done){
       User.findQ()
       .then(function(result) {
         request(app)
-        .get('/user/' + result[0].id)
+        .get('/api/user/' + result[0].id)
         .end(function(err, res) {
           assert.equal(res.statusCode, 400);
           assert.equal(res.type, 'application/json');
@@ -67,7 +67,7 @@ describe('user.js routes when unauthenticated', function(){
     });
   });
 
-  describe('POST /users', function() {
+  describe('POST /api/users', function() {
 
     it('should create a user', function(done){
       var newUser = {
@@ -75,7 +75,7 @@ describe('user.js routes when unauthenticated', function(){
         'password': 'test'
       };
       request(app)
-      .post('/users')
+      .post('/api/users')
       .send(newUser)
       .end(function(err, res){
         assert.equal(res.statusCode, 200);
@@ -94,7 +94,7 @@ describe('user.js routes when unauthenticated', function(){
         'password': 'herman'
       };
       request(app)
-      .post('/users')
+      .post('/api/users')
       .send(newUser)
       .end(function(err, res){
         assert.equal(res.statusCode, 409);
@@ -109,12 +109,12 @@ describe('user.js routes when unauthenticated', function(){
 
   });
 
-  describe('PUT /user/:id', function() {
+  describe('PUT /api/user/:id', function() {
     it('should return an error', function(done) {
       User.findQ()
       .then(function(result) {
         request(app)
-        .put('/user/' + result[0]._id)
+        .put('/api/user/' + result[0]._id)
         .send({username:'Testing Put Route'})
         .end(function(err, res) {
           assert.equal(res.statusCode, 400);
@@ -129,12 +129,12 @@ describe('user.js routes when unauthenticated', function(){
     });
   });
 
-  describe('DELETE /user/:id', function() {
+  describe('DELETE /api/user/:id', function() {
     it('should return an error', function(done) {
       User.findQ()
       .then(function(result) {
         request(app)
-        .delete('/user/' + result[0]._id)
+        .delete('/api/user/' + result[0]._id)
         .end(function(err, res) {
           assert.equal(res.statusCode, 400);
           assert.equal(res.type, 'application/json');

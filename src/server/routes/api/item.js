@@ -2,9 +2,9 @@ var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose-q')(require('mongoose'));
 
-var auth = require('../lib/auth');
-var User = require('../models/user');
-var Item = require('../models/item');
+var auth = require('../../lib/auth');
+var User = require('../../models/user');
+var Item = require('../../models/item');
 
 
 // ** items ** //

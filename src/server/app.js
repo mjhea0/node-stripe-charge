@@ -25,12 +25,13 @@ var config = require('../_config');
 
 
 // *** routes *** //
+var mainAPIRoutes = require('./routes/api/index');
+var userAPIRoutes = require('./routes/api/user');
+var authAPIRoutes = require('./routes/api/auth');
+var itemAPIRoutes = require('./routes/api/item');
+var storeAPIRoutes = require('./routes/api/store');
+var planAPIRoutes = require('./routes/api/plan');
 var mainRoutes = require('./routes/index');
-var userRoutes = require('./routes/user');
-var authRoutes = require('./routes/auth');
-var itemRoutes = require('./routes/item');
-var storeRoutes = require('./routes/store');
-var planRoutes = require('./routes/plan');
 // var chargeRoutes = require('./routes/charge');
 // var apiRoutes = require('./routes/api');
 
@@ -65,12 +66,13 @@ mongoose.connect(app.get('dbUrl'));
 
 
 // *** main routes *** //
+app.use('/api/', mainAPIRoutes);
+app.use('/api/', userAPIRoutes);
+app.use('/api/auth', authAPIRoutes);
+app.use('/api/', itemAPIRoutes);
+app.use('/api/', storeAPIRoutes);
+app.use('/api/', planAPIRoutes);
 app.use('/', mainRoutes);
-app.use('/', userRoutes);
-app.use('/auth', authRoutes);
-app.use('/', itemRoutes);
-app.use('/', storeRoutes);
-app.use('/', planRoutes);
 // app.use('/', chargeRoutes);
 // app.use('/api/v1/', apiRoutes);
 

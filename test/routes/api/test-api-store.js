@@ -4,25 +4,24 @@ var request = require('supertest');
 var assert = require("assert");
 var mongoose = require('mongoose-q')(require('mongoose'));
 
-var app = require('../../src/server/app');
-var Plan = require('../../src/server/models/plan');
+var app = require('../../../src/server/app');
+var Store = require('../../../src/server/models/store');
 
 
 // *** Unauthenticated *** //
 
-describe('plan.js routes when unauthenticated', function(){
+describe('store.js routes when unauthenticated', function(){
 
   beforeEach(function(done) {
 
     mongoose.connection.db.dropDatabase();
 
-    var testPlan = new Plan({
-      'name': 'Silver',
-      'description': 'This is the silver subscription plan.',
-      'cost': 99.99
+    var testStore = new Store({
+      'name': 'My store',
+      'description': 'The only store.'
     });
 
-    testPlan.saveQ()
+    testStore.saveQ()
     .then(function() {
       done();
     });
@@ -33,59 +32,56 @@ describe('plan.js routes when unauthenticated', function(){
     mongoose.connection.db.dropDatabase(done);
   });
 
-  describe('GET /plans', function() {
-    it('should return all plans', function(done){
+  describe('GET /api/stores', function() {
+    it('should return all stores', function(done){
       request(app)
-      .get('/plans')
+      .get('/api/stores')
       .end(function(err, res){
         assert.equal(res.statusCode, 200);
         assert.equal(res.type, 'application/json');
         assert.equal(res.body.status, 'success');
-        assert.equal(res.body.data[0].name, 'Silver');
+        assert.equal(res.body.data[0].name, 'My store');
         assert.equal(
           res.body.data[0].description,
-          'This is the silver subscription plan.'
+          'The only store.'
         );
-        assert.equal(res.body.data[0].cost, 99.99);
-        assert.equal(res.body.message, 'Retrieved plans.');
+        assert.equal(res.body.message, 'Retrieved stores.');
         done();
       });
     });
   });
 
-  describe('GET /plan/:id', function() {
-    it('should return a single plan', function(done){
-      Plan.findQ()
+  describe('GET /api/store/:id', function() {
+    it('should return a single store', function(done){
+      Store.findQ()
       .then(function(result) {
         request(app)
-        .get('/plan/' + result[0].id)
+        .get('/api/store/' + result[0].id)
         .end(function(err, res) {
           assert.equal(res.statusCode, 200);
           assert.equal(res.type, 'application/json');
           assert.equal(res.body.status, 'success');
-          assert.equal(res.body.data.name, 'Silver');
+          assert.equal(res.body.data.name, 'My store');
           assert.equal(
             res.body.data.description,
-            'This is the silver subscription plan.'
+            'The only store.'
           );
-          assert.equal(res.body.data.cost, 99.99);
-          assert.equal(res.body.message, 'Retrieved plan.');
+          assert.equal(res.body.message, 'Retrieved store.');
           done();
         });
       });
     });
   });
 
-  describe('POST /plans', function() {
+  describe('POST /api/stores', function() {
     it('should return an error message', function(done){
-      var newPlan = new Plan({
-        'name': 'Saw',
-        'description': 'You can cut things.',
-        'cost': 18.50
+      var newStore = new Store({
+        'name': 'Your store',
+        'description': 'The second best store.'
       });
       request(app)
-      .post('/plans')
-      .send(newPlan)
+      .post('/api/stores')
+      .send(newStore)
       .end(function(err, res){
         assert.equal(res.statusCode, 400);
         assert.equal(res.type, 'application/json');
@@ -98,12 +94,12 @@ describe('plan.js routes when unauthenticated', function(){
     });
   });
 
-  describe('PUT /plan/:id', function() {
+  describe('PUT /api/store/:id', function() {
     it('should return an error', function(done) {
-      Plan.findQ()
+      Store.findQ()
       .then(function(result) {
         request(app)
-        .put('/user/' + result[0]._id)
+        .put('/api/store/' + result[0]._id)
         .send({name:'Testing Put Route'})
         .end(function(err, res) {
           assert.equal(res.statusCode, 400);
@@ -118,12 +114,12 @@ describe('plan.js routes when unauthenticated', function(){
     });
   });
 
-  describe('DELETE /plan/:id', function() {
+  describe('DELETE /api/store/:id', function() {
     it('should return an error', function(done) {
-      Plan.findQ()
+      Store.findQ()
       .then(function(result) {
         request(app)
-        .delete('/user/' + result[0]._id)
+        .delete('/api/store/' + result[0]._id)
         .end(function(err, res) {
           assert.equal(res.statusCode, 400);
           assert.equal(res.type, 'application/json');

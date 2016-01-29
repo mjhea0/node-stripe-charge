@@ -4,8 +4,8 @@ var moment = require('moment');
 var jwt = require('jwt-simple');
 var mongoose = require('mongoose-q')(require('mongoose'));
 
-var auth = require('../lib/auth');
-var User = require('../models/user');
+var auth = require('../../lib/auth');
+var User = require('../../models/user');
 
 
 // ** users ** //

@@ -4,8 +4,8 @@ var request = require('supertest');
 var assert = require("assert");
 var mongoose = require('mongoose-q')(require('mongoose'));
 
-var app = require('../../src/server/app');
-var Item = require('../../src/server/models/item');
+var app = require('../../../src/server/app');
+var Item = require('../../../src/server/models/item');
 
 
 // *** Unauthenticated *** //
@@ -33,10 +33,10 @@ describe('item.js routes when unauthenticated', function(){
     mongoose.connection.db.dropDatabase(done);
   });
 
-  describe('GET /items', function() {
+  describe('GET /api/items', function() {
     it('should return all items', function(done){
       request(app)
-      .get('/items')
+      .get('/api/items')
       .end(function(err, res){
         assert.equal(res.statusCode, 200);
         assert.equal(res.type, 'application/json');
@@ -53,12 +53,12 @@ describe('item.js routes when unauthenticated', function(){
     });
   });
 
-  describe('GET /item/:id', function() {
+  describe('GET /api/item/:id', function() {
     it('should return a single item', function(done){
       Item.findQ()
       .then(function(result) {
         request(app)
-        .get('/item/' + result[0].id)
+        .get('/api/item/' + result[0].id)
         .end(function(err, res) {
           assert.equal(res.statusCode, 200);
           assert.equal(res.type, 'application/json');
@@ -76,7 +76,7 @@ describe('item.js routes when unauthenticated', function(){
     });
   });
 
-  describe('POST /items', function() {
+  describe('POST /api/items', function() {
     it('should return an error message', function(done){
       var newItem = new Item({
         'name': 'Saw',
@@ -84,7 +84,7 @@ describe('item.js routes when unauthenticated', function(){
         'cost': 18.50
       });
       request(app)
-      .post('/items')
+      .post('/api/items')
       .send(newItem)
       .end(function(err, res){
         assert.equal(res.statusCode, 400);
@@ -98,12 +98,12 @@ describe('item.js routes when unauthenticated', function(){
     });
   });
 
-  describe('PUT /item/:id', function() {
+  describe('PUT /api/item/:id', function() {
     it('should return an error', function(done) {
       Item.findQ()
       .then(function(result) {
         request(app)
-        .put('/user/' + result[0]._id)
+        .put('/api/user/' + result[0]._id)
         .send({name:'Testing Put Route'})
         .end(function(err, res) {
           assert.equal(res.statusCode, 400);
@@ -118,12 +118,12 @@ describe('item.js routes when unauthenticated', function(){
     });
   });
 
-  describe('DELETE /item/:id', function() {
+  describe('DELETE /api/item/:id', function() {
     it('should return an error', function(done) {
       Item.findQ()
       .then(function(result) {
         request(app)
-        .delete('/user/' + result[0]._id)
+        .delete('/api/user/' + result[0]._id)
         .end(function(err, res) {
           assert.equal(res.statusCode, 400);
           assert.equal(res.type, 'application/json');

@@ -4,8 +4,8 @@ var request = require('supertest');
 var assert = require("assert");
 var mongoose = require('mongoose-q')(require('mongoose'));
 
-var app = require('../../src/server/app');
-var User = require('../../src/server/models/user');
+var app = require('../../../src/server/app');
+var User = require('../../../src/server/models/user');
 
 
 // *** Unauthenticated *** //
@@ -32,7 +32,7 @@ describe('auth.js routes when unauthenticated', function(){
     mongoose.connection.db.dropDatabase(done);
   });
 
-  describe('POST /auth/login', function() {
+  describe('POST /api/auth/login', function() {
 
     it('should login a user', function(done){
       var newUser = {
@@ -40,7 +40,7 @@ describe('auth.js routes when unauthenticated', function(){
         'password': 'herman'
       };
       request(app)
-      .post('/auth/login')
+      .post('/api/auth/login')
       .send(newUser)
       .end(function(err, res){
         assert.equal(res.statusCode, 200);
@@ -59,7 +59,7 @@ describe('auth.js routes when unauthenticated', function(){
         'password': 'herman'
       };
       request(app)
-      .post('/auth/login')
+      .post('/api/auth/login')
       .send(newUser)
       .end(function(err, res){
         assert.equal(res.statusCode, 401);
@@ -78,7 +78,7 @@ describe('auth.js routes when unauthenticated', function(){
         'password': 'incorrect'
       };
       request(app)
-      .post('/auth/login')
+      .post('/api/auth/login')
       .send(newUser)
       .end(function(err, res){
         assert.equal(res.statusCode, 401);
