@@ -1,20 +1,25 @@
-// var User = require('../user');
-// var passport = require('passport');
+var mongoose = require('mongoose-q')(require('mongoose'));
 
-// var seedAdmin = function() {
+var User = require('../user');
+var auth = require('../../lib/auth');
 
-//   User.find({}, function(err, documents) {
 
-//     if(documents.length === 0){
+var seedAdmin = function() {
+  User.findQ()
+  .then(function(users) {
+    if (users.length === 0) {
+      var user = new User({
+        email: 'ad@min.com',
+        admin: true,
+        password: 'admin'
+      });
+      user.save(function() {
+        var token = auth.createToken(user);
+        console.log('Dummy admin added!');
+      });
+    }
+  })
+  .done();
+};
 
-//       User.register(new User({username: 'ad@min.com', admin: true}),
-//         'admin', function(err, user) {});
-
-//       console.log('Dummy admin added!');
-//     }
-
-//   });
-
-// };
-
-// module.exports = seedAdmin;
+module.exports = seedAdmin;

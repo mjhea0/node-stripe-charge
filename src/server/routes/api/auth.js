@@ -1,7 +1,5 @@
 var express = require('express');
 var router = express.Router();
-var moment = require('moment');
-var jwt = require('jwt-simple');
 var mongoose = require('mongoose-q')(require('mongoose'));
 
 var auth = require('../../lib/auth');
@@ -11,7 +9,6 @@ var User = require('../../models/user');
 
 // ** auth ** //
 
-//get ALL users
 router.post('/login', function(req, res) {
   User.findOneQ({email: req.body.email}, '+password', function(err, user) {
     if (!user) {

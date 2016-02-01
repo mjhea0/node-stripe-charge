@@ -12,12 +12,10 @@ var swig = require('swig');
 
 
 // *** seed the database *** //
-// if (process.env.NODE_ENV === 'development') {
-//   var seedAdmin = require('./models/seeds/admin.js');
-//   var productAdmin = require('./models/seeds/product.js');
-//   seedAdmin();
-//   productAdmin();
-// }
+if (process.env.NODE_ENV === 'development') {
+  require('./models/seeds/admin')();
+  // require('./models/seeds/product')();
+}
 
 
 // *** config file *** //
@@ -32,6 +30,7 @@ var itemAPIRoutes = require('./routes/api/item');
 var storeAPIRoutes = require('./routes/api/store');
 var planAPIRoutes = require('./routes/api/plan');
 var mainRoutes = require('./routes/index');
+var authRoutes = require('./routes/auth');
 // var chargeRoutes = require('./routes/charge');
 // var apiRoutes = require('./routes/api');
 
@@ -73,6 +72,7 @@ app.use('/api/', itemAPIRoutes);
 app.use('/api/', storeAPIRoutes);
 app.use('/api/', planAPIRoutes);
 app.use('/', mainRoutes);
+app.use('/auth', authRoutes);
 // app.use('/', chargeRoutes);
 // app.use('/api/v1/', apiRoutes);
 
