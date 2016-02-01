@@ -9,6 +9,7 @@ var bodyParser = require('body-parser');
 var session = require('express-session');
 var mongoose = require('mongoose');
 var swig = require('swig');
+var flash = require('connect-flash');
 
 
 // *** seed the database *** //
@@ -56,6 +57,7 @@ app.use(session({
   resave: false,
   saveUninitialized: true
 }));
+app.use(flash());
 app.use(express.static(path.join(__dirname, '../', 'client')));
 
 

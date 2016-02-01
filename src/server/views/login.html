@@ -9,13 +9,11 @@
 
   <div class="row">
     <div class="col-md-4">
-
       <h1>Login</h1>
       <p class="lead">Enter your credentials.</p>
       <a href="/">Go home</a>
       <br><br>
-
-      <form id="login-form" method="post">
+      <form action="/auth/login" method="post">
         <div class="form-group">
           <input type="email" name="email" placeholder="Enter Email" class="form-control" required>
         </div>
@@ -26,10 +24,8 @@
         &nbsp;
         <a href="/" class="btn btn-primary">Cancel</a>
       </form>
-
       <br>
       <p>Need to <a href="/auth/register">register</a>?</p>
-
     </div>
   </div>
 </div>

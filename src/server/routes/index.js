@@ -3,7 +3,10 @@ var router = express.Router();
 
 
 router.get('/', function(req, res, next) {
-  res.render('index', {user: req.user});
+  res.render('index', {
+    user: req.user,
+    success: req.flash('success')
+  });
 });
 
 
