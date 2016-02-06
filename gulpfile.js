@@ -10,7 +10,7 @@ var gulp = require('gulp'),
     mocha = require('gulp-mocha');
 
 
-// tasks
+// lint
 
 gulp.task('lint', function() {
   gulp.src(['./src/server/**/*.js', './public/js/*.js'])
@@ -18,17 +18,6 @@ gulp.task('lint', function() {
     .pipe(jshint.reporter('default'))
     .pipe(jshint.reporter('fail'));
 });
-
-// gulp.task('test', function () {
-//   return gulp.src('./test/*.js', {read: false})
-//     .pipe(mocha())
-//     .once('error', function () {
-//       process.exit(1);
-//     })
-//     .once('end', function () {
-//       process.exit(0);
-//     });
-// });
 
 
 // default task

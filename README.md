@@ -74,7 +74,3 @@ $ npm cov
 - POST `/plans` - create plan (admin required)
 - PUT `/plan/:id` - update plan (admin required)
 - DELETE `/plan/:id` - delete plan (admin required)
-
-### Transaction
-
-### Subscription

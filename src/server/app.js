@@ -8,14 +8,11 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 var mongoose = require('mongoose');
-var swig = require('swig');
-var flash = require('connect-flash');
 
 
 // *** seed the database *** //
 if (process.env.NODE_ENV === 'development') {
   require('./models/seeds/admin')();
-  // require('./models/seeds/product')();
 }
 
 
@@ -30,21 +27,10 @@ var authAPIRoutes = require('./routes/api/auth');
 var itemAPIRoutes = require('./routes/api/item');
 var storeAPIRoutes = require('./routes/api/store');
 var planAPIRoutes = require('./routes/api/plan');
-var mainRoutes = require('./routes/index');
-var authRoutes = require('./routes/auth');
-// var chargeRoutes = require('./routes/charge');
-// var apiRoutes = require('./routes/api');
 
 
 // *** express instance *** //
 var app = express();
-
-
-// *** view engine *** ///
-swig = new swig.Swig();
-app.engine('html', swig.renderFile);
-app.set('view engine', 'html');
-app.set('views', path.join(__dirname, './views'));
 
 
 // *** config middleware *** //
@@ -57,8 +43,6 @@ app.use(session({
   resave: false,
   saveUninitialized: true
 }));
-app.use(flash());
-app.use(express.static(path.join(__dirname, '../', 'client')));
 
 
 // *** mongo *** //
@@ -73,10 +57,6 @@ app.use('/api/auth', authAPIRoutes);
 app.use('/api/', itemAPIRoutes);
 app.use('/api/', storeAPIRoutes);
 app.use('/api/', planAPIRoutes);
-app.use('/', mainRoutes);
-app.use('/auth', authRoutes);
-// app.use('/', chargeRoutes);
-// app.use('/api/v1/', apiRoutes);
 
 
 // *** error handlers *** //
