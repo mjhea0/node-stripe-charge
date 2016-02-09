@@ -8,6 +8,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 var mongoose = require('mongoose');
+var swig = require('swig');
 
 
 // *** seed the database *** //
@@ -27,10 +28,21 @@ var authAPIRoutes = require('./routes/api/auth');
 var itemAPIRoutes = require('./routes/api/item');
 var storeAPIRoutes = require('./routes/api/store');
 var planAPIRoutes = require('./routes/api/plan');
+var mainRoutes = require('./routes/index');
 
 
 // *** express instance *** //
 var app = express();
+
+
+// *** view engine *** ///
+swig = new swig.Swig();
+app.engine('html', swig.renderFile);
+app.set('view engine', 'html');
+
+
+// *** static directory *** ///
+app.set('views', path.join(__dirname, './views'));
 
 
 // *** config middleware *** //
@@ -43,6 +55,7 @@ app.use(session({
   resave: false,
   saveUninitialized: true
 }));
+app.use(express.static(path.join(__dirname, '../', 'client')));
 
 
 // *** mongo *** //
@@ -57,6 +70,7 @@ app.use('/api/auth', authAPIRoutes);
 app.use('/api/', itemAPIRoutes);
 app.use('/api/', storeAPIRoutes);
 app.use('/api/', planAPIRoutes);
+app.use('/', mainRoutes);
 
 
 // *** error handlers *** //

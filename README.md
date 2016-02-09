@@ -4,9 +4,9 @@
 
 [![Coverage Status](https://coveralls.io/repos/mjhea0/node-stripe-charge/badge.svg)](https://coveralls.io/r/mjhea0/node-stripe-charge)
 
-This is the back-end API, which includes:
+The back-end API includes:
 
-1. User auth via JSON web tokens
+1. User auth
 1. Stripe integration
 1. Testing via Mocha and Chai as well as Istanbul for code coverage
 
