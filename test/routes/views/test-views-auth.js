@@ -39,6 +39,40 @@ describe("auth.js Routes", function() {
     });
   });
 
+  describe('POST auth/login', function(){
+
+    it ('should login a user', function(done) {
+      var user = {
+        'email': 'test@test.com',
+        'password': 'test'
+      };
+      request(app)
+        .post('/auth/login')
+        .send(user)
+        .end(function (err, res) {
+          assert.equal(res.statusCode, 302);
+          assert.equal(res.header.location, '/');
+          done();
+        });
+    });
+
+    it ('should fail if user is not registered', function(done) {
+      var user = {
+        'email': 'un@registered.com',
+        'password': 'test'
+      };
+      request(app)
+        .post('/auth/login')
+        .send(user)
+        .end(function (err, res) {
+          assert.equal(res.statusCode, 302);
+          assert.equal(res.header.location, '/auth/login');
+          done();
+        });
+    });
+
+  });
+
   describe('GET auth/register', function(){
     it ('should return a view', function(done) {
       request(app)

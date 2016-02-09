@@ -13,7 +13,7 @@ var User = new Schema({
   },
   password: {
     type: String,
-    select: false
+    required: true
   },
   admin: {
     type: Boolean,
@@ -47,17 +47,21 @@ User.statics.authenticate = function (formData, callback) {
   },
   function (err, user) {
     if (user === null) {
-      callback('Invalid username or password', null);
+      callback('Invalid email and/or password', null);
     } else {
       user.checkPassword(formData.password, callback);
     }
   });
 };
 
-// verify for plain-text and hashed passwords
-User.methods.comparePassword = function(password, done) {
-  bcrypt.compare(password, this.password, function(err, isMatch) {
-    done(err, isMatch);
+User.methods.checkPassword = function(password, callback) {
+  var user = this;
+  bcrypt.compare(password, user.password, function (err, isMatch) {
+    if (isMatch) {
+      callback(null, user);
+    } else {
+      callback(err, null);
+    }
   });
 };
 

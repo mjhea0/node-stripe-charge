@@ -14,7 +14,6 @@ var seedAdmin = function() {
         password: 'admin'
       });
       user.save(function() {
-        var token = auth.createToken(user);
         console.log('Dummy admin added!');
       });
     }
