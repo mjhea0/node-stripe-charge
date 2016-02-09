@@ -15,7 +15,10 @@ var User = new Schema({
     type: String,
     select: false
   },
-  admin: { type: Boolean, default: false }
+  admin: {
+    type: Boolean,
+    default: false
+  }
 });
 
 
@@ -36,6 +39,20 @@ User.pre('save', function(next) {
     });
   });
 });
+
+// check is user exists
+User.statics.authenticate = function (formData, callback) {
+  this.findOne({
+    email: formData.email
+  },
+  function (err, user) {
+    if (user === null) {
+      callback('Invalid username or password', null);
+    } else {
+      user.checkPassword(formData.password, callback);
+    }
+  });
+};
 
 // verify for plain-text and hashed passwords
 User.methods.comparePassword = function(password, done) {

@@ -29,6 +29,7 @@ var itemAPIRoutes = require('./routes/api/item');
 var storeAPIRoutes = require('./routes/api/store');
 var planAPIRoutes = require('./routes/api/plan');
 var mainRoutes = require('./routes/index');
+var authRoutes = require('./routes/auth');
 
 
 // *** express instance *** //
@@ -71,6 +72,7 @@ app.use('/api/', itemAPIRoutes);
 app.use('/api/', storeAPIRoutes);
 app.use('/api/', planAPIRoutes);
 app.use('/', mainRoutes);
+app.use('/auth', authRoutes);
 
 
 // *** error handlers *** //
