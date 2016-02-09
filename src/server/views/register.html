@@ -1,0 +1,23 @@
+{% extends '_base.html' %}
+
+{% block content %}
+
+  <div class="row">
+    <div class="col-md-4">
+      <h1>Register</h1>
+      <p class="lead">Please register to make a purchase.</p>
+      <form role="form" method="post" action="/auth/register">
+        <div class="form-group">
+          <input type="text" id="email" class="form-control" name="email" placeholder="Email" autofocus required>
+        </div>
+        <div class="form-group">
+          <input type="password" id="pass" class="form-control" name="password" placeholder="Password" required>
+        </div>
+        <input type="submit" value="Register" class="btn btn-primary">
+      </form>
+      <br><br>
+      <p>Already registered? <a href="/auth/login">Login</a>.</p>
+    </div>
+  </div>
+
+{% endblock %}

@@ -22,4 +22,17 @@ describe("auth.js Routes", function() {
     });
   });
 
+  describe('GET auth/register', function(){
+    it ('should return a view', function(done) {
+      request(app)
+        .get('/auth/register')
+        .end(function (err, res) {
+          assert.equal(res.statusCode, 200);
+          assert.equal(res.status, 200);
+          helpers.contains(res.text, '<h1>Register</h1>\n');
+          done();
+        });
+    });
+  });
+
 });
