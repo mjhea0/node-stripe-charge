@@ -4,7 +4,7 @@
 
 [![Coverage Status](https://coveralls.io/repos/mjhea0/node-stripe-charge/badge.svg)](https://coveralls.io/r/mjhea0/node-stripe-charge)
 
-This is a template for you to use in your own project for processing one-time Stripe charges. Follow the directions below to get started quickly.
+This is a template for you to use on your own projects for processing one-time Stripe charges. Follow the directions below to get started.
 
 The back-end API includes:
 
