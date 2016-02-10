@@ -2,20 +2,22 @@ var express = require('express');
 var router = express.Router();
 
 var User = require('../models/user');
+var helpers = require('../lib/auth');
 
 
-router.get('/register', function(req, res, next) {
+router.get('/register', helpers.loginRedirect, function(req, res, next) {
   res.render('register');
 });
 
-router.post('/register', function(req, res, next) {
+router.post('/register', helpers.loginRedirect, function(req, res, next) {
   var newUser = {
     email: req.body.email,
     password: req.body.password
   };
   User.create(newUser, function(err, user) {
     if (user) {
-      req.session.id = user._id;
+      req.session.loggedIn = true;
+      req.session.email = user.email;
       req.flash('success', 'Successfully registered (and logged in).');
       res.redirect('/');
     } else {
@@ -25,18 +27,19 @@ router.post('/register', function(req, res, next) {
   });
 });
 
-router.get('/login', function(req, res, next) {
+router.get('/login', helpers.loginRedirect, function(req, res, next) {
   res.render('login');
 });
 
-router.post('/login', function(req, res, next) {
+router.post('/login', helpers.loginRedirect, function(req, res, next) {
   var user = {
     email: req.body.email,
     password: req.body.password
   };
   User.authenticate(user, function(err, user) {
     if (!err && user !== null) {
-      req.session.id = user._id;
+      req.session.loggedIn = true;
+      req.session.email = user.email;
       req.flash('success', 'Successfully logged in.');
       res.redirect('/');
     } else {
@@ -44,6 +47,12 @@ router.post('/login', function(req, res, next) {
       res.redirect('/auth/login');
     }
   });
+});
+
+router.get('/logout', helpers.ensureAuthenticated, function(req, res, next) {
+  req.session.email = null;
+  req.session.loggedIn = false;
+  res.redirect('/');
 });
 
 

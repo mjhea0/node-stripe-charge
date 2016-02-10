@@ -3,7 +3,7 @@ var router = express.Router();
 
 
 router.get('/', function(req, res, next) {
-  res.render('index', {user: req.session.id});
+  res.render('index', {loggedIn: req.session.loggedIn});
 });
 
 router.get('/ping', function(req, res, next) {

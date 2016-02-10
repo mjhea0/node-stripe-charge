@@ -23,7 +23,7 @@ describe('index.js Routes', function(){
   });
 
   describe('GET /ping', function(){
-    it('should return a view', function(done){
+    it('should return json', function(done){
       request(app)
       .get('/ping')
       .end(function(err, res){

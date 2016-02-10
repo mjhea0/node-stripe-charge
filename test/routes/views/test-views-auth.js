@@ -32,7 +32,6 @@ describe("auth.js Routes", function() {
         .get('/auth/login')
         .end(function (err, res) {
           assert.equal(res.statusCode, 200);
-          assert.equal(res.status, 200);
           helpers.contains(res.text, '<h1>Login</h1>\n');
           done();
         });
@@ -79,7 +78,6 @@ describe("auth.js Routes", function() {
         .get('/auth/register')
         .end(function (err, res) {
           assert.equal(res.statusCode, 200);
-          assert.equal(res.status, 200);
           helpers.contains(res.text, '<h1>Register</h1>\n');
           done();
         });
