@@ -4,18 +4,20 @@
 
 [![Coverage Status](https://coveralls.io/repos/mjhea0/node-stripe-charge/badge.svg)](https://coveralls.io/r/mjhea0/node-stripe-charge)
 
-[![npm version](https://badge.fury.io/js/node-stripe-charge.svg)](http://badge.fury.io/js/node-stripe-charge)
-
 This is a template for you to use in your own project for processing one-time Stripe charges. Follow the directions below to get started quickly.
 
-*Working on new back-end api -> https://github.com/mjhea0/node-stripe-charge/tree/updated-api**
+The back-end API includes:
+
+1. User auth
+1. Stripe integration
+1. Testing via Mocha and Chai as well as Istanbul for code coverage
 
 ## Quick Start
 
-1. Clone - `git clone git@github.com:mjhea0/node-stripe-charge.git`
-1. Install npm dependencies - `cd node-stripe-charge && npm install`
-1. Install bower dependencies - `bower install`
-1. Rename the *.env_sample* file to *.env* and update
+1. Clone and install dependencies
+1. Update the config:
+  - Rename the *.env_sample* file to *.env* and update
+  - Update the Mongo URI in */src/_config.js* (if necessary)
 1. Run `mongod` in a seperate terminal window
 1. Run the app - `npm start` or `gulp`
 
@@ -35,17 +37,18 @@ This is a template for you to use in your own project for processing one-time St
 Without code coverage:
 
 ```sh
-$ gulp test
+$ npm test
 ```
 
 With code coverage:
 
 ```sh
-$ istanbul cover _mocha -- -R spec
+$ npm cov
 ```
 
 ## Changelog
 
+1. 02/09/2016 - refactored passport, tests, error handlers
 1. 04/23/2015 - major refactor
 1. 03/11/2015 - updated to Express 4.x
 

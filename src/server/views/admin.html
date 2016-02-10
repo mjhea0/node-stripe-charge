@@ -11,7 +11,7 @@
   <a href="/">Go home</a>
   <br><br>
   {% if user %}
-    <span>You are currently logged in as <strong>{{user.username}}</strong></span>
+    <span>You are currently logged in as <strong>{{user.email}}</strong></span>
     <br>
     <a href="logout">Logout</a>
   {% endif %}
@@ -63,7 +63,7 @@
           <tr>
             <td>{{loop.index}}</td>
             <td>
-              <a href="https://manage.stripe.com/test/search?query={{product.token}}" target="_blank">
+              <a href="https://dashboard.stripe.com/test/logs?object={{product.token}}" target="_blank">
                 {{product.token}}
               </a>
             </td>

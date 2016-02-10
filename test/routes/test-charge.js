@@ -1,8 +1,10 @@
 process.env.NODE_ENV = 'test';
-var app = require('../src/server/app'),
-    request = require('supertest'),
-    assert = require("assert"),
-    Product = require("../src/server/models/product.js");
+
+var request = require('supertest');
+var assert = require('assert');
+
+var app = require('../../src/server/app');
+var Product = require('../../src/server/models/product.js');
 
 
 describe('charge.js Routes', function(){
@@ -31,8 +33,7 @@ describe('charge.js Routes', function(){
       request(app)
       .get('/stripe')
       .end(function(err, res){
-        assert.equal(res.statusCode, 200);
-        assert.equal(res.status, 200);
+        assert.equal(res.statusCode, 200)
         assert.equal(res.type, 'text/html');
         assert.equal(res.text, 'Scram!');
         done();
@@ -63,7 +64,6 @@ describe('charge.js Routes', function(){
         .get('/product/'+productID)
         .end(function(err, res){
           assert.equal(res.statusCode, 200);
-          assert.equal(res.status, 200);
           assert.equal(res.type, 'text/html');
           res.text.should.containEql('Coconut Water');
           res.text.should.containEql(productPrice);

@@ -1,17 +1,19 @@
 process.env.NODE_ENV = 'test';
-var app = require('../src/server/app'),
-    request = require('supertest'),
-    should = require("should"),
-    mongoose = require('mongoose'),
-    User = require("../src/server/models/user.js"),
-    assert = require("assert");
+
+var request = require('supertest');
+var should = require('should');
+var assert = require('assert');
+var mongoose = require('mongoose');
+
+var app = require('../../src/server/app');
+var User = require('../../src/server/models/user.js');
 
 
 describe("auth.js Routes", function() {
 
   before(function(done) {
     var user = new User({
-      username: 'test@test.com',
+      email: 'test@test.com',
       password: 'test',
       admin: true,
     });
@@ -27,9 +29,9 @@ describe("auth.js Routes", function() {
     done();
   });
 
-  it('finds a user by username', function(done) {
-    User.findOne({username: 'test@test.com'}, function(err, user) {
-      assert.equal(user.username, 'test@test.com');
+  it('finds a user by email', function(done) {
+    User.findOne({email: 'test@test.com'}, function(err, user) {
+      assert.equal(user.email, 'test@test.com');
       assert.equal(user.admin, true);
       done();
     });
@@ -48,7 +50,6 @@ describe("auth.js Routes", function() {
         .get('/auth/login')
         .end(function (err, res) {
           assert.equal(res.statusCode, 200);
-          assert.equal(res.status, 200);
           res.text.should.containEql('<h1>Login</h1>\n');
           done();
         });
@@ -61,7 +62,6 @@ describe("auth.js Routes", function() {
         .get('/auth/register')
         .end(function (err, res) {
           assert.equal(res.statusCode, 200);
-          assert.equal(res.status, 200);
           res.text.should.containEql('<h1>Register</h1>\n');
           done();
         });
@@ -96,7 +96,7 @@ describe("auth.js Routes", function() {
     // it ('should return a view if user is logged in', function(done) {
     //   request(app)
     //     .post('/auth/login')
-    //     .send('username=test@test.com')
+    //     .send('email=test@test.com')
     //     .send('password=test')
     //     .end(function (err, res) {
     //       console.log(res);

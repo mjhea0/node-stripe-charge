@@ -14,7 +14,7 @@
         <li><a href="/products">Products</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        {% if user.admin === true %}
+        {% if user.admin %}
           <li><a href="/auth/admin">Admin</a></li>
           <li><a href="/auth/profile">Profile</a></li>
           <li><a href="/auth/logout">Logout</a></li>

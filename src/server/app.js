@@ -1,18 +1,18 @@
 // *** main dependencies *** //
 require('dotenv').load();
 
-var express = require('express'),
-    path = require('path'),
-    favicon = require('serve-favicon'),
-    logger = require('morgan'),
-    cookieParser = require('cookie-parser'),
-    bodyParser = require('body-parser'),
-    session = require('express-session'),
-    flash = require('connect-flash'),
-    mongoose = require('mongoose'),
-    swig = require('swig'),
-    passport = require('./auth'),
-    LocalStrategy = require('passport-local').Strategy;
+var express = require('express');
+var path = require('path');
+var logger = require('morgan');
+var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
+var session = require('express-session');
+var flash = require('connect-flash');
+var mongoose = require('mongoose');
+var swig = require('swig');
+var passport = require('./lib/auth');
+var LocalStrategy = require('passport-local').Strategy;
+
 
 // *** seed the database *** //
 if (process.env.NODE_ENV === 'development') {
@@ -61,12 +61,12 @@ app.use(session({
 app.use(flash());
 app.use(function(req, res, next){
   res.locals.success = req.flash('success');
-  res.locals.errors = req.flash('error');
+  res.locals.danger = req.flash('danger');
   next();
 });
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(express.static(path.join(__dirname, '../', 'public')));
+app.use(express.static(path.join(__dirname, '../', 'client')));
 
 
 // *** mongo *** //
@@ -95,7 +95,7 @@ app.use(function(req, res, next) {
 if (app.get('env') === 'development') {
   app.use(function(err, req, res, next) {
     res.status(err.status || 500);
-    res.json({
+    res.render('error', {
       message: err.message,
       error: err
     });
@@ -106,7 +106,7 @@ if (app.get('env') === 'development') {
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
   res.status(err.status || 500);
-  res.json({
+  res.render('error', {
     message: err.message,
     error: {}
   });

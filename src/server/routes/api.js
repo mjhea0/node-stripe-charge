@@ -1,8 +1,9 @@
-var express = require('express'),
-    router = express.Router(),
-    passport = require('../auth'),
-    User = require('../models/user'),
-    Product = require('../models/product');
+var express = require('express');
+var router = express.Router();
+
+var passport = require('../lib/auth');
+var User = require('../models/user');
+var Product = require('../models/product');
 
 
 // users

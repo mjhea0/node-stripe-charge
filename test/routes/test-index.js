@@ -1,7 +1,9 @@
 process.env.NODE_ENV = 'test';
-var app = require('../src/server/app'),
-    request = require('supertest'),
-    assert = require("assert");
+
+var request = require('supertest');
+var assert = require('assert');
+
+var app = require('../../src/server/app');
 
 
 describe('index.js Routes', function(){
@@ -12,7 +14,6 @@ describe('index.js Routes', function(){
       .get('/')
       .end(function(err, res){
         assert.equal(res.statusCode, 200);
-        assert.equal(res.status, 200);
         assert.equal(res.type, 'text/html');
         res.text.should.containEql('<h1>Node + Stripe + Express</h1>');
         done();
@@ -26,7 +27,6 @@ describe('index.js Routes', function(){
       .get('/ping')
       .end(function(err, res){
         assert.equal(res.statusCode, 200);
-        assert.equal(res.status, 200);
         assert.equal(res.type, 'text/html');
         assert.equal(res.text, 'pong!');
         done();

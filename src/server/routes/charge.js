@@ -1,9 +1,8 @@
-var express = require('express'),
-    router = express.Router(),
-    User = require('../models/user.js'),
-    Product = require('../models/product.js'),
-    stripe = require('stripe')(process.env.STRIPE_SECRET_KEY),
-    passport = require('passport');
+var express = require('express');
+var router = express.Router();
+var stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+var User = require('../models/user.js');
+var Product = require('../models/product.js');
 
 
 router.get('/products', function(req, res, next){
@@ -44,12 +43,9 @@ router.get('/stripe', function(req, res, next) {
 
 
 router.post('/stripe', ensureAuthenticated, function(req, res, next) {
-
   // Obtain StripeToken
   var stripeToken = req.body.stripeToken;
-  console.log(stripeToken);
   var userID = req.user._id;
-
   // Simple validation
   Product.findById(req.body.productID, function(err, data) {
     if (err) {
@@ -59,44 +55,33 @@ router.post('/stripe', ensureAuthenticated, function(req, res, next) {
         req.flash('success', 'Error!');
         return res.redirect('/');
       } else {
-
         // Get product details
-          User.findById(userID, function(err, data) {
-            if (err) {
-              return next(err);
-            } else {
-              data.products.push({ productID: req.body.productID, token: stripeToken });
-              data.save();
-            }
-          });
-
-          // Create Charge
-          var charge =
-          {
-            amount: parseInt(req.body.productAmount)*100,
-            currency: 'USD',
-            card: stripeToken
-          };
-          stripe.charges.create(charge,
-            function(err, charge) {
-              if(err) {
-                return res.json({'message': 'Invalid API Key provided'});
-              } else {
-                req.flash('success', 'Thanks for purchasing a '+req.body.productName+'!');
-                res.redirect('auth/profile');
-              }
-            }
-          );
+        User.findById(userID, function(err, data) {
+          if (err) {
+            return next(err);
+          } else {
+            data.products.push({ productID: req.body.productID, token: stripeToken });
+            data.save();
+          }
+        });
+        // Create Charge
+        var charge = {
+          amount: parseInt(req.body.productAmount)*100,
+          currency: 'USD',
+          card: stripeToken
+        };
+        stripe.charges.create(charge, function(err, charge) {
+          if(err) {
+            return next(err);
+          } else {
+            req.flash('success', 'Thanks for purchasing a '+req.body.productName+'!');
+            res.redirect('auth/profile');
+          }
+        });
       }
     }
   });
-
-
 });
-
-// router.get('/congrats', ensureAuthenticated, function(req, res, next) {
-//   res.render('congrats', { user: req.user });
-// });
 
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) { return next(); }

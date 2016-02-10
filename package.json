@@ -5,6 +5,7 @@
   "scripts": {
     "start": "node ./src/server/bin/www",
     "test": "mocha",
+    "cov": "./node_modules/.bin/istanbul cover _mocha -- -R spec",
     "send-coverage": "./node_modules/.bin/istanbul cover --report lcovonly ./node_modules/.bin/_mocha && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   },
   "repository": {
@@ -24,6 +25,7 @@
   "author": "Michael Herman <michael@mherman.org>",
   "license": "MIT",
   "dependencies": {
+    "bcrypt": "^0.8.5",
     "body-parser": "^1.14.2",
     "connect-flash": "^0.1.1",
     "cookie-parser": "^1.4.0",
@@ -31,16 +33,14 @@
     "dotenv": "^1.2.0",
     "express": "^4.13.3",
     "express-session": "^1.12.1",
-    "istanbul": "^0.4.2",
     "moment": "^2.11.1",
     "mongodb": "^2.1.3",
     "mongoose": "^4.3.5",
     "morgan": "^1.6.1",
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
-    "passport-local-mongoose": "^3.1.0",
     "serve-favicon": "^2.3.0",
-    "stripe": "^4.1.0",
+    "stripe": "^4.2.0",
     "swig": "^1.4.2"
   },
   "devDependencies": {

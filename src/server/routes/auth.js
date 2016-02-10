@@ -1,8 +1,9 @@
-var express = require('express'),
-    router = express.Router(),
-    passport = require('../auth'),
-    moment = require('moment'),
-    User = require('../models/user');
+var express = require('express');
+var router = express.Router();
+var moment = require('moment');
+
+var passport = require('../lib/auth');
+var User = require('../models/user');
 
 
 router.get('/register', function(req, res, next){
@@ -10,20 +11,30 @@ router.get('/register', function(req, res, next){
 });
 
 
-router.post('/register', function(req, res) {
-  User.register(new User({ username: req.body.username }), req.body.password, function(err, account) {
+router.post('/register', function(req, res, next) {
+  var newUser = new User(req.body);
+  newUser.generateHash(req.body.password, function(err, hash) {
     if (err) {
-      req.flash('success', 'Sorry. That username already exists. Try again.');
-      return res.redirect("/auth/register");
+      return next(err);
     } else {
-      passport.authenticate('local')(req, res, function() {
-        req.flash('success', 'Successfully registered (and logged in).');
-        return res.redirect('/');
+      newUser.password = hash;
+      newUser.save(function(err, results){
+        if (err) {
+          req.flash('danger', 'Sorry. That email already exists. Try again.');
+          return res.redirect("/auth/register");
+        } else {
+          req.logIn(newUser, function(err) {
+            if (err) {
+              return next(err);
+            }
+            req.flash('success', 'Successfully registered (and logged in).');
+            return res.redirect('/');
+          });
+        }
       });
     }
   });
 });
-
 
 router.get('/login', function(req, res, next){
   res.render('login', { user: req.user });
@@ -31,14 +42,18 @@ router.get('/login', function(req, res, next){
 
 router.post('/login', function(req, res, next) {
   passport.authenticate('local', function(err, user, info) {
-    if (err) { return next(err); }
+    if (err) {
+      return next(err);
+    }
     if (!user) {
-      req.flash('success', 'Sorry. That username and/or password is incorrect. Try again.');
+      req.flash('danger', 'Invalid username and/or password.');
       return res.redirect('/auth/login');
     }
     req.logIn(user, function(err) {
-      if (err) { return next(err); }
-      req.flash('success', 'Successfully logged in.');
+      if (err) {
+        return next(err);
+      }
+      req.flash('success', 'Welcome!');
       return res.redirect('/');
     });
   })(req, res, next);
@@ -75,7 +90,9 @@ router.get('/admin', ensureAuthenticated, function(req, res){
 
 
 function ensureAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) { return next(); }
+  if (req.isAuthenticated()) {
+    return next();
+  }
   res.redirect('/auth/login');
 }
 
