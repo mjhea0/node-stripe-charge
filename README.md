@@ -48,7 +48,7 @@ $ npm cov
 
 ## Changelog
 
-1. 02/09/2016 - refactored passport, tests, error handlers
+1. 02/09/2016 - refactored passport, tests, error handlers, client-side javascript (view [commit](https://github.com/mjhea0/node-stripe-charge/commit/0682a96562e3709855c5ace204d42966ac8ee33c))
 1. 04/23/2015 - major refactor
 1. 03/11/2015 - updated to Express 4.x
 
