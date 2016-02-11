@@ -1,111 +1,110 @@
 process.env.NODE_ENV = 'test';
 
-var request = require('supertest');
-var should = require('should');
-var assert = require('assert');
-var mongoose = require('mongoose');
+var chai = require('chai');
+var chaiHttp = require('chai-http');
+var mongoose = require('mongoose-q')(require('mongoose'));
+var passportStub = require('passport-stub');
 
 var app = require('../../src/server/app');
 var User = require('../../src/server/models/user.js');
+var should = chai.should();
+
+chai.use(chaiHttp);
 
 
 describe("auth.js Routes", function() {
 
   before(function(done) {
-    var user = new User({
+
+    mongoose.connection.db.dropDatabase();
+
+    var newUser = new User({
       email: 'test@test.com',
       password: 'test',
       admin: true,
+      products: [{token:'12345'}]
     });
 
-    user.save(function (err, results) {
+    newUser.saveQ()
+    .then(function(){
+      passportStub.install(app);
+      passportStub.login(newUser);
       done();
     });
 
   });
 
   after(function(done) {
-    User.collection.drop();
+    passportStub.logout();
+    mongoose.connection.db.dropDatabase();
     done();
   });
 
   it('finds a user by email', function(done) {
     User.findOne({email: 'test@test.com'}, function(err, user) {
-      assert.equal(user.email, 'test@test.com');
-      assert.equal(user.admin, true);
+      user.email.should.equal('test@test.com');
+      user.admin.should.equal(true);
       done();
     });
   });
 
   it('finds all users', function(done) {
     User.find({}, function(err, user) {
-      assert.equal(user.length, 1);
+      user.length.should.equal(1);
       done();
     });
   });
 
   describe('GET auth/login', function(){
-    it ('should return a view', function(done) {
-      request(app)
-        .get('/auth/login')
-        .end(function (err, res) {
-          assert.equal(res.statusCode, 200);
-          res.text.should.containEql('<h1>Login</h1>\n');
-          done();
-        });
+    it ('should return the login view', function(done) {
+      chai.request(app)
+      .get('/auth/login')
+      .end(function (err, res) {
+        res.should.have.status(200);
+        res.text.should.contain('<h1>Login</h1>\n');
+        done();
+      });
     });
   });
 
   describe('GET auth/register', function(){
     it ('should return a view', function(done) {
-      request(app)
-        .get('/auth/register')
-        .end(function (err, res) {
-          assert.equal(res.statusCode, 200);
-          res.text.should.containEql('<h1>Register</h1>\n');
-          done();
-        });
+      chai.request(app)
+      .get('/auth/register')
+      .end(function (err, res) {
+        res.should.have.status(200);
+        res.text.should.contain('<h1>Register</h1>\n');
+        done();
+      });
     });
   });
 
   describe('GET auth/logout', function(){
     it ('should redirect if user is not logged in', function(done) {
-      request(app)
-        .get('/auth/logout')
-        .end(function (err, res) {
-          assert.equal(res.statusCode, 302);
-          assert.equal(res.status, 302);
-          assert.equal(res.header.location, '/auth/login');
-          done();
-        });
+      passportStub.logout();
+      chai.request(app)
+      .get('/auth/logout')
+      .end(function (err, res) {
+        res.should.have.status(200);
+        res.redirects[0].should.contain('/auth/login');
+        res.text.should.contain('<h1>Login</h1>\n');
+        done();
+      });
     });
   });
 
   describe('GET auth/admin', function(){
-    it ('should redirect if user is not logged in', function(done) {
-      request(app)
-        .get('/auth/admin')
-        .end(function (err, res) {
-          assert.equal(res.statusCode, 302);
-          assert.equal(res.status, 302);
-          assert.equal(res.header.location, '/auth/login');
-          done();
-        });
-    });
 
-    // it ('should return a view if user is logged in', function(done) {
-    //   request(app)
-    //     .post('/auth/login')
-    //     .send('email=test@test.com')
-    //     .send('password=test')
-    //     .end(function (err, res) {
-    //       console.log(res);
-    //       should.not.exist(err);
-    //       assert.equal(res.statusCode, 302);
-    //       assert.equal(res.header.location, '/auth/admin');
-    //       done();
-    //     });
-    // });
+    it ('should redirect if user is not an admin', function(done) {
+      chai.request(app)
+      .get('/auth/admin')
+      .end(function (err, res) {
+        res.should.have.status(200);
+        res.redirects[0].should.contain('/auth/login');
+        res.text.should.contain('<h1>Login</h1>\n');
+        done();
+      });
+    });
 
   });
 

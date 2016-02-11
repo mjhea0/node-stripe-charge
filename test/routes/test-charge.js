@@ -1,72 +1,80 @@
 process.env.NODE_ENV = 'test';
 
-var request = require('supertest');
-var assert = require('assert');
+var chai = require('chai');
+var chaiHttp = require('chai-http');
+var mongoose = require('mongoose-q')(require('mongoose'));
+var passportStub = require('passport-stub');
 
 var app = require('../../src/server/app');
 var Product = require('../../src/server/models/product.js');
+var should = chai.should();
+
+chai.use(chaiHttp);
 
 
 describe('charge.js Routes', function(){
 
   before(function(done) {
 
+    mongoose.connection.db.dropDatabase();
+
     var product = new Product({
-      name: "Coconut Water",
+      name: 'Coconut Water',
       amount: 5,
       currency: 'USD',
       forSale: true
     });
 
-    product.save();
-    done();
+    product.saveQ()
+    .then(function(){
+      done();
+    });
 
   });
 
   after(function(done) {
-    Product.collection.drop();
+    mongoose.connection.db.dropDatabase();
     done();
   });
 
   describe('GET /stripe', function(){
     it('should return a view', function(done){
-      request(app)
+      chai.request(app)
       .get('/stripe')
       .end(function(err, res){
-        assert.equal(res.statusCode, 200)
-        assert.equal(res.type, 'text/html');
-        assert.equal(res.text, 'Scram!');
+        res.should.have.status(200);
+        res.should.be.html;  // jshint ignore:line
+        res.text.should.contain.string('Scram!');
         done();
       });
     });
   });
 
-  // describe('GET /products', function(){
-  //   it('should return a view', function(done){
-  //     request(app)
-  //     .get('/products')
-  //     .end(function(err, res){
-  //       assert.equal(res.statusCode, 200);
-  //       assert.equal(res.status, 200);
-  //       assert.equal(res.type, 'text/html');
-  //       res.text.should.containEql('Coconut Water');
-  //       done();
-  //     });
-  //   });
-  // });
+  describe('GET /products', function(){
+    it('should return a view', function(done){
+      chai.request(app)
+      .get('/products')
+      .end(function(err, res){
+        res.should.have.status(200);
+        res.should.be.html;  // jshint ignore:line
+        res.text.should.contain.string('Coconut Water');
+        done();
+      });
+    });
+  });
 
   describe('GET /product/:id', function(){
     it('should return a view', function(done){
       Product.findOne({}, function (err, results) {
         var productID = results._id;
         var productPrice = results.amount;
-        request(app)
+        chai.request(app)
         .get('/product/'+productID)
         .end(function(err, res){
-          assert.equal(res.statusCode, 200);
-          assert.equal(res.type, 'text/html');
-          res.text.should.containEql('Coconut Water');
-          res.text.should.containEql(productPrice);
+          res.should.have.status(200);
+          res.should.be.html;  // jshint ignore:line
+          res.text.should.contain.string('Coconut Water');
+          res.text.should.contain.string(productPrice);
           done();
       });
       });
@@ -77,13 +85,12 @@ describe('charge.js Routes', function(){
     it('should redirect if user is not logged in', function(done){
       Product.findOne({}, function (err, results) {
         var productID = results._id;
-        request(app)
-        .get('/charge/'+productID)
+        chai.request(app)
+        .get('/charge/' + productID)
         .end(function(err, res){
-          assert.equal(res.statusCode, 302);
-          assert.equal(res.status, 302);
-          assert.equal(res.type, 'text/plain');
-          assert.equal(res.header.location, '/auth/login');
+          res.should.have.status(200);
+          res.redirects[0].should.contain('/auth/login');
+          res.text.should.contain('<h1>Login</h1>\n');
           done();
         });
       });

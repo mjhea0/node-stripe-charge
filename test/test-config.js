@@ -1,16 +1,22 @@
 process.env.NODE_ENV = 'test';
 
-var request = require('supertest');
-var assert = require('assert');
+var chai = require('chai');
+var chaiHttp = require('chai-http');
 
 var app = require('../src/server/app');
+var should = chai.should();
+
+chai.use(chaiHttp);
 
 
 describe('app environment', function(){
+
   it ('should be "test"', function(done) {
-    assert.equal(process.env.NODE_ENV, 'test');
-    assert.notEqual(process.env.NODE_ENV, 'development');
-    assert.notEqual(process.env.NODE_ENV, 'stage');
+    process.env.NODE_ENV.should.equal('test');
+    process.env.NODE_ENV.should.not.equal('development');
+    process.env.NODE_ENV.should.not.equal('stage');
     done();
   });
+
 });
+
