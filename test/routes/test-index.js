@@ -37,5 +37,3 @@ describe('index.js Routes', function(){
   });
 
 });
-
-

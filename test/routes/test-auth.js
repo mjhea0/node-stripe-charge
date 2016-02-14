@@ -26,7 +26,7 @@ describe("auth.js Routes", function() {
     });
 
     newUser.saveQ()
-    .then(function(){
+    .then(function() {
       passportStub.install(app);
       passportStub.login(newUser);
       done();
@@ -55,7 +55,7 @@ describe("auth.js Routes", function() {
     });
   });
 
-  describe('GET auth/login', function(){
+  describe('GET auth/login', function() {
     it ('should return the login view', function(done) {
       chai.request(app)
       .get('/auth/login')
@@ -67,7 +67,7 @@ describe("auth.js Routes", function() {
     });
   });
 
-  describe('GET auth/register', function(){
+  describe('GET auth/register', function() {
     it ('should return a view', function(done) {
       chai.request(app)
       .get('/auth/register')
@@ -79,21 +79,36 @@ describe("auth.js Routes", function() {
     });
   });
 
-  describe('GET auth/logout', function(){
-    it ('should redirect if user is not logged in', function(done) {
+  describe('GET auth/logout', function() {
+
+    it ('should redirect to "/" if user is logged in', function(done) {
+      chai.request(app)
+      .get('/auth/logout')
+      .end(function (err, res) {
+        res.should.have.status(200);
+        res.redirects[0].should.contain('/');
+        res.should.be.html;  // jshint ignore:line
+        res.text.should.contain.contain('<h1>Node + Stripe + Express</h1>');
+        done();
+      });
+    });
+
+    it ('should redirect to "/auth/login" if user is NOT logged in', function(done) {
       passportStub.logout();
       chai.request(app)
       .get('/auth/logout')
       .end(function (err, res) {
         res.should.have.status(200);
         res.redirects[0].should.contain('/auth/login');
+        res.should.be.html;  // jshint ignore:line
         res.text.should.contain('<h1>Login</h1>\n');
         done();
       });
     });
+
   });
 
-  describe('GET auth/admin', function(){
+  describe('GET auth/admin', function() {
 
     it ('should redirect if user is not an admin', function(done) {
       chai.request(app)
