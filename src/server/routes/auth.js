@@ -36,7 +36,7 @@ router.post('/register', function(req, res, next) {
   });
 });
 
-router.get('/login', function(req, res, next){
+router.get('/login', loginRedirect, function(req, res, next){
   res.render('login', { user: req.user });
 });
 
@@ -94,6 +94,14 @@ function ensureAuthenticated(req, res, next) {
     return next();
   }
   res.redirect('/auth/login');
+}
+
+function loginRedirect(req, res, next) {
+  if (req.isAuthenticated()) {
+    res.redirect('/');
+  } else {
+    return next();
+  }
 }
 
 
