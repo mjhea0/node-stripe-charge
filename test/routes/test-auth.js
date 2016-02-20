@@ -83,13 +83,38 @@ describe("auth.js Routes", function() {
   });
 
   describe('GET auth/register', function() {
-    it ('should return a view', function(done) {
+    it ('should return the Register view', function(done) {
       chai.request(app)
       .get('/auth/register')
       .end(function (err, res) {
         res.should.have.status(200);
         res.text.should.contain('<h1>Register</h1>\n');
         done();
+      });
+    });
+  });
+
+  describe('POST auth/register', function() {
+    it ('should register a user', function(done) {
+      passportStub.logout();
+      var newTestUser = {
+        email: 'michael@test.com',
+        password: 'testing',
+        admin: false,
+        products: [{token:'123456789'}]
+      };
+      chai.request(app)
+      .post('/auth/register')
+      .send(newTestUser)
+      .end(function (err, res) {
+        res.should.have.status(200);
+        res.should.be.html;  // jshint ignore:line
+        res.text.should.contain('<h1>Node + Stripe + Express</h1>');
+        User.findOne({email: 'michael@test.com'}, function(err, user) {
+          user.email.should.equal('michael@test.com');
+          user.admin.should.equal(false);
+          done();
+        });
       });
     });
   });
