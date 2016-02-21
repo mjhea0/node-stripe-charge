@@ -18,10 +18,10 @@ router.post('/register', function(req, res, next) {
       return next(err);
     } else {
       newUser.password = hash;
-      newUser.save(function(err, results){
+      newUser.save(function(err, results) {
         if (err) {
           req.flash('danger', 'Sorry. That email already exists. Try again.');
-          return res.redirect("/auth/register");
+          return res.redirect('/auth/register');
         } else {
           req.logIn(newUser, function(err) {
             if (err) {

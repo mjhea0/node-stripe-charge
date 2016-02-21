@@ -88,6 +88,7 @@ describe("auth.js Routes", function() {
       .get('/auth/register')
       .end(function (err, res) {
         res.should.have.status(200);
+        res.should.be.html;  // jshint ignore:line
         res.text.should.contain('<h1>Register</h1>\n');
         done();
       });
