@@ -32,7 +32,7 @@ describe('charge.js Routes', function(){
 
   });
 
-  after(function(done) {
+  afterEach(function(done) {
     mongoose.connection.db.dropDatabase();
     done();
   });
