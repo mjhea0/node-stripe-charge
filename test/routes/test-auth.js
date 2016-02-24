@@ -40,27 +40,6 @@ describe("auth.js Routes", function() {
     done();
   });
 
-  describe("Ensure tes user was added", function() {
-
-    it('finds a user by email', function(done) {
-      User.findOneQ({email: 'test@test.com'})
-      .then(function(user) {
-        user.email.should.equal('test@test.com');
-        user.admin.should.equal(true);
-        done();
-      });
-    });
-
-    it('finds all users', function(done) {
-      User.findQ()
-      .then(function(users) {
-        users.length.should.equal(1);
-        done();
-      });
-    });
-
-  });
-
   describe('GET auth/login', function() {
 
     it ('should return the login view if user is NOT logged in', function(done) {
