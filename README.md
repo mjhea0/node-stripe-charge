@@ -52,6 +52,42 @@ $ npm cov
 1. 04/23/2015 - major refactor
 1. 03/11/2015 - updated to Express 4.x
 
+## JSON API Documentation
+
+Admin required for all routes!
+
+### User
+
+- GET `/api/v1/users` - get all users
+- GET `/api/v1/user/:id` - get user
+- POST `/api/v1/users` - create user (todo)
+- PUT `/api/v1/user/:id` - update user (todo)
+- DELETE `/api/v1/user/:id` - delete user (todo)
+
+### Item (todo)
+
+- GET `/items` - get all items
+- GET `/item/:id` - get item
+- POST `/items` - create item (admin required)
+- PUT `/item/:id` - update item (admin required)
+- DELETE `/item/:id` - delete item (admin required)
+
+### Store (todo)
+
+- GET `/stores` - get all stores
+- GET `/store/:id` - get store
+- POST `/stores` - create store (admin required)
+- PUT `/store/:id` - update store (admin required)
+- DELETE `/store/:id` - delete store (admin required)
+
+### Plan (todo)
+
+- GET `/plans` - get all plans
+- GET `/plan/:id` - get plan
+- POST `/plans` - create plan (admin required)
+- PUT `/plan/:id` - update plan (admin required)
+- DELETE `/plan/:id` - delete plan (admin required)
+
 ## Screenshots
 
 ### Main Page

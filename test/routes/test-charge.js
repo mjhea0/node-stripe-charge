@@ -14,7 +14,7 @@ chai.use(chaiHttp);
 
 describe('charge.js Routes', function(){
 
-  before(function(done) {
+  beforeEach(function(done) {
 
     mongoose.connection.db.dropDatabase();
 

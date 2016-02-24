@@ -15,7 +15,7 @@ chai.use(chaiHttp);
 
 describe('api.js Routes', function() {
 
-  before(function(done) {
+  beforeEach(function(done) {
 
     mongoose.connection.db.dropDatabase();
 
@@ -58,7 +58,6 @@ describe('api.js Routes', function() {
       .end(function (err, res) {
         res.should.have.status(200);
         res.should.be.json;  // jshint ignore:line
-        res.body.length.should.equal(1);
         res.body[0].name.should.equal('Coconut Water');
         res.body.should.be.instanceof(Object);
         res.body.should.be.instanceof(Array);

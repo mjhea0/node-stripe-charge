@@ -14,7 +14,7 @@ chai.use(chaiHttp);
 
 describe("auth.js Routes", function() {
 
-  before(function(done) {
+  beforeEach(function(done) {
 
     mongoose.connection.db.dropDatabase();
 
@@ -152,6 +152,7 @@ describe("auth.js Routes", function() {
   describe('GET auth/admin', function() {
 
     it ('should redirect if user is not an admin', function(done) {
+      passportStub.logout();
       chai.request(app)
       .get('/auth/admin')
       .end(function (err, res) {

@@ -8,17 +8,17 @@ var Product = require('../models/product');
 
 // users
 
-router.get('/users', function(req, res, next) {
+router.get('/users', ensureAdmin, function(req, res, next) {
   User.find({}, function(err, data) {
     if (err) {
       return next(err);
     } else {
-      return res.send(data);
+      return res.json(data);
     }
   });
 });
 
-router.get('/user/:id', function(req, res, next) {
+router.get('/user/:id', ensureAdmin, function(req, res, next) {
   var userID = req.params.id;
   User.findById(userID, function(err, data) {
     if (err) {
@@ -66,9 +66,17 @@ router.get('/product/:id', function(req, res, next) {
 
 
 function ensureAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) { return next(); }
+  if (req.isAuthenticated()) {
+    return next();
+  }
   res.redirect('/auth/login');
 }
 
+function ensureAdmin(req, res, next) {
+  if (req.isAuthenticated() && req.user.admin) {
+      return next();
+  }
+  res.redirect('/auth/login');
+}
 
 module.exports = router;
