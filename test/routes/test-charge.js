@@ -81,21 +81,21 @@ describe('charge.js Routes', function(){
     });
   });
 
-  describe('GET /charge', function(){
-    it('should redirect if user is not logged in', function(done){
-      Product.findOne({}, function (err, results) {
-        var productID = results._id;
-        chai.request(app)
-        .get('/charge/' + productID)
-        .end(function(err, res){
-          res.should.have.status(200);
-          res.redirects[0].should.contain('/auth/login');
-          res.text.should.contain('<h1>Login</h1>\n');
-          done();
-        });
-      });
-    });
-  });
+  // describe('GET /charge', function(){
+  //   it('should redirect if user is not logged in', function(done){
+  //     Product.findOne({}, function (err, results) {
+  //       var productID = results._id;
+  //       chai.request(app)
+  //       .get('/charge/' + productID)
+  //       .end(function(err, res){
+  //         res.should.have.status(200);
+  //         res.redirects[0].should.contain('/auth/login');
+  //         res.text.should.contain('<h1>Login</h1>\n');
+  //         done();
+  //       });
+  //     });
+  //   });
+  // });
 
 });
 
