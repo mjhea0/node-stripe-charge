@@ -40,21 +40,25 @@ describe("auth.js Routes", function() {
     done();
   });
 
-  it('finds a user by email', function(done) {
-    User.findOneQ({email: 'test@test.com'})
-    .then(function(user) {
-      user.email.should.equal('test@test.com');
-      user.admin.should.equal(true);
-      done();
-    });
-  });
+  describe("Ensure tes user was added", function() {
 
-  it('finds all users', function(done) {
-    User.findQ()
-    .then(function(users) {
-      users.length.should.equal(1);
-      done();
+    it('finds a user by email', function(done) {
+      User.findOneQ({email: 'test@test.com'})
+      .then(function(user) {
+        user.email.should.equal('test@test.com');
+        user.admin.should.equal(true);
+        done();
+      });
     });
+
+    it('finds all users', function(done) {
+      User.findQ()
+      .then(function(users) {
+        users.length.should.equal(1);
+        done();
+      });
+    });
+
   });
 
   describe('GET auth/login', function() {
