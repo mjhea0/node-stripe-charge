@@ -114,8 +114,8 @@ router.delete('/user/:id', ensureAdmin, function(req, res, next) {
       message: 'Removed user.'
     });
   })
-  .then(function(err) {
-    return next(err);
+  .catch(function(err) {
+    res.send(err);
   })
   .done();
 });

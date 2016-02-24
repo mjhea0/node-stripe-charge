@@ -62,7 +62,7 @@ Admin required for all routes!
 - GET `/api/v1/user/:id` - get user
 - POST `/api/v1/users` - create user
 - PUT `/api/v1/user/:id` - update user
-- DELETE `/api/v1/user/:id` - delete user (WIP)
+- DELETE `/api/v1/user/:id` - delete user
 
 ### Item (todo)
 
