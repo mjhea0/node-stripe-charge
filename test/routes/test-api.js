@@ -45,7 +45,7 @@ describe('api.js Routes', function() {
 
   });
 
-  afterEach(function(done) {
+  after(function(done) {
     passportStub.logout();
     mongoose.connection.db.dropDatabase();
     done();
