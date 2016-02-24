@@ -34,14 +34,15 @@ describe("auth.js Routes", function() {
 
   });
 
-  after(function(done) {
+  afterEach(function(done) {
     passportStub.logout();
     mongoose.connection.db.dropDatabase();
     done();
   });
 
   it('finds a user by email', function(done) {
-    User.findOne({email: 'test@test.com'}, function(err, user) {
+    User.findOneQ({email: 'test@test.com'})
+    .then(function(user) {
       user.email.should.equal('test@test.com');
       user.admin.should.equal(true);
       done();
@@ -49,8 +50,9 @@ describe("auth.js Routes", function() {
   });
 
   it('finds all users', function(done) {
-    User.find({}, function(err, user) {
-      user.length.should.equal(1);
+    User.findQ()
+    .then(function(users) {
+      users.length.should.equal(1);
       done();
     });
   });
