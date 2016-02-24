@@ -50,18 +50,18 @@ describe('charge.js Routes', function(){
     });
   });
 
-  describe('GET /products', function(){
-    it('should return a view', function(done){
-      chai.request(app)
-      .get('/products')
-      .end(function(err, res){
-        res.should.have.status(200);
-        res.should.be.html;  // jshint ignore:line
-        res.text.should.contain.string('Coconut Water');
-        done();
-      });
-    });
-  });
+  // describe('GET /products', function(){
+  //   it('should return a view', function(done){
+  //     chai.request(app)
+  //     .get('/products')
+  //     .end(function(err, res){
+  //       res.should.have.status(200);
+  //       res.should.be.html;  // jshint ignore:line
+  //       res.text.should.contain.string('Coconut Water');
+  //       done();
+  //     });
+  //   });
+  // });
 
   describe('GET /product/:id', function(){
     it('should return a view', function(done){
