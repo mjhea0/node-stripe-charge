@@ -3,7 +3,7 @@ require('dotenv').load();
 
 var express = require('express');
 var path = require('path');
-var logger = require('morgan');
+var morgan = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
@@ -50,7 +50,8 @@ app.set('views', path.join(__dirname, './views'));
 
 // *** config middleware *** //
 if (process.env.NODE_ENV !== 'test') {
-  app.use(express.logger());
+  var logger = morgan('combined');
+  app.use(logger);
 }
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
