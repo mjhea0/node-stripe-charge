@@ -14,7 +14,7 @@ chai.use(chaiHttp);
 
 describe('charge.js Routes', function(){
 
-  beforeEach(function(done) {
+  before(function(done) {
 
     mongoose.connection.db.dropDatabase();
 
@@ -32,7 +32,7 @@ describe('charge.js Routes', function(){
 
   });
 
-  afterEach(function(done) {
+  after(function(done) {
     mongoose.connection.db.dropDatabase();
     done();
   });
@@ -76,7 +76,7 @@ describe('charge.js Routes', function(){
           res.text.should.contain.string('Coconut Water');
           res.text.should.contain.string(productPrice);
           done();
-      });
+        });
       });
     });
   });
