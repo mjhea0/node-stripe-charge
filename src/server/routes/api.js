@@ -3,6 +3,7 @@ var router = express.Router();
 var mongoose = require('mongoose-q')(require('mongoose'));
 
 var passport = require('../lib/auth');
+var helpers = require('../lib/helpers');
 var User = require('../models/user');
 var Product = require('../models/product');
 
@@ -10,7 +11,7 @@ var Product = require('../models/product');
 // ** users ** //
 
 // get ALL users
-router.get('/users', ensureAdmin, function(req, res, next) {
+router.get('/users', helpers.ensureAdmin, function(req, res, next) {
   User.findQ()
   .then(function(users) {
     res.status(200)
@@ -27,7 +28,7 @@ router.get('/users', ensureAdmin, function(req, res, next) {
 });
 
 // get SINGLE user
-router.get('/user/:id', ensureAdmin, function(req, res, next) {
+router.get('/user/:id', helpers.ensureAdmin, function(req, res, next) {
   User.findByIdQ(req.params.id)
   .then(function(user) {
     res.status(200)
@@ -84,7 +85,7 @@ router.post('/users', function(req, res, next) {
 });
 
 // update single user
-router.put('/user/:id', ensureAdmin, function(req, res, next) {
+router.put('/user/:id', helpers.ensureAdmin, function(req, res, next) {
   var id = req.params.id;
   var update = req.body;
   var options = {new:true, upsert:true};
@@ -104,7 +105,7 @@ router.put('/user/:id', ensureAdmin, function(req, res, next) {
 });
 
 // delete SINGLE user
-router.delete('/user/:id', ensureAdmin, function(req, res, next) {
+router.delete('/user/:id', helpers.ensureAdmin, function(req, res, next) {
   User.findByIdAndRemoveQ(req.params.id)
   .then(function(user) {
     res.status(200)
@@ -123,7 +124,7 @@ router.delete('/user/:id', ensureAdmin, function(req, res, next) {
 
 // products
 
-router.get('/products', ensureAuthenticated, function(req, res, next) {
+router.get('/products', helpers.ensureAuthenticated, function(req, res, next) {
   Product.find({}, function (err, results) {
     if(err) {
       return next(err);
@@ -155,19 +156,5 @@ router.get('/product/:id', function(req, res, next) {
   });
 });
 
-
-function ensureAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) {
-    return next();
-  }
-  res.redirect('/auth/login');
-}
-
-function ensureAdmin(req, res, next) {
-  if (req.isAuthenticated() && req.user.admin) {
-      return next();
-  }
-  res.redirect('/auth/login');
-}
 
 module.exports = router;

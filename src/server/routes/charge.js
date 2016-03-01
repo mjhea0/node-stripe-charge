@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+
+var helpers = require('../lib/helpers');
 var User = require('../models/user.js');
 var Product = require('../models/product.js');
 
@@ -26,7 +28,7 @@ router.get('/product/:id', function(req, res, next) {
   });
 });
 
-router.get('/charge/:id', ensureAuthenticated, function(req, res, next) {
+router.get('/charge/:id', helpers.ensureAuthenticated, function(req, res, next) {
   var productID = req.params.id;
   return Product.findById(productID, function(err, data) {
     if (err) {
@@ -42,7 +44,7 @@ router.get('/stripe', function(req, res, next) {
 });
 
 
-router.post('/stripe', ensureAuthenticated, function(req, res, next) {
+router.post('/stripe', helpers.ensureAuthenticated, function(req, res, next) {
   // Obtain StripeToken
   var stripeToken = req.body.stripeToken;
   var userID = req.user._id;
@@ -82,12 +84,6 @@ router.post('/stripe', ensureAuthenticated, function(req, res, next) {
     }
   });
 });
-
-function ensureAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) { return next(); }
-  req.flash('success', 'You must be signed in to view this page!');
-  res.redirect('/auth/login');
-}
 
 
 module.exports = router;

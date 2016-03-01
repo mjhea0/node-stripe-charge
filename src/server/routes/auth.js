@@ -3,6 +3,7 @@ var router = express.Router();
 var moment = require('moment');
 
 var passport = require('../lib/auth');
+var helpers = require('../lib/helpers');
 var User = require('../models/user');
 
 
@@ -36,7 +37,7 @@ router.post('/register', function(req, res, next) {
   });
 });
 
-router.get('/login', loginRedirect, function(req, res, next){
+router.get('/login', helpers.loginRedirect, function(req, res, next){
   res.render('login', { user: req.user });
 });
 
@@ -59,17 +60,17 @@ router.post('/login', function(req, res, next) {
   })(req, res, next);
 });
 
-router.get('/logout', ensureAuthenticated, function(req, res){
+router.get('/logout', helpers.ensureAuthenticated, function(req, res){
   req.logout();
   req.flash('success', 'Successfully logged out.');
   res.redirect('/');
 });
 
-router.get('/profile', ensureAuthenticated, function(req, res){
+router.get('/profile', helpers.ensureAuthenticated, function(req, res){
   res.render('profile', { user: req.user });
 });
 
-router.get('/admin', ensureAuthenticated, function(req, res){
+router.get('/admin', helpers.ensureAuthenticated, function(req, res){
   return User.find({}, function(err, data) {
     if (err) {
       return next(err);
@@ -87,22 +88,6 @@ router.get('/admin', ensureAuthenticated, function(req, res){
     }
   });
 });
-
-
-function ensureAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) {
-    return next();
-  }
-  res.redirect('/auth/login');
-}
-
-function loginRedirect(req, res, next) {
-  if (req.isAuthenticated()) {
-    res.redirect('/');
-  } else {
-    return next();
-  }
-}
 
 
 module.exports = router;
