@@ -134,25 +134,25 @@ describe('api.js Routes', function() {
     });
   });
 
-  // describe('DELETE api/v1/users/:id', function() {
-  //   it ('should delete a single user', function(done) {
-  //     User.findQ()
-  //     .then(function(result) {
-  //       chai.request(app)
-  //       .delete('/api/v1/users/' + result[0]._id)
-  //       .end(function(err, res) {
-  //         res.should.have.status(200);
-  //         res.should.be.json;  // jshint ignore:line
-  //         res.body.status.should.equal('success');
-  //         res.body.data.email.should.equal('test@test.com');
-  //         res.body.data.admin.should.equal(true);
-  //         res.body.message.should.equal('Removed user.');
-  //         res.body.should.be.instanceof(Object);
-  //         done();
-  //       });
-  //     });
-  //   });
-  // });
+  describe('DELETE api/v1/users/:id', function() {
+    it ('should delete a single user', function(done) {
+      User.findQ()
+      .then(function(result) {
+        chai.request(app)
+        .delete('/api/v1/users/' + result[0]._id)
+        .end(function(err, res) {
+          res.should.have.status(200);
+          res.should.be.json;  // jshint ignore:line
+          res.body.status.should.equal('success');
+          res.body.data.email.should.equal('test@test.com');
+          res.body.data.admin.should.equal(true);
+          res.body.message.should.equal('Removed user.');
+          res.body.should.be.instanceof(Object);
+          done();
+        });
+      });
+    });
+  });
 
   describe('GET api/v1/products', function(){
     it ('should return all products', function(done) {
