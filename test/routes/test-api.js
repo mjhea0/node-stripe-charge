@@ -15,7 +15,7 @@ chai.use(chaiHttp);
 
 describe('api.js Routes', function() {
 
-  before(function(done) {
+  beforeEach(function(done) {
 
     mongoose.connection.db.dropDatabase();
 
@@ -34,9 +34,9 @@ describe('api.js Routes', function() {
     });
 
     newUser.saveQ()
-    .then(function(){
+    .then(function() {
       newProduct.saveQ()
-      .then(function(){
+      .then(function() {
         passportStub.install(app);
         passportStub.login(newUser);
         done();
@@ -45,7 +45,7 @@ describe('api.js Routes', function() {
 
   });
 
-  after(function(done) {
+  afterEach(function(done) {
     passportStub.logout();
     mongoose.connection.db.dropDatabase();
     done();
@@ -92,13 +92,13 @@ describe('api.js Routes', function() {
     });
   });
 
-  describe('GET api/v1/user/:id', function(){
+  describe('GET api/v1/users/:id', function(){
     it ('should return a single user', function(done) {
       User.findOneQ()
       .then(function(result) {
         var userID = result._id;
         chai.request(app)
-        .get('/api/v1/user/' + userID)
+        .get('/api/v1/users/' + userID)
         .end(function (err, res) {
           res.should.have.status(200);
           res.should.be.json;  // jshint ignore:line
@@ -113,12 +113,12 @@ describe('api.js Routes', function() {
     });
   });
 
-  describe('PUT api/v1/user/:id', function(){
+  describe('PUT api/v1/users/:id', function(){
     it ('should update a single user', function(done) {
       User.findQ()
       .then(function(result) {
         chai.request(app)
-        .put('/api/v1/user/' + result[0]._id)
+        .put('/api/v1/users/' + result[0]._id)
         .send({email:'testing@put.route', admin:false})
         .end(function(err, res) {
           res.should.have.status(200);
@@ -134,12 +134,12 @@ describe('api.js Routes', function() {
     });
   });
 
-  // describe('DELETE api/v1/user/:id', function() {
+  // describe('DELETE api/v1/users/:id', function() {
   //   it ('should delete a single user', function(done) {
   //     User.findQ()
   //     .then(function(result) {
   //       chai.request(app)
-  //       .delete('/api/v1/user/' + result[0]._id)
+  //       .delete('/api/v1/users/' + result[0]._id)
   //       .end(function(err, res) {
   //         res.should.have.status(200);
   //         res.should.be.json;  // jshint ignore:line
@@ -161,9 +161,13 @@ describe('api.js Routes', function() {
       .end(function (err, res) {
         res.should.have.status(200);
         res.should.be.json;  // jshint ignore:line
-        res.body[0].name.should.equal('Coconut Water');
+        res.body.status.should.equal('success');
+        res.body.data.length.should.equal(1);
+        res.body.data[0].name.should.equal('Coconut Water');
+        res.body.data[0].amount.should.equal(5);
+        res.body.message.should.equal('Retrieved products.');
         res.body.should.be.instanceof(Object);
-        res.body.should.be.instanceof(Array);
+        res.body.data.should.be.instanceof(Array);
         done();
       });
     });
@@ -178,24 +182,71 @@ describe('api.js Routes', function() {
       .end(function (err, res) {
         res.should.have.status(200);
         res.should.be.json;  // jshint ignore:line
-        res.body.name.should.equal('Socks');
-        res.body.amount.should.equal(22.99);
+        res.body.status.should.equal('success');
+        res.body.data.name.should.equal('Socks');
+        res.body.data.amount.should.equal(22.99);
+        res.body.message.should.equal('Created product.');
         res.body.should.be.instanceof(Object);
         done();
       });
     });
   });
 
-  describe('GET api/v1/product/:id', function(){
+  describe('GET api/v1/products/:id', function(){
     it ('should return a single product', function(done) {
-      Product.findOne({}, function (err, results) {
-        var productID = results._id;
+      Product.findOneQ()
+      .then(function(result) {
+        var productID = result._id;
         chai.request(app)
-        .get('/api/v1/product/' + productID)
+        .get('/api/v1/products/' + productID)
         .end(function (err, res) {
           res.should.have.status(200);
           res.should.be.json;  // jshint ignore:line
-          res.body.name.should.equal('Coconut Water');
+          res.body.status.should.equal('success');
+          res.body.data.name.should.equal('Coconut Water');
+          res.body.data.amount.should.equal(5);
+          res.body.message.should.equal('Retrieved product.');
+          res.body.should.be.instanceof(Object);
+          done();
+        });
+      });
+    });
+  });
+
+  describe('PUT api/v1/products/:id', function(){
+    it ('should update a single product', function(done) {
+      Product.findQ()
+      .then(function(result) {
+        chai.request(app)
+        .put('/api/v1/products/' + result[0]._id)
+        .send({name:'Soda Pop', amount:3})
+        .end(function(err, res) {
+          res.should.have.status(200);
+          res.should.be.json;  // jshint ignore:line
+          res.body.status.should.equal('success');
+          res.body.data.name.should.equal('Soda Pop');
+          res.body.data.amount.should.equal(3);
+          res.body.message.should.equal('Updated product.');
+          res.body.should.be.instanceof(Object);
+          done();
+        });
+      });
+    });
+  });
+
+  describe('DELETE api/v1/products/:id', function() {
+    it ('should delete a single product', function(done) {
+      Product.findQ()
+      .then(function(result) {
+        chai.request(app)
+        .delete('/api/v1/products/' + result[0]._id)
+        .end(function(err, res) {
+          res.should.have.status(200);
+          res.should.be.json;  // jshint ignore:line
+          res.body.status.should.equal('success');
+          res.body.data.name.should.equal('Coconut Water');
+          res.body.data.amount.should.equal(5);
+          res.body.message.should.equal('Removed product.');
           res.body.should.be.instanceof(Object);
           done();
         });

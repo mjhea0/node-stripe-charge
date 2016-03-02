@@ -56,21 +56,21 @@ $ npm cov
 
 Admin required for all routes!
 
-### User
+### Users
 
 - GET `/api/v1/users` - get all users
-- GET `/api/v1/user/:id` - get user
+- GET `/api/v1/users/:id` - get user
 - POST `/api/v1/users` - create user
-- PUT `/api/v1/user/:id` - update user
-- DELETE `/api/v1/user/:id` - delete user
+- PUT `/api/v1/users/:id` - update user
+- DELETE `/api/v1/users/:id` - delete user
 
-### Item (todo)
+### Products
 
-- GET `/items` - get all items
-- GET `/item/:id` - get item
-- POST `/items` - create item
-- PUT `/item/:id` - update item
-- DELETE `/item/:id` - delete item
+- GET `/products` - get all products
+- GET `/products/:id` - get products
+- POST `/products` - create products
+- PUT `/products/:id` - update products
+- DELETE `/products/:id` - delete products
 
 ### Store (todo)
 

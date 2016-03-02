@@ -28,7 +28,7 @@ router.get('/users', helpers.ensureAdmin, function(req, res, next) {
 });
 
 // get SINGLE user
-router.get('/user/:id', helpers.ensureAdmin, function(req, res, next) {
+router.get('/users/:id', helpers.ensureAdmin, function(req, res, next) {
   User.findByIdQ(req.params.id)
   .then(function(user) {
     res.status(200)
@@ -84,8 +84,8 @@ router.post('/users', function(req, res, next) {
   .done();
 });
 
-// update single user
-router.put('/user/:id', helpers.ensureAdmin, function(req, res, next) {
+// update SINGLE user
+router.put('/users/:id', helpers.ensureAdmin, function(req, res, next) {
   var id = req.params.id;
   var update = req.body;
   var options = {new:true, upsert:true};
@@ -105,7 +105,7 @@ router.put('/user/:id', helpers.ensureAdmin, function(req, res, next) {
 });
 
 // delete SINGLE user
-router.delete('/user/:id', helpers.ensureAdmin, function(req, res, next) {
+router.delete('/users/:id', helpers.ensureAdmin, function(req, res, next) {
   User.findByIdAndRemoveQ(req.params.id)
   .then(function(user) {
     res.status(200)
@@ -122,38 +122,98 @@ router.delete('/user/:id', helpers.ensureAdmin, function(req, res, next) {
 });
 
 
-// products
+// ** products ** //
 
-router.get('/products', helpers.ensureAuthenticated, function(req, res, next) {
-  Product.find({}, function (err, results) {
-    if(err) {
-      return next(err);
-    } else {
-      res.send(results);
-    }
-  });
+// get ALL products
+router.get('/products', helpers.ensureAdmin, function(req, res, next) {
+  Product.findQ()
+  .then(function(products) {
+    res.status(200)
+    .json({
+      status: 'success',
+      data: products,
+      message: 'Retrieved products.'
+    });
+  })
+  .catch(function(err) {
+    return next(err);
+  })
+  .done();
 });
 
-router.post('/products', function(req, res) {
-  var product = new Product({ name: req.body.name, amount: req.body.amount });
-  product.save(function(err, results) {
-    if (err) {
-      return next(err);
-    } else {
-      res.send(results);
-    }
-  });
+// get SINGLE product
+router.get('/products/:id', helpers.ensureAdmin, function(req, res, next) {
+  Product.findByIdQ(req.params.id)
+  .then(function(product) {
+    res.status(200)
+    .json({
+      status: 'success',
+      data: product,
+      message: 'Retrieved product.'
+    });
+  })
+  .catch(function(err) {
+    return next(err);
+  })
+  .done();
 });
 
-router.get('/product/:id', function(req, res, next) {
-  var productID = req.params.id;
-  Product.findById(productID, function(err, results) {
-    if(err) {
-      return next(err);
-    } else {
-      res.send(results);
-    }
+// add new product
+router.post('/products', function(req, res, next) {
+  var product = new Product({
+    name: req.body.name,
+    amount: req.body.amount
   });
+  product.saveQ()
+  .then(function(result) {
+    res.status(200)
+    .json({
+      status: 'success',
+      data: result,
+      message: 'Created product.'
+    });
+  })
+  .catch(function(err) {
+    res.send(err);
+  })
+  .done();
+});
+
+// update SINGLE product
+router.put('/products/:id', helpers.ensureAdmin, function(req, res, next) {
+  var id = req.params.id;
+  var update = req.body;
+  var options = {new:true, upsert:true};
+  Product.findByIdAndUpdateQ(id, update, options)
+  .then(function(result) {
+    res.status(200)
+    .json({
+      status: 'success',
+      data: result,
+      message: 'Updated product.'
+    });
+  })
+  .catch(function(err) {
+    res.send(err);
+  })
+  .done();
+});
+
+// delete SINGLE product
+router.delete('/products/:id', helpers.ensureAdmin, function(req, res, next) {
+  Product.findByIdAndRemoveQ(req.params.id)
+  .then(function(product) {
+    res.status(200)
+    .json({
+      status: 'success',
+      data: product,
+      message: 'Removed product.'
+    });
+  })
+  .catch(function(err) {
+    res.send(err);
+  })
+  .done();
 });
 
 
