@@ -47,41 +47,42 @@ router.get('/users/:id', helpers.ensureAdmin, function(req, res, next) {
 // add new user
 router.post('/users', function(req, res, next) {
   User.findOneQ({email: req.body.email})
-  .then(function(existingUser) {
-    if (existingUser) {
-      res.status(409)
-      .json({
-        status: 'error',
-        data: null,
-        message: 'Email is already in use.'
-      });
-    } else {
-      var user = new User({
-        email: req.body.email,
-        password: req.body.password,
-        admin: req.body.admin || false
-      });
-      user.save(function(err, results) {
-        if (err) {
-          return next(err);
-        } else {
-        res.status(200)
+    .then(function(existingUser) {
+      if (existingUser) {
+        res.status(409)
         .json({
-          status: 'success',
-          data: {
-            email: user.email,
-            admin: user.admin
-          },
-          message: 'Created user.'
+          status: 'error',
+          data: null,
+          message: 'Email is already in use.'
         });
-        }
-      });
-    }
-  })
-  .catch(function(err) {
-    return next(err);
-  })
-  .done();
+      } else {
+        var user = new User({
+          email: req.body.email,
+          password: req.body.password,
+          admin: req.body.admin || false
+        });
+        user.saveQ()
+          .then(function(result) {
+            res.status(200)
+            .json({
+              status: 'success',
+              data: {
+                email: user.email,
+                admin: user.admin
+              },
+              message: 'Created user.'
+            });
+          })
+          .catch(function(err) {
+            return next(err);
+          })
+          .done();
+      }
+    })
+    .catch(function(err) {
+      return next(err);
+    })
+    .done();
 });
 
 // update SINGLE user
