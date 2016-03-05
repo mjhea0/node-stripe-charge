@@ -8,7 +8,10 @@ var User = require('../models/user');
 
 
 router.get('/register', function(req, res, next){
-  res.render('register', { user: req.user });
+  res.render('register', {
+    user: req.user,
+    message: req.flash('message')[0]
+  });
 });
 
 
@@ -21,14 +24,20 @@ router.post('/register', function(req, res, next) {
       newUser.password = hash;
       newUser.save(function(err, results) {
         if (err) {
-          req.flash('danger', 'Sorry. That email already exists. Try again.');
+          req.flash('message', {
+            status: 'danger',
+            value: 'Sorry. That email already exists. Try again.'
+          });
           return res.redirect('/auth/register');
         } else {
           req.logIn(newUser, function(err) {
             if (err) {
               return next(err);
             }
-            req.flash('success', 'Successfully registered (and logged in).');
+            req.flash('message', {
+              status: 'success',
+              value: 'Successfully registered (and logged in).'
+            });
             return res.redirect('/');
           });
         }
@@ -38,7 +47,10 @@ router.post('/register', function(req, res, next) {
 });
 
 router.get('/login', helpers.loginRedirect, function(req, res, next){
-  res.render('login', { user: req.user });
+  res.render('login', {
+    user: req.user,
+    message: req.flash('message')[0]
+  });
 });
 
 router.post('/login', function(req, res, next) {
@@ -47,14 +59,20 @@ router.post('/login', function(req, res, next) {
       return next(err);
     }
     if (!user) {
-      req.flash('danger', 'Invalid username and/or password.');
+      req.flash('message', {
+        status: 'danger',
+        value: 'Invalid username and/or password.'
+      });
       return res.redirect('/auth/login');
     }
     req.logIn(user, function(err) {
       if (err) {
         return next(err);
       }
-      req.flash('success', 'Welcome!');
+      req.flash('message', {
+        status: 'success',
+        value: 'Welcome!'
+      });
       return res.redirect('/');
     });
   })(req, res, next);
@@ -62,12 +80,18 @@ router.post('/login', function(req, res, next) {
 
 router.get('/logout', helpers.ensureAuthenticated, function(req, res){
   req.logout();
-  req.flash('success', 'Successfully logged out.');
+  req.flash('message', {
+    status: 'success',
+    value: 'Successfully logged out.'
+  });
   res.redirect('/');
 });
 
 router.get('/profile', helpers.ensureAuthenticated, function(req, res){
-  res.render('profile', { user: req.user });
+  res.render('profile', {
+    user: req.user,
+    message: req.flash('message')[0]
+  });
 });
 
 router.get('/admin', helpers.ensureAuthenticated, function(req, res){

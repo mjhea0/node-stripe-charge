@@ -54,7 +54,10 @@ router.post('/stripe', helpers.ensureAuthenticated, function(req, res, next) {
       return next(err);
     } else {
       if (parseInt(req.body.productAmount) !== data.amount) {
-        req.flash('success', 'Error!');
+        req.flash('message', {
+          status: 'danger',
+          value: 'Error!'
+        });
         return res.redirect('/');
       } else {
         // Get product details
@@ -76,7 +79,10 @@ router.post('/stripe', helpers.ensureAuthenticated, function(req, res, next) {
           if(err) {
             return next(err);
           } else {
-            req.flash('success', 'Thanks for purchasing a '+req.body.productName+'!');
+            req.flash('message', {
+              status: 'success',
+              value: 'Thanks for purchasing a '+req.body.productName+'!'
+            });
             res.redirect('auth/profile');
           }
         });
