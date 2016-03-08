@@ -13,7 +13,7 @@ var User = require('../../models/user');
 router.get('/users', helpers.ensureAdmin, function(req, res, next) {
   User.findQ()
   .then(function(users) {
-    res.status(200)
+    return res.status(200)
     .json({
       status: 'success',
       data: users,
@@ -55,11 +55,7 @@ router.post('/users', helpers.ensureAdmin, function(req, res, next) {
           message: 'Email is already in use.'
         });
       } else {
-        var user = new User({
-          email: req.body.email,
-          password: req.body.password,
-          admin: req.body.admin || false
-        });
+        var user = new User(req.body);
         user.saveQ()
           .then(function(result) {
             res.status(200)

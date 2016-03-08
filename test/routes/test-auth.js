@@ -107,17 +107,17 @@ describe("auth.js Routes", function() {
 
   describe('GET auth/logout', function() {
 
-    // it ('should redirect to "/" if user is logged in', function(done) {
-    //   chai.request(app)
-    //   .get('/auth/logout')
-    //   .end(function (err, res) {
-    //     res.should.have.status(200);
-    //     res.redirects[0].should.contain('/');
-    //     res.should.be.html;  // jshint ignore:line
-    //     res.text.should.contain('<h1>Node + Stripe + Express</h1>');
-    //     done();
-    //   });
-    // });
+    it ('should redirect to "/" if user is logged in', function(done) {
+      chai.request(app)
+      .get('/auth/logout')
+      .end(function (err, res) {
+        res.should.have.status(200);
+        res.redirects[0].should.contain('/');
+        res.should.be.html;  // jshint ignore:line
+        res.text.should.contain('<h1>Node + Stripe + Express</h1>');
+        done();
+      });
+    });
 
     it ('should redirect to "/auth/login" if user is NOT logged in', function(done) {
       passportStub.logout();

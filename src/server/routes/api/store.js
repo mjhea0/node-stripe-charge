@@ -4,7 +4,7 @@ var mongoose = require('mongoose-q')(require('mongoose'));
 
 var passport = require('../../lib/auth');
 var helpers = require('../../lib/helpers');
-var Store = require('../../models/user');
+var Store = require('../../models/store');
 
 
 // ** stores ** //
@@ -27,7 +27,7 @@ router.get('/stores', helpers.ensureAdmin, function(req, res, next) {
 });
 
 // get SINGLE store
-router.get('/store/:id', helpers.ensureAdmin, function(req, res, next) {
+router.get('/stores/:id', helpers.ensureAdmin, function(req, res, next) {
   Store.findByIdQ(req.params.id)
   .then(function(store) {
     res.status(200)
@@ -43,33 +43,33 @@ router.get('/store/:id', helpers.ensureAdmin, function(req, res, next) {
   .done();
 });
 
-// add new store
+// add new product
 router.post('/stores', helpers.ensureAdmin, function(req, res, next) {
   var store = new Store({
     'name': req.body.name,
     'description': req.body.description,
-    'cost': req.body.cost
   });
-  store.save(function() {
+  store.saveQ()
+  .then(function(result) {
     res.status(200)
     .json({
       status: 'success',
-      data: {
-        name: store.name,
-        description: store.description,
-        cost: store.cost
-      },
+      data: result,
       message: 'Created store.'
     });
-  });
+  })
+  .catch(function(err) {
+    return next(err);
+  })
+  .done();
 });
 
 // update single store
-router.put('/store/:id', helpers.ensureAdmin, function(req, res, next) {
+router.put('/stores/:id', helpers.ensureAdmin, function(req, res, next) {
   var id = req.params.id;
   var update = req.body;
   var options = {new:true, upsert:true};
-  store.findByIdAndUpdateQ(id, update, options)
+  Store.findByIdAndUpdateQ(id, update, options)
   .then(function(result) {
     res.status(200)
     .json({
@@ -79,13 +79,13 @@ router.put('/store/:id', helpers.ensureAdmin, function(req, res, next) {
     });
   })
   .catch(function(err) {
-    res.send(err);
+    return next(err);
   })
   .done();
 });
 
 // delete SINGLE store
-router.delete('/store/:id', helpers.ensureAdmin, function(req, res, next) {
+router.delete('/stores/:id', helpers.ensureAdmin, function(req, res, next) {
   Store.findByIdAndRemoveQ(req.params.id)
   .then(function(store) {
     res.status(200)
