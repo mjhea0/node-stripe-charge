@@ -15,7 +15,7 @@ chai.use(chaiHttp);
 
 describe('Product API Routes', function() {
 
-  beforeEach(function(done) {
+  before(function(done) {
 
     mongoose.connection.db.dropDatabase();
 
@@ -45,7 +45,7 @@ describe('Product API Routes', function() {
 
   });
 
-  afterEach(function(done) {
+  after(function(done) {
     passportStub.logout();
     mongoose.connection.db.dropDatabase();
     done();
