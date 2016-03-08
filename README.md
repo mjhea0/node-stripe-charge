@@ -72,7 +72,7 @@ Admin required for all routes!
 - PUT `/products/:id` - update products
 - DELETE `/products/:id` - delete products
 
-### Store (todo)
+### Store (todo - need to add tests)
 
 - GET `/stores` - get all stores
 - GET `/store/:id` - get store

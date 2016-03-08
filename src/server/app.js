@@ -31,7 +31,9 @@ var config = require('../_config');
 var mainRoutes = require('./routes/index');
 var authRoutes = require('./routes/auth');
 var chargeRoutes = require('./routes/charge');
-var apiRoutes = require('./routes/api');
+var productAPIRoutes = require('./routes/api/product');
+var storeAPIRoutes = require('./routes/api/store');
+var userAPIRoutes = require('./routes/api/user');
 
 
 // *** express instance *** //
@@ -81,7 +83,9 @@ mongoose.connect(app.get('dbUrl'));
 app.use('/', mainRoutes);
 app.use('/', chargeRoutes);
 app.use('/auth', authRoutes);
-app.use('/api/v1/', apiRoutes);
+app.use('/api/v1/', productAPIRoutes);
+app.use('/api/v1/', storeAPIRoutes);
+app.use('/api/v1/', userAPIRoutes);
 
 
 // *** error handlers *** //
