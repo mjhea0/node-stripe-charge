@@ -9,12 +9,13 @@ var app = require('../../src/server/app');
 var User = require('../../src/server/models/user');
 var should = chai.should();
 
+passportStub.install(app);
 chai.use(chaiHttp);
 
 
 describe('User API Routes', function() {
 
-  before(function(done) {
+  beforeEach(function(done) {
 
     mongoose.connection.db.dropDatabase();
 
@@ -26,17 +27,17 @@ describe('User API Routes', function() {
     });
 
     newUser.saveQ()
-    .then(function() {
-      passportStub.login(newUser);
+    .then(function(user) {
+      passportStub.login(user);
       done();
     });
 
   });
 
-  after(function(done) {
-    passportStub.logout();
-    mongoose.connection.db.dropDatabase();
-    done();
+  afterEach(function(done) {
+    mongoose.connection.db.dropDatabase(function() {
+      done();
+    });
   });
 
   describe('GET api/v1/users', function(){
@@ -80,26 +81,26 @@ describe('User API Routes', function() {
     });
   });
 
-  // describe('GET api/v1/users/:id', function(){
-  //   it ('should return a single user', function(done) {
-  //     User.findOneQ()
-  //     .then(function(result) {
-  //       var userID = result._id;
-  //       chai.request(app)
-  //       .get('/api/v1/users/' + userID)
-  //       .end(function (err, res) {
-  //         res.should.have.status(200);
-  //         res.should.be.json;  // jshint ignore:line
-  //         res.body.status.should.equal('success');
-  //         res.body.data.email.should.equal('test@test.com');
-  //         res.body.data.admin.should.equal(true);
-  //         res.body.message.should.equal('Retrieved user.');
-  //         res.body.should.be.instanceof(Object);
-  //         done();
-  //       });
-  //     });
-  //   });
-  // });
+  describe('GET api/v1/users/:id', function(){
+    it ('should return a single user', function(done) {
+      User.findOneQ()
+      .then(function(result) {
+        var userID = result._id;
+        chai.request(app)
+        .get('/api/v1/users/' + userID)
+        .end(function (err, res) {
+          res.should.have.status(200);
+          res.should.be.json;  // jshint ignore:line
+          res.body.status.should.equal('success');
+          res.body.data.email.should.equal('test@test.com');
+          res.body.data.admin.should.equal(true);
+          res.body.message.should.equal('Retrieved user.');
+          res.body.should.be.instanceof(Object);
+          done();
+        });
+      });
+    });
+  });
 
   describe('PUT api/v1/users/:id', function(){
     it ('should update a single user', function(done) {

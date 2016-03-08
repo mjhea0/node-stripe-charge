@@ -10,12 +10,13 @@ var Product = require('../../src/server/models/product.js');
 var User = require('../../src/server/models/user.js');
 var should = chai.should();
 
+passportStub.install(app);
 chai.use(chaiHttp);
 
 
 describe('Product API Routes', function() {
 
-  before(function(done) {
+  beforeEach(function(done) {
 
     mongoose.connection.db.dropDatabase();
 
@@ -36,19 +37,18 @@ describe('Product API Routes', function() {
     newProduct.saveQ()
     .then(function() {
       newUser.saveQ()
-      .then(function() {
-        passportStub.install(app);
-        passportStub.login(newUser);
+      .then(function(user) {
+        passportStub.login(user);
         done();
       });
     });
 
   });
 
-  after(function(done) {
-    passportStub.logout();
-    mongoose.connection.db.dropDatabase();
-    done();
+  afterEach(function(done) {
+    mongoose.connection.db.dropDatabase(function() {
+      done();
+    });
   });
 
   describe('GET api/v1/products', function(){

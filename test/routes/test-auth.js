@@ -9,12 +9,13 @@ var app = require('../../src/server/app');
 var User = require('../../src/server/models/user.js');
 var should = chai.should();
 
+passportStub.install(app);
 chai.use(chaiHttp);
 
 
 describe("auth.js Routes", function() {
 
-  before(function(done) {
+  beforeEach(function(done) {
 
     mongoose.connection.db.dropDatabase();
 
@@ -26,18 +27,17 @@ describe("auth.js Routes", function() {
     });
 
     newUser.saveQ()
-    .then(function() {
-      passportStub.install(app);
-      passportStub.login(newUser);
+    .then(function(user) {
+      passportStub.login(user);
       done();
     });
 
   });
 
-  after(function(done) {
-    passportStub.logout();
-    mongoose.connection.db.dropDatabase();
-    done();
+  afterEach(function(done) {
+    mongoose.connection.db.dropDatabase(function() {
+      done();
+    });
   });
 
   describe('GET auth/login', function() {
@@ -53,17 +53,17 @@ describe("auth.js Routes", function() {
       });
     });
 
-    // it ('should redirect to "/" if user is logged in', function(done) {
-    //   chai.request(app)
-    //   .get('/auth/login')
-    //   .end(function (err, res) {
-    //     res.should.have.status(200);
-    //     res.redirects[0].should.contain('/');
-    //     res.should.be.html;  // jshint ignore:line
-    //     res.text.should.contain('<h1>Node + Stripe + Express</h1>');
-    //     done();
-    //   });
-    // });
+    it ('should redirect to "/" if user is logged in', function(done) {
+      chai.request(app)
+      .get('/auth/login')
+      .end(function (err, res) {
+        res.should.have.status(200);
+        res.redirects[0].should.contain('/');
+        res.should.be.html;  // jshint ignore:line
+        res.text.should.contain('<h1>Node + Stripe + Express</h1>');
+        done();
+      });
+    });
 
   });
 
