@@ -10,7 +10,8 @@ var Store = require('../../models/store');
 // ** stores ** //
 
 // get ALL stores
-router.get('/stores', helpers.ensureAdmin, function(req, res, next) {
+router.get('/stores', helpers.ensureAdminJSON,
+  function(req, res, next) {
   Store.findQ()
   .then(function(stores) {
     res.status(200)
@@ -27,7 +28,8 @@ router.get('/stores', helpers.ensureAdmin, function(req, res, next) {
 });
 
 // get SINGLE store
-router.get('/stores/:id', helpers.ensureAdmin, function(req, res, next) {
+router.get('/stores/:id', helpers.ensureAdminJSON,
+  function(req, res, next) {
   Store.findByIdQ(req.params.id)
   .then(function(store) {
     res.status(200)
@@ -44,7 +46,8 @@ router.get('/stores/:id', helpers.ensureAdmin, function(req, res, next) {
 });
 
 // add new product
-router.post('/stores', helpers.ensureAdmin, function(req, res, next) {
+router.post('/stores', helpers.ensureAdminJSON,
+  function(req, res, next) {
   var store = new Store({
     'name': req.body.name,
     'description': req.body.description,
@@ -65,7 +68,8 @@ router.post('/stores', helpers.ensureAdmin, function(req, res, next) {
 });
 
 // update single store
-router.put('/stores/:id', helpers.ensureAdmin, function(req, res, next) {
+router.put('/stores/:id', helpers.ensureAdminJSON,
+  function(req, res, next) {
   var id = req.params.id;
   var update = req.body;
   var options = {new:true, upsert:true};
@@ -85,7 +89,8 @@ router.put('/stores/:id', helpers.ensureAdmin, function(req, res, next) {
 });
 
 // delete SINGLE store
-router.delete('/stores/:id', helpers.ensureAdmin, function(req, res, next) {
+router.delete('/stores/:id', helpers.ensureAdminJSON,
+  function(req, res, next) {
   Store.findByIdAndRemoveQ(req.params.id)
   .then(function(store) {
     res.status(200)

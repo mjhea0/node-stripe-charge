@@ -13,7 +13,7 @@ passportStub.install(app);
 chai.use(chaiHttp);
 
 
-describe('User API Routes', function() {
+describe('User API Routes when authenticated', function() {
 
   beforeEach(function(done) {
 
@@ -136,6 +136,136 @@ describe('User API Routes', function() {
           res.body.data.email.should.equal('test@test.com');
           res.body.data.admin.should.equal(true);
           res.body.message.should.equal('Removed user.');
+          res.body.should.be.instanceof(Object);
+          done();
+        });
+      });
+    });
+  });
+
+});
+
+describe('User API Routes when NOT authenticated', function() {
+
+  beforeEach(function(done) {
+
+    mongoose.connection.db.dropDatabase();
+
+    var newUser = new User({
+      email: 'test@test.com',
+      password: 'test',
+      admin: false,
+      products: [{token:'12345'}]
+    });
+
+    newUser.saveQ()
+    .then(function() {
+      passportStub.logout();
+      done();
+    });
+
+  });
+
+  afterEach(function(done) {
+    mongoose.connection.db.dropDatabase(function() {
+      done();
+    });
+  });
+
+  describe('GET api/v1/users', function(){
+    it ('should return all users', function(done) {
+      chai.request(app)
+      .get('/api/v1/users')
+      .end(function (err, res) {
+        res.should.have.status(401);
+        res.should.be.json;  // jshint ignore:line
+        res.body.status.should.equal('error');
+        res.body.message.should.equal(
+          'You do not have permission to do that.'
+        );
+        res.body.should.be.instanceof(Object);
+        done();
+      });
+    });
+  });
+
+  describe('POST api/v1/users', function(){
+    it ('should add a user', function(done) {
+      var user = {
+        email: 'your@name.com',
+        password: 'name123456'
+      };
+      chai.request(app)
+      .post('/api/v1/users')
+      .send(user)
+      .end(function (err, res) {
+        res.should.have.status(401);
+        res.should.be.json;  // jshint ignore:line
+        res.body.status.should.equal('error');
+        res.body.message.should.equal(
+          'You do not have permission to do that.'
+        );
+        res.body.should.be.instanceof(Object);
+        done();
+      });
+    });
+  });
+
+  describe('GET api/v1/users/:id', function(){
+    it ('should return a single user', function(done) {
+      User.findOneQ()
+      .then(function(result) {
+        var userID = result._id;
+        chai.request(app)
+        .get('/api/v1/users/' + userID)
+        .end(function (err, res) {
+          res.should.have.status(401);
+          res.should.be.json;  // jshint ignore:line
+          res.body.status.should.equal('error');
+          res.body.message.should.equal(
+            'You do not have permission to do that.'
+          );
+          res.body.should.be.instanceof(Object);
+          done();
+        });
+      });
+    });
+  });
+
+  describe('PUT api/v1/users/:id', function(){
+    it ('should update a single user', function(done) {
+      User.findQ()
+      .then(function(result) {
+        chai.request(app)
+        .put('/api/v1/users/' + result[0]._id)
+        .send({email:'testing@put.route', admin:false})
+        .end(function(err, res) {
+          res.should.have.status(401);
+          res.should.be.json;  // jshint ignore:line
+          res.body.status.should.equal('error');
+          res.body.message.should.equal(
+            'You do not have permission to do that.'
+          );
+          res.body.should.be.instanceof(Object);
+          done();
+        });
+      });
+    });
+  });
+
+  describe('DELETE api/v1/users/:id', function() {
+    it ('should delete a single user', function(done) {
+      User.findQ()
+      .then(function(result) {
+        chai.request(app)
+        .delete('/api/v1/users/' + result[0]._id)
+        .end(function(err, res) {
+          res.should.have.status(401);
+          res.should.be.json;  // jshint ignore:line
+          res.body.status.should.equal('error');
+          res.body.message.should.equal(
+            'You do not have permission to do that.'
+          );
           res.body.should.be.instanceof(Object);
           done();
         });

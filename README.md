@@ -43,7 +43,7 @@ $ npm test
 With code coverage:
 
 ```sh
-$ npm cov
+$ npm run cov
 ```
 
 ## Changelog

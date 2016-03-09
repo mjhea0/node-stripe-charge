@@ -10,7 +10,8 @@ var User = require('../../models/user');
 // ** users ** //
 
 // get ALL users
-router.get('/users', helpers.ensureAdmin, function(req, res, next) {
+router.get('/users', helpers.ensureAdminJSON,
+  function(req, res, next) {
   User.findQ()
   .then(function(users) {
     return res.status(200)
@@ -27,7 +28,8 @@ router.get('/users', helpers.ensureAdmin, function(req, res, next) {
 });
 
 // get SINGLE user
-router.get('/users/:id', helpers.ensureAdmin, function(req, res, next) {
+router.get('/users/:id', helpers.ensureAdminJSON,
+  function(req, res, next) {
   User.findByIdQ(req.params.id)
   .then(function(user) {
     res.status(200)
@@ -44,7 +46,8 @@ router.get('/users/:id', helpers.ensureAdmin, function(req, res, next) {
 });
 
 // add new user
-router.post('/users', helpers.ensureAdmin, function(req, res, next) {
+router.post('/users', helpers.ensureAdminJSON,
+  function(req, res, next) {
   User.findOneQ({email: req.body.email})
     .then(function(existingUser) {
       if (existingUser) {
@@ -81,7 +84,8 @@ router.post('/users', helpers.ensureAdmin, function(req, res, next) {
 });
 
 // update SINGLE user
-router.put('/users/:id', helpers.ensureAdmin, function(req, res, next) {
+router.put('/users/:id', helpers.ensureAdminJSON,
+  function(req, res, next) {
   var id = req.params.id;
   var update = req.body;
   var options = {new:true, upsert:true};
@@ -101,7 +105,8 @@ router.put('/users/:id', helpers.ensureAdmin, function(req, res, next) {
 });
 
 // delete SINGLE user
-router.delete('/users/:id', helpers.ensureAdmin, function(req, res, next) {
+router.delete('/users/:id', helpers.ensureAdminJSON,
+  function(req, res, next) {
   User.findByIdAndRemoveQ(req.params.id)
   .then(function(user) {
     res.status(200)
