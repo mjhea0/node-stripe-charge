@@ -7,9 +7,20 @@ function ensureAuthenticated(req, res, next) {
 
 function ensureAdmin(req, res, next) {
   if (req.isAuthenticated() && req.user.admin) {
-      return next();
+    return next();
   }
   res.redirect('/auth/login');
+}
+
+function ensureAdminJSON(req, res, next) {
+  if (req.isAuthenticated() && req.user.admin) {
+    return next();
+  }
+  res.status(401)
+  .json({
+    status: 'error',
+    message: 'You do not have permission to do that.'
+  });
 }
 
 function loginRedirect(req, res, next) {
@@ -24,5 +35,6 @@ function loginRedirect(req, res, next) {
 module.exports = {
   ensureAuthenticated: ensureAuthenticated,
   ensureAdmin: ensureAdmin,
+  ensureAdminJSON: ensureAdminJSON,
   loginRedirect: loginRedirect
 };

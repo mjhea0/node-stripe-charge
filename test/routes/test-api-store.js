@@ -129,24 +129,4 @@ describe('Store API Routes', function() {
     });
   });
 
-  // describe('DELETE api/v1/stores/:id', function() {
-  //   it ('should delete a single store', function(done) {
-  //     Store.findQ()
-  //     .then(function(result) {
-  //       chai.request(app)
-  //       .delete('/api/v1/stores/' + result[0]._id)
-  //       .end(function(err, res) {
-  //         res.should.have.status(200);
-  //         res.should.be.json;  // jshint ignore:line
-  //         res.body.status.should.equal('success');
-  //         res.body.data.name.should.equal('Toys');
-  //         res.body.data.description.should.equal('Just a toy store');
-  //         res.body.message.should.equal('Removed store.');
-  //         res.body.should.be.instanceof(Object);
-  //         done();
-  //       });
-  //     });
-  //   });
-  // });
-
 });

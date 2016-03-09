@@ -10,7 +10,8 @@ var Product = require('../../models/product');
 // ** products ** //
 
 // get ALL products
-router.get('/products', helpers.ensureAdmin, function(req, res, next) {
+router.get('/products', helpers.ensureAdminJSON,
+  function(req, res, next) {
   Product.findQ()
   .then(function(products) {
     res.status(200)
@@ -27,7 +28,8 @@ router.get('/products', helpers.ensureAdmin, function(req, res, next) {
 });
 
 // get SINGLE product
-router.get('/products/:id', helpers.ensureAdmin, function(req, res, next) {
+router.get('/products/:id', helpers.ensureAdminJSON,
+  function(req, res, next) {
   Product.findByIdQ(req.params.id)
   .then(function(product) {
     res.status(200)
@@ -44,7 +46,8 @@ router.get('/products/:id', helpers.ensureAdmin, function(req, res, next) {
 });
 
 // add new product
-router.post('/products', helpers.ensureAdmin, function(req, res, next) {
+router.post('/products', helpers.ensureAdminJSON,
+  function(req, res, next) {
   var product = new Product({
     name: req.body.name,
     amount: req.body.amount
@@ -65,7 +68,8 @@ router.post('/products', helpers.ensureAdmin, function(req, res, next) {
 });
 
 // update SINGLE product
-router.put('/products/:id', helpers.ensureAdmin, function(req, res, next) {
+router.put('/products/:id', helpers.ensureAdminJSON,
+  function(req, res, next) {
   var id = req.params.id;
   var update = req.body;
   var options = {new:true, upsert:true};
@@ -85,7 +89,8 @@ router.put('/products/:id', helpers.ensureAdmin, function(req, res, next) {
 });
 
 // delete SINGLE product
-router.delete('/products/:id', helpers.ensureAdmin, function(req, res, next) {
+router.delete('/products/:id', helpers.ensureAdminJSON,
+  function(req, res, next) {
   Product.findByIdAndRemoveQ(req.params.id)
   .then(function(product) {
     res.status(200)
