@@ -6,6 +6,8 @@
 
 This is a template for you to use on your own projects for processing one-time Stripe charges. Follow the directions below to get started.
 
+> Looking for a simple example? [Node Stripe Example](https://github.com/mjhea0/node-stripe-example)
+
 The back-end API includes:
 
 1. User auth
