@@ -23,7 +23,17 @@ router.get('/product/:id', function(req, res, next) {
     if(err) {
       return next(err);
     } else {
-      return res.render('product', {product: data, user: req.user});
+      if(!req.user) {
+        req.flash('message', {
+          status: 'danger',
+          value: 'Please log in to Purchase!'
+        });
+      }
+      return res.render('product', {
+        product: data,
+        user: req.user,
+        message: req.flash('message')[0]
+      });
     }
   });
 });
