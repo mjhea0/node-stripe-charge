@@ -89,7 +89,7 @@ module.exports = {
         "no-unused-expressions": "error",
         "block-scoped-var": "error",
         "radix": "warn",
-        "consistent-return": "error",
+        "consistent-return": "off",
         "default-case": "error",
         "operator-assignment": "off",
         "no-lonely-if": "off",
