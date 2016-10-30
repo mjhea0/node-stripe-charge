@@ -7,11 +7,12 @@ $(document).ready(function() {
 
   $('#payment-form').submit(function(event) {
     $('#charge-error').hide();
-    var $form = $(this);
+    const $form = $(this);
     $form.find('button').prop('disabled', true);
     Stripe.card.createToken($form, stripeResponseHandler);
     return false;
   });
+  
 
   function stripeResponseHandler(status, response) {
     if (response.error) {
