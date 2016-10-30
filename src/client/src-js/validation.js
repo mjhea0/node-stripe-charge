@@ -1,18 +1,16 @@
-'use strict';
-
 // jquery payment
 
-$(function () {
+$(function() {
 
   $('[data-numeric]').payment('restrictNumeric');
   $('.cc-number').payment('formatCardNumber');
   $('.cc-exp').payment('formatCardExpiry');
   $('.cc-cvc').payment('formatCardCVC');
-  $.fn.toggleInputError = function (erred) {
+  $.fn.toggleInputError = function(erred) {
     this.parent('.form-group').toggleClass('has-error', erred);
     return this;
   };
-  $('form').submit(function (e) {
+  $('form').submit(function(e) {
     e.preventDefault();
     var cardType = $.payment.cardType($('.cc-number').val());
     $('.cc-number').toggleInputError(!$.payment.validateCardNumber($('.cc-number').val()));
@@ -22,4 +20,5 @@ $(function () {
     $('.validation').removeClass('text-danger text-success');
     $('.validation').addClass($('.has-error').length ? 'text-danger' : 'text-success');
   });
+
 });
