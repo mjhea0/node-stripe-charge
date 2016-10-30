@@ -158,8 +158,13 @@ module.exports = {
         "process": false,
         "describe": false,
         "it": false,
+        "xit": false,
+        "iit": false,
         "beforeEach": false,
         "afterEach": false,
+        "before": false,
+        "after": false,
+        "should": false,
         "module": true,
         "__dirname": false
     }
