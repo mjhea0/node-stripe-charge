@@ -9,10 +9,7 @@ module.exports = {
     },
     "rules": {
         "prefer-arrow-callback": "error",
-        "one-var": [
-            "warn",
-            "always"
-        ],
+        "one-var": "off",
         "no-var": "error",
         "prefer-const": "error",
         "no-param-reassign": [
@@ -30,7 +27,7 @@ module.exports = {
         "no-mixed-spaces-and-tabs": "error",
         "prefer-template": "error",
         "newline-per-chained-call": "error",
-        "indent": ["error", 2],
+        "indent": ["error", 2, { "SwitchCase": 1 }],
         "dot-location": ["error", "property"],
         "quotes": ["error", "single"],
         "object-curly-spacing": [
@@ -63,11 +60,11 @@ module.exports = {
         "no-useless-escape": "error",
         "one-var-declaration-per-line": "off",
         "vars-on-top": "error",
-        "no-mixed-operators": "error",
+        "no-mixed-operators": "off",
         "no-prototype-builtins": "warn",
         "object-property-newline": "error",
         "prefer-rest-params": "error",
-        "no-shadow": "error",
+        "no-shadow": "off",
         "no-undef": "error",
         "no-unused-vars": "error",
         "no-spaced-func": "error",
@@ -135,7 +132,7 @@ module.exports = {
             "error",
             "as-needed"
         ],
-        "no-tabs": "error",
+        "no-tabs": "off",
         "no-bitwise": "off",
         "class-methods-use-this": "off",
         "func-call-spacing": "off",
@@ -144,14 +141,7 @@ module.exports = {
             "never"
         ],
         "strict": "off", // 'use strict' is unnecessary inside of modules
-        "max-lines": [
-            "error",
-            {
-                "max": 1000,
-                "skipBlankLines": true,
-                "skipComments": true
-            }
-        ]
+        "max-lines": "off"
     },
     "globals": {
         "require": false,
