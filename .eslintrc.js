@@ -157,5 +157,13 @@ module.exports = {
                 "skipComments": true
             }
         ]
+    },
+    "globals": {
+        "require": false,
+        "process": false,
+        "describe": false,
+        "it": false,
+        "beforeEach": false,
+        "afterEach": false
     }
 };
