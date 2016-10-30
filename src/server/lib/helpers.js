@@ -33,8 +33,8 @@ function loginRedirect(req, res, next) {
 
 
 module.exports = {
-  ensureAuthenticated: ensureAuthenticated,
-  ensureAdmin: ensureAdmin,
-  ensureAdminJSON: ensureAdminJSON,
-  loginRedirect: loginRedirect
+  ensureAuthenticated,
+  ensureAdmin,
+  ensureAdminJSON,
+  loginRedirect
 };
