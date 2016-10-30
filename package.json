@@ -50,6 +50,7 @@
   "devDependencies": {
     "assert": "^1.3.0",
     "coveralls": "^2.11.6",
+    "eslint": "^3.9.0",
     "gulp": "^3.9.0",
     "gulp-jshint": "^2.0.0",
     "gulp-mocha": "*",
