@@ -30,8 +30,8 @@ module.exports = {
         "no-mixed-spaces-and-tabs": "error",
         "prefer-template": "error",
         "newline-per-chained-call": "error",
-        "indent": "error",
-        "dot-location": "error",
+        "indent": ["error", 2],
+        "dot-location": ["error", "property"],
         "quotes": ["error", "single"],
         "object-curly-spacing": [
             "error",
@@ -44,7 +44,7 @@ module.exports = {
         "comma-spacing": "error",
         "key-spacing": "error",
         "block-spacing": "error",
-        "padded-blocks": "warn",
+        "padded-blocks": "off",
         "space-before-function-paren": [
             "error",
             "never"
@@ -52,12 +52,7 @@ module.exports = {
         "spaced-comment": "error",
         "object-shorthand": "error",
         "array-bracket-spacing": "off",
-        "no-console": [
-            "error",
-            {
-                "allow": ["info", "warn", "error"]
-            }
-        ],
+        "no-console": "off",
         "max-len": [
             "error",
             140
