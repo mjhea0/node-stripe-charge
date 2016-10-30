@@ -1,8 +1,8 @@
-var mongoose = require('mongoose');
-var bcrypt = require('bcryptjs');
+const mongoose = require('mongoose'),
+  bcrypt = require('bcryptjs');
 
-var Schema = mongoose.Schema;
-var SALT_WORK_FACTOR;
+const Schema = mongoose.Schema;
+let SALT_WORK_FACTOR;
 
 if (process.env.NODE_ENV === 'test') {
   SALT_WORK_FACTOR = 1;
@@ -20,7 +20,10 @@ var User = new Schema({
     {
       productID: String,
       token: String,
-      time: { type: Date, default: Date.now }
+      time: {
+        type: Date,
+        default: Date.now
+      }
     }
   ],
   password: {
@@ -33,22 +36,22 @@ var User = new Schema({
   }
 });
 
-User.methods.generateHash = function(password, callback) {
-  bcrypt.genSalt(10, function(err, salt) {
+User.methods.generateHash = (password, callback) => {
+  bcrypt.genSalt(10, (err, salt) => {
     if (err) {
       return next(err);
     }
-    bcrypt.hash(password, salt, function(err, hash) {
-      if (err) {
-        return next(err);
+    bcrypt.hash(password, salt, (error, hash) => {
+      if (error) {
+        return next(error);
       }
-      return callback(err, hash);
+      return callback(error, hash);
     });
   });
 };
 
 User.methods.comparePassword = function(password, done) {
-  bcrypt.compare(password, this.password, function(err, isMatch) {
+  bcrypt.compare(password, this.password, (err, isMatch) => {
     if (err) {
       return done(err);
     }
