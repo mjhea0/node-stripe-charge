@@ -1,17 +1,17 @@
 process.env.NODE_ENV = 'test';
 
-var chai = require('chai');
-var chaiHttp = require('chai-http');
+const chai = require('chai'),
+  chaiHttp = require('chai-http'),
 
-var app = require('../src/server/app');
-var should = chai.should();
+  // app = require('../src/server/app'),
+  should = chai.should(); // eslint-disable-line no-unused-vars
 
 chai.use(chaiHttp);
 
 
-describe('app environment', function(){
+describe('app environment', () => {
 
-  it ('should be "test"', function(done) {
+  it('should be "test"', done => {
     process.env.NODE_ENV.should.equal('test');
     process.env.NODE_ENV.should.not.equal('development');
     process.env.NODE_ENV.should.not.equal('stage');

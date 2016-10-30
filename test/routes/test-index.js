@@ -1,38 +1,38 @@
 process.env.NODE_ENV = 'test';
 
-var chai = require('chai');
-var chaiHttp = require('chai-http');
+const chai = require('chai'),
+  chaiHttp = require('chai-http'),
 
-var app = require('../../src/server/app');
-var should = chai.should();
+  app = require('../../src/server/app'),
+  should = chai.should(); // eslint-disable-line no-unused-vars
 
 chai.use(chaiHttp);
 
 
-describe('index.js Routes', function(){
+describe('index.js Routes', () => {
 
-  describe('GET /', function(){
-    it('should return a view', function(done){
+  describe('GET /', () => {
+    it('should return a view', done => {
       chai.request(app)
-      .get('/')
-      .end(function(err, res){
-        res.should.have.status(200);
-        res.should.be.html;  // jshint ignore:line
-        res.text.should.contain.contain('<h1>Node + Stripe + Express</h1>');
-        done();
-      });
+        .get('/')
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.should.be.html; // eslint-disable-line no-unused-expressions
+          res.text.should.contain.contain('<h1>Node + Stripe + Express</h1>');
+          done();
+        });
     });
   });
 
-  describe('GET /ping', function(){
-    it('should return a view', function(done){
+  describe('GET /ping', () => {
+    it('should return a view', done => {
       chai.request(app)
-      .get('/ping')
-      .end(function(err, res){
-        res.should.have.status(200);
-        res.text.should.contain.equal('pong!');
-        done();
-      });
+        .get('/ping')
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.text.should.contain.equal('pong!');
+          done();
+        });
     });
   });
 

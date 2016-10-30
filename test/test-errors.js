@@ -1,29 +1,27 @@
 process.env.NODE_ENV = 'test';
 
-var chai = require('chai');
-var chaiHttp = require('chai-http');
+const chai = require('chai'),
+  chaiHttp = require('chai-http'),
 
-var app = require('../src/server/app');
-var should = chai.should();
+  app = require('../src/server/app'),
+  should = chai.should(); // eslint-disable-line no-unused-vars
 
 chai.use(chaiHttp);
 
 
-describe('error handlers', function(){
-
-  describe('GET /does_not_exist', function(){
-    it('should return a 404 view', function(done){
+describe('error handlers', () => {
+  describe('GET /does_not_exist', () => {
+    it('should return a 404 view', done => {
       chai.request(app)
-      .get('/does_not_exist')
-      .end(function(err, res){
-        res.should.have.status(404);
-        res.should.be.html;  // jshint ignore:line
-        res.text.should.contain.string('Not Found');
-        done();
-      });
+        .get('/does_not_exist')
+        .end((err, res) => {
+          res.should.have.status(404);
+          res.should.be.html; // eslint-disable-line no-unused-expressions
+          res.text.should.contain.string('Not Found');
+
+          done();
+        });
     });
   });
 
 });
-
-

@@ -2,6 +2,10 @@
   "name": "node-stripe-charge",
   "version": "1.0.0",
   "description": "stripe integration with node and express",
+  "engines": {
+    "node": ">=6.0.0",
+    "npm": "~3.10.0"
+  },
   "scripts": {
     "start": "node ./src/server/bin/www",
     "test": "mocha",
