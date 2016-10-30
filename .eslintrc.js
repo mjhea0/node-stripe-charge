@@ -159,6 +159,8 @@ module.exports = {
         "describe": false,
         "it": false,
         "beforeEach": false,
-        "afterEach": false
+        "afterEach": false,
+        "module": true,
+        "__dirname": false
     }
 };

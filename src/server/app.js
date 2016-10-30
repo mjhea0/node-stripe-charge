@@ -1,43 +1,42 @@
 // *** main dependencies *** //
 require('dotenv').load();
 
-var express = require('express');
-var path = require('path');
-var morgan = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var session = require('express-session');
-var flash = require('connect-flash');
-var mongoose = require('mongoose');
-var swig = require('swig');
-var passport = require('./lib/auth');
-var LocalStrategy = require('passport-local').Strategy;
+const express = require('express'),
+  path = require('path'),
+  morgan = require('morgan'),
+  cookieParser = require('cookie-parser'),
+  bodyParser = require('body-parser'),
+  session = require('express-session'),
+  flash = require('connect-flash'),
+  mongoose = require('mongoose'),
+  passport = require('./lib/auth');
+let swig = require('swig');
 
 
 // *** seed the database *** //
 if (process.env.NODE_ENV === 'development') {
-  var seedAdmin = require('./models/seeds/admin.js');
-  var productAdmin = require('./models/seeds/product.js');
+  const seedAdmin = require('./models/seeds/admin.js'),
+    productAdmin = require('./models/seeds/product.js');
   seedAdmin();
   productAdmin();
 }
 
 
 // *** config file *** //
-var config = require('../_config');
+const config = require('../_config');
 
 
 // *** routes *** //
-var mainRoutes = require('./routes/index');
-var authRoutes = require('./routes/auth');
-var chargeRoutes = require('./routes/charge');
-var productAPIRoutes = require('./routes/api/product');
-var storeAPIRoutes = require('./routes/api/store');
-var userAPIRoutes = require('./routes/api/user');
+const mainRoutes = require('./routes/index'),
+  authRoutes = require('./routes/auth'),
+  chargeRoutes = require('./routes/charge'),
+  productAPIRoutes = require('./routes/api/product'),
+  storeAPIRoutes = require('./routes/api/store'),
+  userAPIRoutes = require('./routes/api/user');
 
 
 // *** express instance *** //
-var app = express();
+const app = express();
 
 
 // *** view engine *** ///
@@ -52,7 +51,7 @@ app.set('views', path.join(__dirname, './views'));
 
 // *** config middleware *** //
 if (process.env.NODE_ENV !== 'test') {
-  var logger = morgan('combined');
+  const logger = morgan('combined');
   app.use(logger);
 }
 app.use(bodyParser.json());
@@ -64,7 +63,7 @@ app.use(session({
   saveUninitialized: true
 }));
 app.use(flash());
-app.use(function(req, res, next){
+app.use((req, res, next) => {
   res.locals.success = req.flash('success');
   res.locals.danger = req.flash('danger');
   next();
@@ -91,8 +90,8 @@ app.use('/api/v1/', userAPIRoutes);
 // *** error handlers *** //
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  var err = new Error('Not Found');
+app.use((req, res, next) => {
+  const err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
@@ -100,7 +99,7 @@ app.use(function(req, res, next) {
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
-  app.use(function(err, req, res, next) {
+  app.use((err, req, res) => {
     res.status(err.status || 500);
     res.render('error', {
       message: err.message,
@@ -111,7 +110,7 @@ if (app.get('env') === 'development') {
 
 // production error handler
 // no stacktraces leaked to user
-app.use(function(err, req, res, next) {
+app.use((err, req, res) => {
   res.status(err.status || 500);
   res.render('error', {
     message: err.message,
