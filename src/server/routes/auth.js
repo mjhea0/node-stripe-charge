@@ -1,13 +1,12 @@
-var express = require('express');
-var router = express.Router();
-var moment = require('moment');
+const express = require('express'),
+  router = express.Router(),
+  moment = require('moment'),
+  passport = require('../lib/auth'),
+  helpers = require('../lib/helpers'),
+  User = require('../models/user');
 
-var passport = require('../lib/auth');
-var helpers = require('../lib/helpers');
-var User = require('../models/user');
 
-
-router.get('/register', function(req, res, next){
+router.get('/register', (req, res) => {
   res.render('register', {
     user: req.user,
     message: req.flash('message')[0]
@@ -15,46 +14,44 @@ router.get('/register', function(req, res, next){
 });
 
 
-router.post('/register', function(req, res, next) {
-  var newUser = new User(req.body);
-  newUser.generateHash(req.body.password, function(err, hash) {
+router.post('/register', (req, res, next) => {
+  const newUser = new User(req.body);
+  newUser.generateHash(req.body.password, (err, hash) => {
     if (err) {
       return next(err);
-    } else {
-      newUser.password = hash;
-      newUser.save(function(err, results) {
-        if (err) {
-          req.flash('message', {
-            status: 'danger',
-            value: 'Sorry. That email already exists. Try again.'
-          });
-          return res.redirect('/auth/register');
-        } else {
-          req.logIn(newUser, function(err) {
-            if (err) {
-              return next(err);
-            }
-            req.flash('message', {
-              status: 'success',
-              value: 'Successfully registered (and logged in).'
-            });
-            return res.redirect('/');
-          });
-        }
-      });
     }
+    newUser.password = hash;
+    newUser.save((err) => {
+      if (err) {
+        req.flash('message', {
+          status: 'danger',
+          value: 'Sorry. That email already exists. Try again.'
+        });
+        return res.redirect('/auth/register');
+      }
+      req.logIn(newUser, (err) => {
+        if (err) {
+          return next(err);
+        }
+        req.flash('message', {
+          status: 'success',
+          value: 'Successfully registered (and logged in).'
+        });
+        return res.redirect('/');
+      });
+    });
   });
 });
 
-router.get('/login', helpers.loginRedirect, function(req, res, next){
+router.get('/login', helpers.loginRedirect, (req, res) => {
   res.render('login', {
     user: req.user,
     message: req.flash('message')[0]
   });
 });
 
-router.post('/login', function(req, res, next) {
-  passport.authenticate('local', function(err, user, info) {
+router.post('/login', (req, res, next) => {
+  passport.authenticate('local', (err, user) => {
     if (err) {
       return next(err);
     }
@@ -65,7 +62,7 @@ router.post('/login', function(req, res, next) {
       });
       return res.redirect('/auth/login');
     }
-    req.logIn(user, function(err) {
+    req.logIn(user, (err) => {
       if (err) {
         return next(err);
       }
@@ -78,7 +75,7 @@ router.post('/login', function(req, res, next) {
   })(req, res, next);
 });
 
-router.get('/logout', helpers.ensureAuthenticated, function(req, res){
+router.get('/logout', helpers.ensureAuthenticated, (req, res) => {
   req.logout();
   req.flash('message', {
     status: 'success',
@@ -87,29 +84,32 @@ router.get('/logout', helpers.ensureAuthenticated, function(req, res){
   res.redirect('/');
 });
 
-router.get('/profile', helpers.ensureAuthenticated, function(req, res){
+router.get('/profile', helpers.ensureAuthenticated, (req, res) => {
   res.render('profile', {
     user: req.user,
     message: req.flash('message')[0]
   });
 });
 
-router.get('/admin', helpers.ensureAuthenticated, function(req, res){
-  return User.find({}, function(err, data) {
+router.get('/admin', helpers.ensureAuthenticated, (req, res, next) => {
+  return User.find({}, (err, data) => {
     if (err) {
       return next(err);
-    } else {
-      var allProducts = [];
-      for (var i = 0; i < data.length; i++) {
-        if (data[i].products.length > 0) {
-          for (var j = 0; j < data[i].products.length; j++) {
-            allProducts.push(data[i].products[j]);
-          }
+    }
+    const allProducts = [];
+    for (let i = 0; i < data.length; i++) {
+      if (data[i].products.length > 0) {
+        for (let j = 0; j < data[i].products.length; j++) {
+          allProducts.push(data[i].products[j]);
         }
       }
-      allProducts.reverse();
-      return res.render('admin', {data: allProducts, moment: moment, user: req.user});
     }
+    allProducts.reverse();
+    return res.render('admin', {
+      moment,
+      data: allProducts,
+      user: req.user
+    });
   });
 });
 
