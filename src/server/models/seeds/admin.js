@@ -1,17 +1,16 @@
-var passport = require('passport');
-var User = require('../user');
+const User = require('../user');
 
 
-var seedAdmin = function() {
-  User.find({}, function(err, documents) {
-    if (documents.length === 0){
-      var password = 'admin';
-      var user = new User({
-        email: 'ad@min.com',
-        admin: true,
-        password: password
-      });
-      user.generateHash(password, function(err, hash) {
+const seedAdmin = function () {
+  User.find({}, (err, documents) => {
+    if (documents.length === 0) {
+      const password = 'admin',
+        user = new User({
+          email: 'ad@min.com',
+          admin: true,
+          password
+        });
+      user.generateHash(password, (err, hash) => {
         user.password = hash;
         user.save();
         console.log('Dummy admin added!');
