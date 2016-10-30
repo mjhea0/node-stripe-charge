@@ -51,6 +51,7 @@
     "assert": "^1.3.0",
     "coveralls": "^2.11.6",
     "eslint": "^3.9.0",
+    "gulp": "^3.9.1",
     "gulp-eslint": "^3.0.1",
     "gulp-mocha": "*",
     "gulp-nodemon": "^2.0.6",
