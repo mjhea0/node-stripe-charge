@@ -32,7 +32,7 @@ module.exports = {
         "newline-per-chained-call": "error",
         "indent": "error",
         "dot-location": "error",
-        "quotes": "error",
+        "quotes": ["error", "single"],
         "object-curly-spacing": [
             "error",
             "always"
