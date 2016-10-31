@@ -1,40 +1,38 @@
-var passport = require('passport');
-var LocalStrategy = require('passport-local');
-
-var User = require('../models/user');
+const passport = require('passport'),
+  LocalStrategy = require('passport-local'),
+  User = require('../models/user');
 
 passport.use(new LocalStrategy({
-    usernameField: 'email',
-    passReqToCallback: true
-  },
-  function(req, email, password, done) {
-    User.findOne({ email: email }, function(err, user) {
+  usernameField: 'email',
+  passReqToCallback: true
+},
+  (req, email, password, done) => {
+    User.findOne({ email }, (err, user) => {
       if (err) {
         return done(err);
       }
       if (!user) {
         return done(null, false);
       }
-      user.comparePassword(password, function(err, isMatch) {
-        if (err) {
-          return done(err);
+      user.comparePassword(password, (error, isMatch) => {
+        if (error) {
+          return done(error);
         }
         if (isMatch) {
           return done(null, user);
-        } else {
-          return done(null, false);
         }
+        return done(null, false);
       });
     });
   })
 );
 
-passport.serializeUser(function(user, done) {
+passport.serializeUser((user, done) => {
   done(null, user.id);
 });
 
-passport.deserializeUser(function(id, done) {
-  User.findById(id, function(err, user) {
+passport.deserializeUser((id, done) => {
+  User.findById(id, (err, user) => {
     if (!err) {
       done(null, user);
     } else {

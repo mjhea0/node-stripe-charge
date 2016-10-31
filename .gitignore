@@ -5,3 +5,4 @@ coverage/
 env.sh
 bower_components
 .env
+.idea/

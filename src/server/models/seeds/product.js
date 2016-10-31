@@ -1,27 +1,33 @@
-var Product = require('../product');
-var passport = require('passport');
+const Product = require('../product');
 
-var seedProduct = function() {
+const seedProduct = function() {
 
-  Product.find({}, function(err, documents) {
+  Product.find({}, (err, documents) => {
 
-    if(documents.length === 0){
+    if (documents.length === 0) {
 
-      var prodArry = [
-        {productName: 'Large Shirt', productAmount: 30},
-        {productName: 'Medium Shirt', productAmount: 20},
-        {productName: 'Small Shirt', productAmount: 10}
+      const prodArray = [
+        {
+          productName: 'Large Shirt',
+          productAmount: 30
+        },
+        {
+          productName: 'Medium Shirt',
+          productAmount: 20
+        },
+        {
+          productName: 'Small Shirt',
+          productAmount: 10
+        }
       ];
 
-      for (var i = 0; i < prodArry.length; i++) {
-         var data = new Product(
-          {
-            name: prodArry[i].productName,
-            amount: prodArry[i].productAmount,
-            currency: 'USD',
-            forSale: true
-          }
-        );
+      for (let i = 0; i < prodArray.length; i++) {
+        const data = new Product({
+          name: prodArray[i].productName,
+          amount: prodArray[i].productAmount,
+          currency: 'USD',
+          forSale: true
+        });
         data.save();
       }
 
