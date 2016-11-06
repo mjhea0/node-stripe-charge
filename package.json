@@ -1,4 +1,5 @@
 {
+  "name": "node-stripe-charge",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -32,6 +33,5 @@
     "mocha-jshint": "^2.3.1",
     "run-sequence": "^1.2.2",
     "tiny-lr": "^0.2.1"
-  },
-  "name": "node-stripe-charge"
+  }
 }

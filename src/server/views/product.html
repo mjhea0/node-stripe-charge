@@ -1,0 +1,17 @@
+{% extends '_base.html' %}
+
+{% block title %}{% endblock %}
+
+
+{% block content %}
+
+  <h1>{{ product.name }}</h1>
+  <hr><br>
+  <div class="row">
+    <div class="col-md-4">
+      <p class="lead">${{ product.amount }}</p>
+      <a class="btn btn-primary" href="/charge/{{ product.id }}" role="button">Buy Now</a>
+    </div>
+  </div>
+
+{% endblock %}

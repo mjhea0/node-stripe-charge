@@ -9,24 +9,28 @@ const server = require('../../src/server/app');
 
 describe('routes : index', () => {
 
-  beforeEach((done) => {
-    done();
-  });
-
-  afterEach((done) => {
-    done();
-  });
-
   describe('GET /', () => {
-    it('should render the index', (done) => {
+    it('should return a view', (done) => {
       chai.request(server)
       .get('/')
       .end((err, res) => {
-        res.redirects.length.should.equal(0);
-        res.status.should.equal(200);
-        res.type.should.equal('text/html');
-        res.text.should.contain('<h1>Welcome to Express!</h1>');
-        res.text.should.contain('<h2>The sum is 3</h2>');
+        should.not.exist(err);
+        res.should.have.status(200);
+        res.type.should.eql('text/html');
+        res.text.should.contain.contain('<h1>Node + Stripe + Express</h1>');
+        done();
+      });
+    });
+  });
+
+  describe('GET /ping', () => {
+    it('should return a view', (done) => {
+      chai.request(server)
+      .get('/ping')
+      .end((err, res) => {
+        should.not.exist(err);
+        res.should.have.status(200);
+        res.text.should.contain.eql('pong!');
         done();
       });
     });
@@ -37,9 +41,10 @@ describe('routes : index', () => {
       chai.request(server)
       .get('/404')
       .end((err, res) => {
-        res.redirects.length.should.equal(0);
-        res.status.should.equal(404);
-        res.type.should.equal('application/json');
+        should.exist(err);
+        res.redirects.length.should.eql(0);
+        res.status.should.eql(404);
+        res.type.should.eql('application/json');
         res.body.message.should.eql('Not Found');
         done();
       });

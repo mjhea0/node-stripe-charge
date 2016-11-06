@@ -35,12 +35,12 @@
     app.use(cookieParser());
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: false }));
-    // // uncomment if using express-session
-    // app.use(session({
-    //   secret: process.env.SECRET_KEY,
-    //   resave: false,
-    //   saveUninitialized: true
-    // }));
+    // uncomment if using express-session
+    app.use(session({
+      secret: process.env.SECRET_KEY,
+      resave: false,
+      saveUninitialized: true
+    }));
     app.use(flash());
     app.use(express.static(path.join(__dirname, '..', '..', 'client')));
 

@@ -1,18 +1,14 @@
 const express = require('express');
 const router = express.Router();
 
-const indexController = require('../controllers/index');
+router.get('/ping', (req, res, next) => res.send('pong!'));
 
-router.get('/', function (req, res, next) {
-  const renderObject = {};
-  renderObject.title = 'Welcome to Express!';
-  indexController.sum(1, 2, (error, results) => {
-    if (error) return next(error);
-    if (results) {
-      renderObject.sum = results;
-      res.render('index', renderObject);
-    }
-  });
+router.get('/', (req, res, next) => {
+  const renderObject = {
+    title: 'home',
+    messages: req.flash('messages')
+  };
+  res.render('index', renderObject);
 });
 
 module.exports = router;
