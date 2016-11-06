@@ -1,0 +1,64 @@
+{
+  "requireSpacesInNamedFunctionExpression": {
+    "beforeOpeningCurlyBrace": true
+  },
+  "requireSpacesInFunctionExpression": {
+    "beforeOpeningCurlyBrace": true
+  },
+  "requireSpacesInAnonymousFunctionExpression": {
+    "beforeOpeningCurlyBrace": true
+  },
+  "requireSpacesInFunctionDeclaration": {
+    "beforeOpeningCurlyBrace": true
+  },
+  "disallowEmptyBlocks": true,
+  "disallowSpacesInsideArrayBrackets": true,
+  "disallowSpacesInsideParentheses": true,
+  "disallowQuotedKeysInObjects": "allButReserved",
+  "disallowSpaceAfterObjectKeys": true,
+  "disallowSpaceAfterPrefixUnaryOperators": true,
+  "disallowSpaceBeforePostfixUnaryOperators": true,
+  "disallowSpaceBeforeBinaryOperators": [
+    ","
+  ],
+  "disallowMixedSpacesAndTabs": true,
+  "disallowTrailingWhitespace": true,
+  "disallowTrailingComma": true,
+  "disallowKeywords": [ "with" ],
+  "disallowMultipleLineBreaks": true,
+  "requireSpaceBeforeBlockStatements": true,
+  "requireParenthesesAroundIIFE": true,
+  "requireSpacesInConditionalExpression": true,
+  "requireBlocksOnNewline": 1,
+  "requireCommaBeforeLineBreak": true,
+  "requireSpaceBeforeBinaryOperators": true,
+  "requireSpaceAfterBinaryOperators": true,
+  "requireLineFeedAtFileEnd": true,
+  "requireCapitalizedConstructors": true,
+  "requireDotNotation": true,
+  "requireCurlyBraces": [
+    "do"
+  ],
+  "requireSpaceAfterKeywords": [
+    "if",
+    "else",
+    "for",
+    "while",
+    "do",
+    "switch",
+    "case",
+    "return",
+    "try",
+    "catch",
+    "typeof"
+  ],
+  "safeContextKeyword": "target",
+  "validateLineBreaks": "LF",
+  "validateQuoteMarks": "'",
+  "validateIndentation": 2,
+  "excludeFiles": [
+    "node_modules/**",
+    "coverage/*",
+    "build/client/*"
+  ]
+}

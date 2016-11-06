@@ -1,39 +1,98 @@
-// gulp and plugins
+// *** dependencies *** //
 
-const gulp = require('gulp'),
-  nodemon = require('gulp-nodemon'),
-  eslint = require('gulp-eslint'),
-  mocha = require('gulp-mocha'),
-  babel = require('gulp-babel');
+const path = require('path');
+const gulp = require('gulp');
+const jshint = require('gulp-jshint');
+const jscs = require('gulp-jscs');
+const runSequence = require('run-sequence');
+const nodemon = require('gulp-nodemon');
+const plumber = require('gulp-plumber');
+const server = require('tiny-lr')();
 
+// *** config *** //
 
-// tasks
+const paths = {
+  scripts: [
+    path.join('src', '**', '*.js'),
+    path.join('src', '*.js')
+  ],
+  styles: [
+    path.join('src', 'client', 'css', '*.css')
+  ],
+  views: [
+    path.join('src', 'server', '**', '*.html'),
+    path.join('src', 'server', '*.html')
+  ],
+  server: path.join('src', 'server', 'server.js')
+};
 
-gulp.task('lint', () => {
-  gulp.src(['./src/server/**/*.js', './public/js/*.js'])
-    .pipe(eslint())
-    .pipe(eslint.format());
+const lrPort = 35729;
+
+const nodemonConfig = {
+  script: paths.server,
+  ext: 'html js css',
+  ignore: ['node_modules'],
+  env: {
+    NODE_ENV: 'development'
+  }
+};
+
+// *** default task *** //
+
+gulp.task('default', () => {
+  runSequence(
+    ['jshint'],
+    ['jscs'],
+    ['lr'],
+    ['nodemon'],
+    ['watch']
+  );
 });
 
-gulp.task('babel', () => {
-  gulp.src('./src/client/src-js/**/*.js')
-    .pipe(babel({
-      presets: ['es2015']
+// *** sub tasks ** //
+
+gulp.task('jshint', () => {
+  return gulp.src(paths.scripts)
+    .pipe(plumber())
+    .pipe(jshint({
+      esnext: true
     }))
-    .pipe(gulp.dest('./src/client/js'));
+    .pipe(jshint.reporter('jshint-stylish'))
+    .pipe(jshint.reporter('fail'));
 });
 
+gulp.task('jscs', () => {
+  return gulp.src(paths.scripts)
+    .pipe(plumber())
+    .pipe(jscs())
+    .pipe(jscs.reporter())
+    .pipe(jscs.reporter('fail'));
+});
 
-// default task
+gulp.task('styles', () => {
+  return gulp.src(paths.styles)
+    .pipe(plumber());
+});
 
-gulp.task('default', ['lint', 'babel'], () => {
-  nodemon({
-    script: './src/server/bin/www',
-    ext: 'html js',
-    ignore: ['ignored.js']
-  })
-    .on('change', ['lint', 'babel'])
-    .on('restart', () => {
-      console.log('restarted!');
-    });
+gulp.task('views', () => {
+  return gulp.src(paths.views)
+    .pipe(plumber());
+});
+
+gulp.task('lr', () => {
+  server.listen(lrPort, (err) => {
+    if (err) {
+      return console.error(err);
+    }
+  });
+});
+
+gulp.task('nodemon', () => {
+  return nodemon(nodemonConfig);
+});
+
+gulp.task('watch', () => {
+  gulp.watch(paths.html, ['html']);
+  gulp.watch(paths.scripts, ['jshint', 'jscs']);
+  gulp.watch(paths.styles, ['styles']);
 });

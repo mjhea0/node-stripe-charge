@@ -1,8 +1,7 @@
-language: node_js
-
+language:
+- node_js
 node_js:
-  - "6"
-
-services: mongodb
-
-script: npm run send-coverage
+- '6'
+env:
+  global:
+  - NODE_ENV=test
