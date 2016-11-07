@@ -64,4 +64,34 @@ describe('routes : products', () => {
     });
   });
 
+  describe('GET /products/:id/charge', () => {
+    it('should return a view', (done) => {
+      productQueries.getSingleProduct(1)
+      .then((product) => {
+        chai.request(server)
+        .get('/products/1/charge')
+        .end((err, res) => {
+          should.not.exist(err);
+          res.should.have.status(200);
+          res.type.should.eql('text/html');
+          res.text.should.contain(product.id);
+          res.text.should.contain(product.name);
+          res.text.should.contain(product.amount);
+          res.text.should.contain('<h2>One time payment</h2>');
+          done();
+        });
+      });
+    });
+    it('should throw an error if the product does not exist', (done) => {
+      chai.request(server)
+      .get('/products/22/charge')
+      .end((err, res) => {
+        should.exist(err);
+        res.should.have.status(500);
+        res.type.should.eql('application/json');
+        done();
+      });
+    });
+  });
+
 });

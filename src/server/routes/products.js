@@ -34,4 +34,20 @@ router.get('/:id', (req, res, next) => {
   });
 });
 
+router.get('/:id/charge', (req, res, next) => {
+  const productID = parseInt(req.params.id);
+  productQueries.getSingleProduct(productID)
+  .then((product) => {
+    const renderObject = {
+      title: `buy ${product.name}`,
+      messages: req.flash('messages'),
+      product: product
+    };
+    res.render('charge.html', renderObject);
+  })
+  .catch((err) => {
+    return next(err);
+  });
+});
+
 module.exports = router;
