@@ -1,5 +1,3 @@
-(function () {
-
-  console.log('sanity check!');
-
-})();
+$(document).ready(() => {
+  $('#charge-error').hide();
+});
