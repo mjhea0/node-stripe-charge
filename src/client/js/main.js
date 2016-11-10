@@ -1,3 +1,5 @@
+$('#charge-error').hide();
+
 $(document).ready(() => {
-  $('#charge-error').hide();
+
 });
