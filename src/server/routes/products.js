@@ -70,7 +70,7 @@ router.post('/:id/stripe', (req, res, next) => {
     };
     stripe.charges.create(charge, (err) => {
       if (err) return next(err);
-      req.flash('message', {
+      req.flash('messages', {
         status: 'success',
         value: `Thanks for purchasing a ${req.body.productName}!`
       });

@@ -19,9 +19,9 @@
   </head>
   <body>
     {% include "./partials/nav.html" %}
-    {% include "./partials/flash.html" %}
-    <!-- Page Content -->
     <div class="container">
+      {% include "./partials/flash.html" %}
+      <!-- Page Content -->
       {% block content %}
       {% endblock %}
     </div>
