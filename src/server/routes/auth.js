@@ -6,8 +6,13 @@ const passport = require('../auth/local');
 
 router.post('/register', (req, res, next)  => {
   return authHelpers.createUser(req, res)
-  .then((user) => { handleLogin(res, user[0]); })
-  .then(() => { handleResponse(res, 200, 'success'); })
+  .then((user) => {
+    passport.authenticate('local', (err, user, info) => {
+      if (err) { handleResponse(res, 500, 'error'); }
+      if (!user) { handleResponse(res, 404, 'User not found'); }
+      if (user) { handleResponse(res, 200, 'success'); }
+    })(req, res, next);
+  })
   .catch((err) => { handleResponse(res, 500, 'error'); });
 });
 

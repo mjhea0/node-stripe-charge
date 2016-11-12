@@ -1,0 +1,9 @@
+instrumentation:
+  root: src/server
+  include-all-sources: true
+  verbose: true
+  excludes: [
+    'server.js'
+  ]
+reporting:
+  dir: "coverage"
