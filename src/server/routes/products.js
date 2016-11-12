@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 const productQueries = require('../db/queries/products');
 
@@ -44,6 +45,37 @@ router.get('/:id/charge', (req, res, next) => {
       product: product
     };
     res.render('charge.html', renderObject);
+  })
+  .catch((err) => {
+    return next(err);
+  });
+});
+
+router.post('/:id/stripe', (req, res, next) => {
+  // Obtain StripeToken
+  const stripeToken = req.body.stripeToken;
+  const productID = parseInt(req.body.productID);
+  const productAmount = req.body.productAmount;
+  // Simple validation
+  // (1) Does the product exist?
+  productQueries.getSingleProduct(productID)
+  .then((product) => {
+    // (2) Does the product amount align?
+    if (productAmount !== product.amount) return next('Incorrect Product');
+    // create charge
+    const charge = {
+      amount: productAmount * 100,
+      currency: product.currency,
+      card: stripeToken
+    };
+    stripe.charges.create(charge, (err) => {
+      if (err) return next(err);
+      req.flash('message', {
+        status: 'success',
+        value: `Thanks for purchasing a ${req.body.productName}!`
+      });
+      res.redirect('/products');
+    });
   })
   .catch((err) => {
     return next(err);

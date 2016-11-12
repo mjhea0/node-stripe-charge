@@ -6,6 +6,7 @@
     "it": false,
     "console": false,
     "describe": false,
+    "Stripe": false,
     "expect": false,
     "beforeEach": false,
     "afterEach": false,

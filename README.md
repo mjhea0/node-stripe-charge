@@ -20,7 +20,7 @@ The back-end API includes:
 1. Update the config:
   - Rename the *.env_sample* file to *.env* and update
   - Update the Mongo URI in */src/_config.js* (if necessary)
-1. Update the key on line 1 of *src/client/js/main.js*
+1. Update the key on line 1 of *src/client/js/main.js* (src/client/js/main.js)
 1. Run `mongod` in a seperate terminal window
 1. Run the app - `npm start` or `gulp`
 
