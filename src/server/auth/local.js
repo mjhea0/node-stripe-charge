@@ -9,6 +9,8 @@ const options = {
   usernameField: 'email'
 };
 
+init();
+
 passport.use(new LocalStrategy(options, (email, password, done) => {
   // check to see if the username exists
   knex('users').where({ email }).first()

@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./src/server/server",
-    "test": "./node_modules/mocha/bin/_mocha ./test/**/*.js ",
+    "test": "./node_modules/mocha/bin/_mocha ./test/**/*.js -b",
     "coverage": "istanbul cover ./node_modules/mocha/bin/_mocha ./test/**/*.js"
   },
   "dependencies": {

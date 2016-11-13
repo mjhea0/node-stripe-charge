@@ -53,10 +53,10 @@ describe('routes : auth', () => {
       })
       .end((err, res) => {
         should.not.exist(err);
-        res.redirects.length.should.eql(0);
+        res.redirects.length.should.eql(1);
         res.status.should.eql(200);
-        res.type.should.eql('application/json');
-        res.body.status.should.eql('success');
+        res.type.should.eql('text/html');
+        res.text.should.contain.contain('<h1>Node + Stripe + Express</h1>');
         done();
       });
     });
@@ -68,11 +68,11 @@ describe('routes : auth', () => {
         password: 'notright'
       })
       .end((err, res) => {
-        should.exist(err);
-        res.redirects.length.should.eql(0);
-        res.status.should.eql(404);
-        res.type.should.eql('application/json');
-        res.body.status.should.eql('User not found');
+        should.not.exist(err);
+        res.redirects.length.should.eql(1);
+        res.status.should.eql(200);
+        res.type.should.eql('text/html');
+        res.text.should.contain.contain('<h1>Login</h1>');
         done();
       });
     });
@@ -84,11 +84,11 @@ describe('routes : auth', () => {
         password: 'johnson123'
       })
       .end((err, res) => {
-        should.exist(err);
-        res.redirects.length.should.eql(0);
-        res.status.should.eql(404);
-        res.type.should.eql('application/json');
-        res.body.status.should.eql('User not found');
+        should.not.exist(err);
+        res.redirects.length.should.eql(1);
+        res.status.should.eql(200);
+        res.type.should.eql('text/html');
+        res.text.should.contain.contain('<h1>Login</h1>');
         done();
       });
     });
