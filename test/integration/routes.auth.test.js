@@ -104,10 +104,12 @@ describe('routes : auth', () => {
       .get('/auth/logout')
       .end((err, res) => {
         should.not.exist(err);
-        res.redirects.length.should.eql(0);
+        res.redirects.length.should.eql(1);
         res.status.should.eql(200);
-        res.type.should.eql('application/json');
-        res.body.status.should.eql('success');
+        res.type.should.eql('text/html');
+        res.text.should.contain('<h1>Node + Stripe + Express</h1>');
+        res.text.should.contain(
+          '<li><a href="/auth/login">Register/Login</a></li>');
         done();
       });
     });

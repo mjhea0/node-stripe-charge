@@ -48,7 +48,11 @@ router.post('/login', (req, res, next) => {
 
 router.get('/logout', authHelpers.loginRequired, (req, res, next) => {
   req.logout();
-  handleResponse(res, 200, 'success');
+  req.flash('messages', {
+    status: 'success',
+    value: 'Successfully logged out.'
+  });
+  res.redirect('/');
 });
 
 function handleResponse(res, code, statusMsg) {
