@@ -44,7 +44,7 @@ describe('routes : auth', () => {
   });
 
   describe('POST /auth/login', () => {
-    it('should login a user', (done) => {
+    it('should log in a user', (done) => {
       chai.request(server)
       .post('/auth/login')
       .send({
@@ -60,7 +60,23 @@ describe('routes : auth', () => {
         done();
       });
     });
-    it('should not login an unregistered user', (done) => {
+    it('should not log in if password is incorrect', (done) => {
+      chai.request(server)
+      .post('/auth/login')
+      .send({
+        email: 'jeremy@realpython.com',
+        password: 'notright'
+      })
+      .end((err, res) => {
+        should.exist(err);
+        res.redirects.length.should.eql(0);
+        res.status.should.eql(404);
+        res.type.should.eql('application/json');
+        res.body.status.should.eql('User not found');
+        done();
+      });
+    });
+    it('should not log in an unregistered user', (done) => {
       chai.request(server)
       .post('/auth/login')
       .send({
