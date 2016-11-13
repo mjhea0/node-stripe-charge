@@ -1,0 +1,28 @@
+{% extends '_base.html' %}
+
+{% block title %}{% endblock %}
+
+{% block content %}
+
+<div class="container">
+  <h1>Login</h1>
+  <hr><br>
+  <div class="row">
+    <div class="col-md-4">
+      <form role="form" action="/auth/login" method="post" style="max-width: 300px;">
+        <div class="form-group">
+          <input type="email" name="email" placeholder="Email" class="form-control"/>
+        </div>
+        <div class="form-group">
+          <input type="password" name="password" placeholder="Password" class="form-control"/>
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+        &nbsp;
+        <a href="/"><button type="button" class="btn btn-primary">Cancel</button></a>
+      </form>
+      <br>
+      <p>Need to <a href="/auth/register">register</a>?</p>
+    </div>
+  </div>
+
+{% endblock %}

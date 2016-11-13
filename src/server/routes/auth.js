@@ -4,6 +4,13 @@ const router = express.Router();
 const authHelpers = require('../auth/_helpers');
 const passport = require('../auth/local');
 
+router.get('/login', authHelpers.loginRedirect, (req, res, next) => {
+  res.render('login', {
+    user: req.user,
+    message: req.flash('message')[0]
+  });
+});
+
 router.post('/register', (req, res, next)  => {
   return authHelpers.createUser(req, res)
   .then((user) => {

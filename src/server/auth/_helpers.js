@@ -22,8 +22,14 @@ function loginRequired(req, res, next) {
   return next();
 }
 
+function loginRedirect(req, res, next) {
+  if (req.isAuthenticated() && req.user) res.redirect('/');
+  else return next();
+}
+
 module.exports = {
   comparePass,
   createUser,
-  loginRequired
+  loginRequired,
+  loginRedirect
 };

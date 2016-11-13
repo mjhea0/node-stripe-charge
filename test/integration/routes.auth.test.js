@@ -109,4 +109,34 @@ describe('routes : auth', () => {
     });
   });
 
+  describe('GET /auth/login', () => {
+    it('should return a view', (done) => {
+      chai.request(server)
+      .get('/auth/login')
+      .end((err, res) => {
+        should.not.exist(err);
+        res.should.have.status(200);
+        res.type.should.eql('text/html');
+        res.text.should.contain.contain('<h1>Login</h1>');
+        done();
+      });
+    });
+    it('should redirect if a user is logged in', (done) => {
+      passportStub.login({
+        email: 'jeremy@realpython.com',
+        password: 'johnson123'
+      });
+      chai.request(server)
+      .get('/auth/login')
+      .end((err, res) => {
+        should.not.exist(err);
+        res.should.have.status(200);
+        res.redirects.length.should.eql(1);
+        res.type.should.eql('text/html');
+        res.text.should.contain.contain('<h1>Node + Stripe + Express</h1>');
+        done();
+      });
+    });
+  });
+
 });
