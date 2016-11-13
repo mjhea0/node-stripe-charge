@@ -49,11 +49,11 @@ describe('routes : auth', () => {
       chai.request(server)
       .get('/users/4')
       .end((err, res) => {
-        should.exist(err);
-        res.redirects.length.should.eql(0);
-        res.status.should.eql(401);
-        res.type.should.eql('application/json');
-        res.body.status.should.eql('Please log in');
+        should.not.exist(err);
+        res.redirects.length.should.eql(1);
+        res.status.should.eql(200);
+        res.type.should.eql('text/html');
+        res.text.should.contain.contain('<h1>Login</h1>');
         done();
       });
     });

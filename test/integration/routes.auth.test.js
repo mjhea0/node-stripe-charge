@@ -56,7 +56,7 @@ describe('routes : auth', () => {
         res.redirects.length.should.eql(1);
         res.status.should.eql(200);
         res.type.should.eql('text/html');
-        res.text.should.contain.contain('<h1>Node + Stripe + Express</h1>');
+        res.text.should.contain('<h1>Node + Stripe + Express</h1>');
         done();
       });
     });
@@ -72,7 +72,9 @@ describe('routes : auth', () => {
         res.redirects.length.should.eql(1);
         res.status.should.eql(200);
         res.type.should.eql('text/html');
-        res.text.should.contain.contain('<h1>Login</h1>');
+        res.text.should.contain('<h1>Login</h1>');
+        res.text.should.not.contain(
+          '<li><a href="/auth/logout">Logout</a></li>');
         done();
       });
     });
@@ -88,7 +90,9 @@ describe('routes : auth', () => {
         res.redirects.length.should.eql(1);
         res.status.should.eql(200);
         res.type.should.eql('text/html');
-        res.text.should.contain.contain('<h1>Login</h1>');
+        res.text.should.contain('<h1>Login</h1>');
+        res.text.should.not.contain(
+          '<li><a href="/auth/logout">Logout</a></li>');
         done();
       });
     });
@@ -110,6 +114,8 @@ describe('routes : auth', () => {
         res.text.should.contain('<h1>Node + Stripe + Express</h1>');
         res.text.should.contain(
           '<li><a href="/auth/login">Register/Login</a></li>');
+        res.text.should.not.contain(
+          '<li><a href="/auth/logout">Logout</a></li>');
         done();
       });
     });
@@ -117,11 +123,11 @@ describe('routes : auth', () => {
       chai.request(server)
       .get('/auth/logout')
       .end((err, res) => {
-        should.exist(err);
-        res.redirects.length.should.eql(0);
-        res.status.should.eql(401);
-        res.type.should.eql('application/json');
-        res.body.status.should.eql('Please log in');
+        should.not.exist(err);
+        res.redirects.length.should.eql(1);
+        res.status.should.eql(200);
+        res.type.should.eql('text/html');
+        res.text.should.contain('<h1>Login</h1>');
         done();
       });
     });
@@ -135,7 +141,7 @@ describe('routes : auth', () => {
         should.not.exist(err);
         res.should.have.status(200);
         res.type.should.eql('text/html');
-        res.text.should.contain.contain('<h1>Login</h1>');
+        res.text.should.contain('<h1>Login</h1>');
         done();
       });
     });
@@ -151,7 +157,7 @@ describe('routes : auth', () => {
         res.should.have.status(200);
         res.redirects.length.should.eql(1);
         res.type.should.eql('text/html');
-        res.text.should.contain.contain('<h1>Node + Stripe + Express</h1>');
+        res.text.should.contain('<h1>Node + Stripe + Express</h1>');
         done();
       });
     });

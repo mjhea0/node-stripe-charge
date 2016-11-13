@@ -18,7 +18,13 @@ function createUser(req) {
 }
 
 function loginRequired(req, res, next) {
-  if (!req.user) return res.status(401).json({status: 'Please log in'});
+  if (!req.user) {
+    req.flash('messages', {
+      status: 'danger',
+      value: 'Please log in.'
+    });
+    return res.redirect('/auth/login');
+  }
   return next();
 }
 
