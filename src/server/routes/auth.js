@@ -71,8 +71,4 @@ router.get('/logout', authHelpers.loginRequired, (req, res, next) => {
   res.redirect('/');
 });
 
-function handleResponse(res, code, statusMsg) {
-  return res.status(code).json({status: statusMsg});
-}
-
 module.exports = router;

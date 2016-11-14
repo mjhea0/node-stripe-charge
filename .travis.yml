@@ -1,7 +1,23 @@
 language:
 - node_js
 node_js:
+- '7'
 - '6'
+- '5'
+services:
+- postgresql
+addons:
+  postgresql: '9.4'
 env:
   global:
   - NODE_ENV=test
+  - SECRET_KEY=test
+  - STRIPE_PUBLISHABLE_KEY=pk_test_GET_YOUR_OWN
+  - STRIPE_SECRET_KEY=sk_test_GET_YOUR_OWN
+before_script:
+- psql -c 'create database node_stripe_charge_test;' -U postgres
+- npm install -g istanbul
+script:
+- npm run test
+after_script:
+- npm run coveralls
