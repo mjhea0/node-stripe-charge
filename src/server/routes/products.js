@@ -83,4 +83,17 @@ router.post('/:id/stripe', authHelpers.loginRequired, (req, res, next) => {
   });
 });
 
+router.post('/', authHelpers.adminRequired, (req, res, next) => {
+  productQueries.addProduct(req.body)
+  .then((product) => {
+    if (!product) { throw new Error('Something went wrong'); }
+    req.flash('messages', {
+      status: 'success',
+      value: 'Product added!'
+    });
+    return res.redirect('/');
+  })
+  .catch((err) => { next(err); });
+});
+
 module.exports = router;

@@ -10,7 +10,12 @@ function getSingleProduct(productID) {
   .first();
 }
 
+function addProduct(obj) {
+  return knex('products').insert(obj).returning('*');
+}
+
 module.exports = {
   getAllProducts,
-  getSingleProduct
+  getSingleProduct,
+  addProduct
 };

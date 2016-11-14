@@ -78,4 +78,57 @@ describe('routes : auth', () => {
     });
   });
 
+  describe('GET /users/:id/admin', () => {
+    it('should return a success', (done) => {
+      passportStub.login({
+        email: 'ad@min.com',
+        password: 'admin'
+      });
+      userQueries.getUserByEmail('ad@min.com')
+      .then((user) => {
+        chai.request(server)
+        .get(`/users/${user.id}/admin`)
+        .end((err, res) => {
+          should.not.exist(err);
+          res.redirects.length.should.eql(0);
+          res.status.should.eql(200);
+          res.type.should.eql('text/html');
+          res.text.should.contain('<h1>Admin Portal</h1>');
+          done();
+        });
+      });
+    });
+    it('should error if a user is not logged in', (done) => {
+      chai.request(server)
+      .get('/users/4/admin')
+      .end((err, res) => {
+        should.not.exist(err);
+        res.redirects.length.should.eql(1);
+        res.status.should.eql(200);
+        res.type.should.eql('text/html');
+        res.text.should.contain.contain('<h1>Login</h1>');
+        done();
+      });
+    });
+    it('should error if the wrong profile is accessed', (done) => {
+      passportStub.login({
+        email: 'ad@min.com',
+        password: 'admin'
+      });
+      userQueries.getUserByEmail('ad@min.com')
+      .then((user) => {
+        chai.request(server)
+        .get('/users/999/admin')
+        .end((err, res) => {
+          should.exist(err);
+          res.redirects.length.should.eql(0);
+          res.status.should.eql(500);
+          res.type.should.eql('text/html');
+          res.text.should.contain('<h1>Something went wrong</h1>');
+          done();
+        });
+      });
+    });
+  });
+
 });

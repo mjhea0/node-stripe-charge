@@ -76,6 +76,22 @@ describe('routes : auth', () => {
         done();
       });
     });
+    it('should log in an admin user', (done) => {
+      chai.request(server)
+      .post('/auth/login')
+      .send({
+        email: 'ad@min.com',
+        password: 'admin'
+      })
+      .end((err, res) => {
+        should.not.exist(err);
+        res.redirects.length.should.eql(1);
+        res.status.should.eql(200);
+        res.type.should.eql('text/html');
+        res.text.should.contain('<h1>Node + Stripe + Express</h1>');
+        done();
+      });
+    });
     it('should not log in if password is incorrect', (done) => {
       chai.request(server)
       .post('/auth/login')

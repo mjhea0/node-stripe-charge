@@ -1,6 +1,7 @@
 const bcrypt = require('bcryptjs');
 
 const knex = require('../db/connection');
+const userQueries = require('../db/queries/users');
 
 function comparePass(userPassword, databasePassword) {
   return bcrypt.compareSync(userPassword, databasePassword);
@@ -34,14 +35,34 @@ function loginRedirect(req, res, next) {
 }
 
 function adminRequired(req, res, next) {
-  if (req.isAuthenticated() && req.user.admin) {
-    return next();
+  if (!req.user) {
+    req.flash('messages', {
+      status: 'danger',
+      value: 'Please log in.'
+    });
+    return res.redirect('/auth/login');
+  } else {
+    userQueries.getUserByEmail(req.user.email)
+    .then((user) => {
+      if (!user) {
+        req.flash('messages', {
+          status: 'danger',
+          value: 'Please log in.'
+        });
+        return res.redirect('/auth/login');
+      }
+      if (!user.admin) {
+        req.flash('messages', {
+          status: 'danger',
+          value: 'You do not have permission to do that.'
+        });
+        return res.redirect('/');
+      }
+      return next();
+    })
+    .catch((err) => {
+      return next(err); });
   }
-  req.flash('messages', {
-    status: 'danger',
-    value: 'You do not have permission to do that.'
-  });
-  res.redirect('/auth/login');
 }
 
 module.exports = {

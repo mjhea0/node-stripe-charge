@@ -19,7 +19,7 @@ describe('routes : helpers', () => {
     return knex.migrate.rollback();
   });
 
-  describe('createTransaction()', () => {
+  describe('getSingleProduct()', () => {
     it('should return a product', (done) => {
       productQueries.getSingleProduct(1)
       .then((product) => {

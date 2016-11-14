@@ -1,5 +1,9 @@
 const knex = require('../connection');
 
+function getAllTransactions() {
+  return knex('transactions').select('*');
+}
+
 function getTransactionsByUserID(userID) {
   return knex('transactions')
   .where('user_id', parseInt(userID));
@@ -17,6 +21,7 @@ function createTransaction(stripeID, productID, userID, cb) {
 }
 
 module.exports = {
+  getAllTransactions,
   getTransactionsByUserID,
   createTransaction
 };

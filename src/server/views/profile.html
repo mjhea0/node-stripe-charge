@@ -17,6 +17,8 @@
             <li><a href="{{ base_url}}/products/{{ transaction.product_id }}">{{ transaction.product_id }}</a></li>
           {% endfor %}
           </ul>
+        {% else %}
+          <p>No transactions</p>
         {% endif %}
       </div>
     </div>

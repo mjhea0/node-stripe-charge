@@ -7,12 +7,12 @@ const userQueries = require('../db/queries/users');
 
 router.get('/:id', authHelpers.loginRequired, (req, res, next)  => {
   const userID = parseInt(req.params.id);
-  userQueries.getUserByID(userID)
+  return userQueries.getUserByID(userID)
   .then((user) => {
     if (!user) {
       throw new Error('User does not exist');
     }
-    transactionQueries.getTransactionsByUserID(userID);
+    return transactionQueries.getTransactionsByUserID(userID);
   })
   .then((transactions) => {
     const renderObject = {
@@ -24,7 +24,25 @@ router.get('/:id', authHelpers.loginRequired, (req, res, next)  => {
     res.render('profile', renderObject);
   })
   .catch((err) => { next(err); });
+});
 
+router.get('/:id/admin', authHelpers.adminRequired, (req, res, next) => {
+  const userID = parseInt(req.params.id);
+  return userQueries.getUserByID(userID)
+  .then((user) => {
+    if (!user) { throw new Error('User does not exist'); }
+    return transactionQueries.getAllTransactions();
+  })
+  .then((transactions) => {
+    const renderObject = {
+      title: 'admin portal',
+      user: req.user,
+      transactions: transactions,
+      messages: req.flash('messages')
+    };
+    res.render('admin', renderObject);
+  })
+  .catch((err) => { next(err); });
 });
 
 module.exports = router;
