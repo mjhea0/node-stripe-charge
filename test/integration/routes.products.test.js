@@ -57,8 +57,10 @@ describe('routes : products', () => {
       .get('/products/22')
       .end((err, res) => {
         should.exist(err);
-        res.should.have.status(500);
-        res.type.should.eql('application/json');
+        res.redirects.length.should.eql(0);
+        res.status.should.eql(500);
+        res.type.should.eql('text/html');
+        res.text.should.contain('<h1>Something went wrong</h1>');
         done();
       });
     });
@@ -87,8 +89,10 @@ describe('routes : products', () => {
       .get('/products/22/charge')
       .end((err, res) => {
         should.exist(err);
-        res.should.have.status(500);
-        res.type.should.eql('application/json');
+        res.redirects.length.should.eql(0);
+        res.status.should.eql(500);
+        res.type.should.eql('text/html');
+        res.text.should.contain('<h1>Something went wrong</h1>');
         done();
       });
     });

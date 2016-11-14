@@ -44,8 +44,8 @@ describe('routes : index', () => {
         should.exist(err);
         res.redirects.length.should.eql(0);
         res.status.should.eql(404);
-        res.type.should.eql('application/json');
-        res.body.message.should.eql('Not Found');
+        res.type.should.eql('text/html');
+        res.text.should.contain('Not found');
         done();
       });
     });

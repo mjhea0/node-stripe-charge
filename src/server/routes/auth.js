@@ -11,16 +11,32 @@ router.get('/login', authHelpers.loginRedirect, (req, res, next) => {
   });
 });
 
+router.get('/register', authHelpers.loginRedirect, (req, res, next) => {
+  res.render('register', {
+    user: req.user,
+    messages: req.flash('messages')
+  });
+});
+
 router.post('/register', (req, res, next)  => {
   return authHelpers.createUser(req, res)
   .then((user) => {
     passport.authenticate('local', (err, user, info) => {
-      if (err) { handleResponse(res, 500, 'error'); }
-      if (!user) { handleResponse(res, 404, 'User not found'); }
-      if (user) { handleResponse(res, 200, 'success'); }
+      if (err) { return next(err); }
+      if (!user) { return next(err); }
+      if (user) {
+        req.logIn(user, (err) => {
+          if (err) { return next(err); }
+          req.flash('messages', {
+            status: 'success',
+            value: 'Welcome!'
+          });
+          return res.redirect('/');
+        });
+      }
     })(req, res, next);
   })
-  .catch((err) => { handleResponse(res, 500, 'error'); });
+  .catch((err) => { return next(err); });
 });
 
 router.post('/login', (req, res, next) => {

@@ -5,11 +5,11 @@
 {% block content %}
 
 <div class="container">
-  <h1>Login</h1>
+  <h1>Register</h1>
   <hr><br>
   <div class="row">
     <div class="col-md-4">
-      <form role="form" action="/auth/login" method="post">
+      <form role="form" action="/auth/register" method="post">
         <div class="form-group">
           <input type="email" name="email" placeholder="Email" class="form-control">
         </div>
@@ -21,7 +21,7 @@
         <a href="/"><button type="button" class="btn btn-primary">Cancel</button></a>
       </form>
       <br>
-      <p>Need to <a href="/auth/register">register</a>?</p>
+      <p>Already registered? Go <a href="/auth/login">Log in</a>!</p>
     </div>
   </div>
 

@@ -10,24 +10,29 @@
     app.use(function(req, res, next) {
       const err = new Error('Not Found');
       err.status = 404;
-      next(err);
+      res.status(err.status).render('error', {
+        message: 'Not found',
+      });
     });
 
     // development error handler (will print stacktrace)
     if (app.get('env') === 'development') {
       app.use(function(err, req, res, next) {
-        res.status(err.status || 500).send({
-          message: err.message,
-          error: err
+        console.log(err.message);
+        res.status(err.status || 500).render('error', {
+          message: 'Something went wrong',
         });
       });
     }
 
     // production error handler (no stacktraces leaked to user)
     app.use(function(err, req, res, next) {
-      res.status(err.status || 500).send({
-        message: err.message,
-        error: {}
+      req.flash('messages', {
+        status: 'danger',
+        value: 'Something went wrong.'
+      });
+      res.status(err.status || 500).render('error', {
+        message: 'Something went wrong',
       });
     });
 
