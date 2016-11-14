@@ -13,6 +13,7 @@
     "body-parser": "~1.15.1",
     "connect-flash": "^0.1.1",
     "cookie-parser": "~1.4.3",
+    "coveralls": "^2.11.15",
     "debug": "~2.2.0",
     "dotenv": "^2.0.0",
     "express": "~4.13.4",
