@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
+const authHelpers = require('../auth/_helpers');
 const productQueries = require('../db/queries/products');
 
 router.get('/', (req, res, next) => {
@@ -35,7 +36,7 @@ router.get('/:id', (req, res, next) => {
   });
 });
 
-router.get('/:id/charge', (req, res, next) => {
+router.get('/:id/charge', authHelpers.loginRequired, (req, res, next) => {
   const productID = parseInt(req.params.id);
   productQueries.getSingleProduct(productID)
   .then((product) => {
@@ -51,7 +52,7 @@ router.get('/:id/charge', (req, res, next) => {
   });
 });
 
-router.post('/:id/stripe', (req, res, next) => {
+router.post('/:id/stripe', authHelpers.loginRequired, (req, res, next) => {
   // Obtain StripeToken
   const stripeToken = req.body.stripeToken;
   const productID = parseInt(req.body.productID);

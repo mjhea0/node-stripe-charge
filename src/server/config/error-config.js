@@ -11,7 +11,7 @@
       const err = new Error('Not Found');
       err.status = 404;
       res.status(err.status).render('error', {
-        message: 'Not found',
+        message: 'Not found'
       });
     });
 
@@ -20,7 +20,7 @@
       app.use(function(err, req, res, next) {
         console.log(err.message);
         res.status(err.status || 500).render('error', {
-          message: 'Something went wrong',
+          message: 'Something went wrong'
         });
       });
     }
@@ -32,7 +32,7 @@
         value: 'Something went wrong.'
       });
       res.status(err.status || 500).render('error', {
-        message: 'Something went wrong',
+        message: 'Something went wrong'
       });
     });
 

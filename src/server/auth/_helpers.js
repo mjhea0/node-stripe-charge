@@ -33,9 +33,21 @@ function loginRedirect(req, res, next) {
   else return next();
 }
 
+function adminRequired(req, res, next) {
+  if (req.isAuthenticated() && req.user.admin) {
+    return next();
+  }
+  req.flash('messages', {
+    status: 'danger',
+    value: 'You do not have permission to do that.'
+  });
+  res.redirect('/auth/login');
+}
+
 module.exports = {
   comparePass,
   createUser,
   loginRequired,
-  loginRedirect
+  loginRedirect,
+  adminRequired
 };

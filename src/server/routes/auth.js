@@ -18,7 +18,7 @@ router.get('/register', authHelpers.loginRedirect, (req, res, next) => {
   });
 });
 
-router.post('/register', (req, res, next)  => {
+router.post('/register', authHelpers.loginRedirect, (req, res, next)  => {
   return authHelpers.createUser(req, res)
   .then((user) => {
     passport.authenticate('local', (err, user, info) => {
@@ -39,7 +39,7 @@ router.post('/register', (req, res, next)  => {
   .catch((err) => { return next(err); });
 });
 
-router.post('/login', (req, res, next) => {
+router.post('/login', authHelpers.loginRedirect, (req, res, next) => {
   passport.authenticate('local', (err, user, info) => {
     if (err) { return next(err); }
     if (!user) {
