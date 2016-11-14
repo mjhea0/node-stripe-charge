@@ -48,7 +48,7 @@ $ npm run coverage
 
 ## Changelog
 
-1. 11/14/2016 - major refactor, update to es6
+1. 11/14/2016 - refactored all code, updated to es6, moved to postgres from mongo, added tests
 1. 02/09/2016 - refactored passport, tests, error handlers, client-side javascript (view [commit](https://github.com/mjhea0/node-stripe-charge/commit/f32c6eb731dbf14b194ac07795671931100139b4))
 1. 04/23/2015 - major refactor
 1. 03/11/2015 - updated to Express 4.x
