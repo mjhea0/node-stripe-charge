@@ -2,85 +2,73 @@ const express = require('express');
 const router = express.Router();
 
 const authHelpers = require('../../auth/_helpers');
-const userQueries = require('../../db/queries/users');
+const productQueries = require('../../db/queries/products');
 
-// get ALL users
+// get ALL products
 router.get('/', authHelpers.adminRequiredJSON, (req, res, next) => {
-  return userQueries.getAllUsers()
-  .then((users) => {
+  return productQueries.getAllProducts()
+  .then((products) => {
     return res.status(200)
     .json({
       status: 'success',
-      data: users,
-      message: 'Retrieved all users.'
+      data: products,
+      message: 'Retrieved all products.'
     });
   })
   .catch((err) => { return next(err); });
 });
 
-// get SINGLE user
+// get SINGLE product
 router.get('/:id', authHelpers.adminRequiredJSON, (req, res, next) => {
-  userQueries.getUserByID(parseInt(req.params.id))
-  .then((user) => {
+  productQueries.getSingleProduct(parseInt(req.params.id))
+  .then((product) => {
     return res.status(200)
     .json({
       status: 'success',
-      data: {
-        email: user.email,
-        admin: user.admin
-      },
-      message: 'Retrieved single user.'
+      data: product,
+      message: 'Retrieved single product.'
     });
   })
   .catch((err) => { return next(err); });
 });
 
-// add new user
+// add new product
 router.post('/', authHelpers.adminRequiredJSON, (req, res, next) => {
-  userQueries.addUser(req.body)
-  .then((user) => {
+  productQueries.addProduct(req.body)
+  .then((product) => {
     return res.status(200)
     .json({
       status: 'success',
-      data: {
-        email: user[0].email,
-        admin: user[0].admin
-      },
-      message: 'Created user.'
+      data: product[0],
+      message: 'Created product.'
     });
   })
   .catch((err) => { return next(err); });
 });
 
-// update SINGLE user
+// update SINGLE product
 router.put('/:id', authHelpers.adminRequiredJSON, (req, res, next) => {
-  userQueries.updateUser(parseInt(req.params.id), req.body)
-  .then((user) => {
+  productQueries.updateProduct(parseInt(req.params.id), req.body)
+  .then((product) => {
     return res.status(200)
     .json({
       status: 'success',
-      data: {
-        email: user[0].email,
-        admin: user[0].admin
-      },
-      message: 'Updated user.'
+      data: product[0],
+      message: 'Updated product.'
     });
   })
   .catch((err) => { return next(err); });
 });
 
-// delete SINGLE user
+// delete SINGLE product
 router.delete('/:id', authHelpers.adminRequiredJSON, (req, res, next) => {
-  userQueries.deleteUser(parseInt(req.params.id))
-  .then((user) => {
+  productQueries.deleteProduct(parseInt(req.params.id))
+  .then((product) => {
     return res.status(200)
     .json({
       status: 'success',
-      data: {
-        email: user[0].email,
-        admin: user[0].admin
-      },
-      message: 'Removed user.'
+      data: product[0],
+      message: 'Removed product.'
     });
   })
   .catch((err) => { return next(err); });
