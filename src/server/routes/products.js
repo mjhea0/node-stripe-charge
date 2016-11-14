@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 const authHelpers = require('../auth/_helpers');
+const routeHelpers = require('./_helpers');
 const productQueries = require('../db/queries/products');
 
 router.get('/', (req, res, next) => {
@@ -53,30 +53,27 @@ router.get('/:id/charge', authHelpers.loginRequired, (req, res, next) => {
 });
 
 router.post('/:id/stripe', authHelpers.loginRequired, (req, res, next) => {
-  // Obtain StripeToken
   const stripeToken = req.body.stripeToken;
   const productID = parseInt(req.body.productID);
   const productAmount = req.body.productAmount;
-  // Simple validation
-  // (1) Does the product exist?
-  productQueries.getSingleProduct(productID)
+  const userID = parseInt(req.user.id);
+  // validate product
+  return routeHelpers.validateProduct(productID, productAmount)
   .then((product) => {
-    // (2) Does the product amount align?
-    if (productAmount !== product.amount) return next('Incorrect Product');
     // create charge
     const charge = {
       amount: productAmount * 100,
       currency: product.currency,
       card: stripeToken
     };
-    stripe.charges.create(charge, (err) => {
-      if (err) return next(err);
-      req.flash('messages', {
-        status: 'success',
-        value: `Thanks for purchasing a ${req.body.productName}!`
-      });
-      res.redirect('/products');
+    routeHelpers.createCharge(charge, productID, userID);
+  })
+  .then(() => {
+    req.flash('messages', {
+      status: 'success',
+      value: `Thanks for purchasing a ${req.body.productName}!`
     });
+    res.redirect('/products');
   })
   .catch((err) => {
     return next(err);
