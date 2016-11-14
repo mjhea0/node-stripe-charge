@@ -1,0 +1,63 @@
+{% extends '_base.html' %}
+
+{% block title %}{% endblock %}
+
+
+{% block content %}
+
+<div class="container">
+  <h1>Charge</h1>
+  <br>
+  <a href="/products">Back to product list</a>
+  <br><br>
+  <div class="row">
+    <div class="col-md-4">
+      <div>
+        <h2>You are buying:</h2>
+        <ul>
+          <li>Product Name: <em>{{product.name}}</em></li>
+          <li>Amount: <em>${{product.amount}}</em></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Use this data for testing:</h2>
+        <ul>
+          <li>Card Number - 4242-4242-4242-4242</li>
+          <li>CVC Code - any three digits</li>
+          <li>Expiration - any date in the future</li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <h2>One time payment</h2>
+      <br>
+      <form id="payment-form" role="form" autocomplete="on" action="/stripe" method="POST" style="max-width: 300px;">
+        <div id="charge-error" class="alert alert-danger payment-errors"></div>
+        <div class="form-group">
+          <label>Credit Card Info</label>
+          <input type="tel" class="form-control card-number cc-number" data-stripe="number" autocomplete="cc-number" placeholder="•••• •••• •••• ••••" required>
+        </div>
+        <div class="form-group">
+          <input type="tel" class="form-control cc-cvc card-cvc" data-stripe="cvc" autocomplete="off" placeholder="CVC" required>
+        </div>
+        <div class="form-group">
+          <label>Card Expiration Date</label>
+          <input type="text" data-stripe="exp-month" placeholder="MM" class="card-expiry-month form-control" required>
+          <input type="text" data-stripe="exp-year" placeholder="YYYY" class="card-expiry-year form-control" required>
+        </div>
+        <input style="display:none" name="productAmount" value="{{product.amount}}">
+        <input style="display:none" name="productName" value="{{product.name}}">
+        <input style="display:none" name="productID" value="{{product._id.toString()}}">
+        <button type="submit" class="btn btn-default submit-button btn-block">Submit</button>
+      </form>
+    </div>
+  </div>
+
+<br>
+
+{% endblock %}
+
+{% block js %}
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.payment/1.2.3/jquery.payment.min.js" type="text/javascript"></script>
+  <script src="{{ baseurl }}/js/validation.js" type="text/javascript"></script>
+{% endblock %}

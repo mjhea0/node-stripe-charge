@@ -1,8 +1,5 @@
-node_modules
 .DS_Store
+node_modules/
 npm-debug.log
+*.env
 coverage/
-env.sh
-bower_components
-.env
-.idea/

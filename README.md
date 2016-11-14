@@ -1,4 +1,4 @@
-## Node + Stripe + Express
+## Node + Stripe
 
 [![Build Status](https://travis-ci.org/mjhea0/node-stripe-charge.svg?branch=master)](https://travis-ci.org/mjhea0/node-stripe-charge)
 
@@ -16,15 +16,13 @@ The back-end API includes:
 
 ## Quick Start
 
-1. Clone and install dependencies
-1. Update the config:
-  - Rename the *.env_sample* file to *.env* and update
-  - Update the Mongo URI in */src/_config.js* (if necessary)
-1. Update the key on line 1 of *src/client/js/main.js*
-1. Run `mongod` in a seperate terminal window
-1. Run the app - `npm start` or `gulp`
-
-> The database, if empty, is seeded with an admin user - username: *ad@min.com* / password: *admin*
+1. Fork/Clone
+1. Install dependencies - npm install
+1. Rename the *.env_sample* file to *.env* and update
+1. Create two local Postgres databases - `node_stripe_charge` and `node_stripe_charge_test`
+1. Migrate - knex migrate:latest --env development
+1. Seed - knex seed:run --env development
+1. Run the development server - gulp
 
 ## Development Workflow
 
@@ -33,7 +31,6 @@ The back-end API includes:
 1. Create PR, which triggers Travis CI
 1. After tests pass, merge the PR
 1. Tests run again on Travis CI
-1. Once tests pass, code is deployed automatically to staging server on Heroku (WIP)
 
 ## Tests
 
@@ -46,11 +43,12 @@ $ npm test
 With code coverage:
 
 ```sh
-$ npm run cov
+$ npm run coverage
 ```
 
 ## Changelog
 
+1. 11/14/2016 - major refactor, update to es6
 1. 02/09/2016 - refactored passport, tests, error handlers, client-side javascript (view [commit](https://github.com/mjhea0/node-stripe-charge/commit/f32c6eb731dbf14b194ac07795671931100139b4))
 1. 04/23/2015 - major refactor
 1. 03/11/2015 - updated to Express 4.x
@@ -74,22 +72,6 @@ Admin required for all routes!
 - POST `/products` - create products
 - PUT `/products/:id` - update products
 - DELETE `/products/:id` - delete products
-
-### Store
-
-- GET `/stores` - get all stores
-- GET `/store/:id` - get store
-- POST `/stores` - create store
-- PUT `/store/:id` - update store
-- DELETE `/store/:id` - delete store (need to test)
-
-### Plan (todo)
-
-- GET `/plans` - get all plans
-- GET `/plan/:id` - get plan
-- POST `/plans` - create plan
-- PUT `/plan/:id` - update plan
-- DELETE `/plan/:id` - delete plan
 
 ## Screenshots
 

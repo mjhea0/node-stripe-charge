@@ -2,23 +2,26 @@
 
 {% block title %}{% endblock %}
 
-
 {% block content %}
 
-<div class="container">
-  <h1>Profile</h1>
-  <p class="lead">Welcome, {{user.email}}!</p>
-  <a href="/">Go home</a>
-  <br><br>
-  {% if user.products.length > 1 %}
-    <p>Products you've purchased:</p>
-    <br>
-    <ul>
-    {% for product in user.products %}
-      <li>{{ product.productID }}</li>
-    {% endfor %}
-    </ul>
-  {% endif %}
-</div>
+  <h1>Welcome, {{ user.email }}!</h1>
+  <hr><br>
+  <div class="row">
+    <div class="col-md-4">
+      <div class="container">
+        {% if transactions.length > 1 %}
+          <p>Products purchased:</p>
+          <br>
+          <ul>
+          {% for transaction in transactions %}
+            <li><a href="{{ base_url}}/products/{{ transaction.product_id }}">{{ transaction.product_id }}</a></li>
+          {% endfor %}
+          </ul>
+        {% else %}
+          <p>No transactions</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
 
 {% endblock %}

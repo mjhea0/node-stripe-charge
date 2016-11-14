@@ -1,17 +1,15 @@
-const express = require('express'),
-  router = express.Router();
+const express = require('express');
+const router = express.Router();
 
+router.get('/ping', (req, res, next) => res.send('pong!'));
 
-router.get('/', (req, res) => {
-  res.render('index', {
+router.get('/', (req, res, next) => {
+  const renderObject = {
+    title: 'home',
     user: req.user,
-    message: req.flash('message')[0]
-  });
+    messages: req.flash('messages')
+  };
+  res.render('index', renderObject);
 });
-
-router.get('/ping', (req, res) => {
-  res.send('pong!');
-});
-
 
 module.exports = router;

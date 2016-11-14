@@ -5,12 +5,17 @@
 
 {% block content %}
 
-<div class="container">
-
-  <h1>{{ message }}</h1>
-  <h2>{{ error.status }}</h2>
-  <pre>{{ error.stack }}</pre>
-
-</div>
+  <div class="row">
+    <div class="col-md-12">
+      <div>
+        {% if message %}
+          <h1>{{message}}</h1>
+        {% endif %}
+        {% if error.status %}
+          <h2>{{error.status}}</h2>
+        {% endif %}
+      </div>
+    </div>
+  </div>
 
 {% endblock %}

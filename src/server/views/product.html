@@ -2,17 +2,15 @@
 
 {% block title %}{% endblock %}
 
-
 {% block content %}
 
-<div class="container">
-  <h1>{{product.name}}</h1>
-  <p class="lead">${{product.amount}}</p>
-  <a href="/products">Back to product list</a>
-  <br><br>
-  {% if user %}
-    <a class="btn btn-primary" href="/charge/{{product._id.toString()}}" role="button">Buy Now</a>
-  {% endif %}
-</div>
+  <h1>{{ product.name }}</h1>
+  <hr><br>
+  <div class="row">
+    <div class="col-md-4">
+      <p class="lead">${{ product.amount }}</p>
+      <a class="btn btn-primary" href="/products/{{ product.id }}/charge" role="button">Buy Now</a>
+    </div>
+  </div>
 
 {% endblock %}

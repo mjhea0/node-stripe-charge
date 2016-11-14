@@ -2,78 +2,68 @@
 
 {% block title %}{% endblock %}
 
-
 {% block content %}
 
 <div class="container">
-  <h1>Customer Data</h1>
-  <p class="lead">Spot some trends.</p>
-  <a href="/">Go home</a>
-  <br><br>
-  {% if user %}
-    <span>You are currently logged in as <strong>{{user.email}}</strong></span>
-    <br>
-    <a href="logout">Logout</a>
-  {% endif %}
-  <hr>
+  <h1>Admin Portal</h1>
+  <hr><br>
+  <span>You are currently logged in as <strong>{{ user.email }}</strong>.</span>
+  <br>
+  <a href="{{ base_url }}/auth/logout">Logout</a>
 
   <div class="row">
-
-    <div class="col-xs-4">
-      <h3>API:</h3>
-      <br>
-      <ul>
-        <li>GET All Users - api/v1/users</li>
-        <li>GET Single user - api/v1/user/:id</li>
-        <li>GET All Products - api/v1/products</li>
-        <li>POST All Products - api/v1/products</li>
-        <li>GET Single Product - api/v1/product/:id</li>
-      </ul>
-      <br>
+    <div class="col-md-4">
       <h3>Add Product:</h3>
-      <form id="add-product-form">
+      <form action="/products" method="post">
         <div class="form-group">
           <label for="product-name">Product Name</label>
-          <input type="text" class="form-control" id="product-name" placeholder="Enter a product" required>
+          <input type="text" class="form-control" name="name" id="product-name" placeholder="Enter a product" required>
+        </div>
+        <div class="form-group">
+          <label for="product-description">Product Description</label>
+          <textarea class="form-control" rows="3" name="description" id="product-description" required></textarea>
         </div>
         <div class="form-group">
           <label for="product-price">Product Price</label>
-          <input input type="number" step="0.01" class="form-control" id="product-price" placeholder="Enter a price" required>
+          <input input type="number" step="0.01" class="form-control" id="product-price" name="amount" placeholder="Enter a price" required>
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary btn-sm">Submit</button>
       </form>
       <br>
       <p id="product-response"></p>
-
     </div>
 
-    <div class="col-xs-6 col-xs-offset-1">
-      <h3>Total Sales: <span class="total"><em>{{data.length}}</em></span></h3>
-      <br>
-      <table class="table table-hover">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Token</th>
-            <th>Date</th>
-          </tr>
-        </thead>
-        <tbody>
-        {% for product in data %}
-          <tr>
-            <td>{{loop.index}}</td>
-            <td>
-              <a href="https://dashboard.stripe.com/test/logs?object={{product.token}}" target="_blank">
-                {{product.token}}
-              </a>
-            </td>
-            <td>{{moment(product.time).format("MM-DD-YYYY HH:mm")}}</td>
-          </tr>
-        {% endfor %}
-        </tbody>
-      </table>
+    <div class="col-md-6 col-md-offset-1">
+      {% if transactions.length %}
+        <h3>Total transactions: <span class="total"><em>{{ transactions.length }}</em></span></h3>
+        <br>
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>UUID</th>
+              <th>Token</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody>
+          {% for transaction in transactions %}
+            <tr>
+              <td>{{ transaction.id }}</td>
+              <td>
+                <a href="https://dashboard.stripe.com/test/logs?object={{ transaction.stripe_transaction }}" target="_blank">
+                  {{ transaction.stripe_transaction }}
+                </a>
+              </td>
+              <td>{{ transaction.purchase_time }}</td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      {% else %}
+        <h3>Total transactions:</h3>
+        <p>No transactions</p>
+      {% endif %}
     </div>
-
   </div>
 
 </div>
