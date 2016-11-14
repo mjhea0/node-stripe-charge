@@ -102,11 +102,11 @@ describe('routes : auth', () => {
       chai.request(server)
       .get('/users/4/admin')
       .end((err, res) => {
-        should.not.exist(err);
-        res.redirects.length.should.eql(1);
-        res.status.should.eql(200);
+        should.exist(err);
+        res.redirects.length.should.eql(0);
+        res.status.should.eql(500);
         res.type.should.eql('text/html');
-        res.text.should.contain.contain('<h1>Login</h1>');
+        res.text.should.contain.contain('<h1>Something went wrong</h1>');
         done();
       });
     });

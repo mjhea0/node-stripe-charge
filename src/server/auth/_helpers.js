@@ -35,33 +35,46 @@ function loginRedirect(req, res, next) {
 }
 
 function adminRequired(req, res, next) {
+  const errorMessage = 'You do not have permission to do that.';
   if (!req.user) {
-    req.flash('messages', {
-      status: 'danger',
-      value: 'Please log in.'
-    });
-    return res.redirect('/auth/login');
+    throw new Error(errorMessage);
   } else {
-    userQueries.getUserByEmail(req.user.email)
+    return userQueries.getUserByEmail(req.user.email)
     .then((user) => {
       if (!user) {
-        req.flash('messages', {
-          status: 'danger',
-          value: 'Please log in.'
-        });
-        return res.redirect('/auth/login');
+        throw new Error(errorMessage);
       }
       if (!user.admin) {
-        req.flash('messages', {
-          status: 'danger',
-          value: 'You do not have permission to do that.'
-        });
-        return res.redirect('/');
+        throw new Error(errorMessage);
       }
       return next();
     })
     .catch((err) => {
-      return next(err); });
+      return next(errorMessage); });
+  }
+}
+
+function adminRequiredJSON(req, res, next) {
+  const errorMessage = 'You do not have permission to do that.';
+  if (!req.user) {
+    throw new Error(errorMessage);
+  } else {
+    return userQueries.getUserByEmail(req.user.email)
+    .then((user) => {
+      if (!user) {
+        throw new Error(errorMessage);
+      }
+      if (!user.admin) {
+        throw new Error(errorMessage);
+      }
+      return next();
+    })
+    .catch((err) => {
+      res.status(401).json({
+        status: 'error',
+        message: errorMessage
+      });
+    });
   }
 }
 
@@ -70,5 +83,6 @@ module.exports = {
   createUser,
   loginRequired,
   loginRedirect,
-  adminRequired
+  adminRequired,
+  adminRequiredJSON
 };
