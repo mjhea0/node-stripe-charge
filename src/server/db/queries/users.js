@@ -6,6 +6,13 @@ function getUserByEmail(email) {
   .first();
 }
 
+function getUserByID(userID) {
+  return knex('users')
+  .where('id', parseInt(userID))
+  .first();
+}
+
 module.exports = {
-  getUserByEmail
+  getUserByEmail,
+  getUserByID
 };

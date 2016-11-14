@@ -10,6 +10,7 @@ router.get('/', (req, res, next) => {
   .then((products) => {
     const renderObject = {
       title: 'all products',
+      user: req.user,
       messages: req.flash('messages'),
       products: products
     };
@@ -26,6 +27,7 @@ router.get('/:id', (req, res, next) => {
   .then((product) => {
     const renderObject = {
       title: product.name,
+      user: req.user,
       messages: req.flash('messages'),
       product: product
     };
@@ -42,6 +44,7 @@ router.get('/:id/charge', authHelpers.loginRequired, (req, res, next) => {
   .then((product) => {
     const renderObject = {
       title: `buy ${product.name}`,
+      user: req.user,
       messages: req.flash('messages'),
       product: product
     };

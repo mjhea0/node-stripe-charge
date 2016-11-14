@@ -5,17 +5,21 @@ const authHelpers = require('../auth/_helpers');
 const passport = require('../auth/local');
 
 router.get('/login', authHelpers.loginRedirect, (req, res, next) => {
-  res.render('login', {
+  const renderObject = {
+    title: 'login',
     user: req.user,
     messages: req.flash('messages')
-  });
+  };
+  res.render('login', renderObject);
 });
 
 router.get('/register', authHelpers.loginRedirect, (req, res, next) => {
-  res.render('register', {
+  const renderObject = {
+    title: 'register',
     user: req.user,
     messages: req.flash('messages')
-  });
+  };
+  res.render('register', renderObject);
 });
 
 router.post('/register', authHelpers.loginRedirect, (req, res, next)  => {

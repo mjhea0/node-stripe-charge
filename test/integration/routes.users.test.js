@@ -39,13 +39,13 @@ describe('routes : auth', () => {
           should.not.exist(err);
           res.redirects.length.should.eql(0);
           res.status.should.eql(200);
-          res.type.should.eql('application/json');
-          res.body.status.should.eql('success');
+          res.type.should.eql('text/html');
+          res.text.should.contain(`<h1>Welcome, ${user.email}!</h1>`);
           done();
         });
       });
     });
-    it('should throw an error if a user is not logged in', (done) => {
+    it('should error if a user is not logged in', (done) => {
       chai.request(server)
       .get('/users/4')
       .end((err, res) => {
@@ -55,6 +55,25 @@ describe('routes : auth', () => {
         res.type.should.eql('text/html');
         res.text.should.contain.contain('<h1>Login</h1>');
         done();
+      });
+    });
+    it('should error if the wrong profile is accessed', (done) => {
+      passportStub.login({
+        email: 'jeremy@realpython.com',
+        password: 'johnson123'
+      });
+      userQueries.getUserByEmail('jeremy@realpython.com')
+      .then((user) => {
+        chai.request(server)
+        .get('/users/999')
+        .end((err, res) => {
+          should.exist(err);
+          res.redirects.length.should.eql(0);
+          res.status.should.eql(500);
+          res.type.should.eql('text/html');
+          res.text.should.contain('<h1>Something went wrong</h1>');
+          done();
+        });
       });
     });
   });

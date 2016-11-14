@@ -16,10 +16,10 @@
       <ul class="nav navbar-nav navbar-right">
         {% if user.admin %}
           <li><a href="/auth/admin">Admin</a></li>
-          <li><a href="/auth/profile">Profile</a></li>
+          <li><a href="/users/{{ user.id }}">Profile</a></li>
           <li><a href="/auth/logout">Logout</a></li>
         {% elseif user %}
-          <li><a href="/auth/profile">Profile</a></li>
+          <li><a href="/users/{{ user.id }}">Profile</a></li>
           <li><a href="/auth/logout">Logout</a></li>
         {% else %}
           <li><a href="/auth/login">Register/Login</a></li>

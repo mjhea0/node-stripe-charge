@@ -1,5 +1,10 @@
 const knex = require('../connection');
 
+function getTransactionsByUserID(userID) {
+  return knex('transactions')
+  .where('user_id', parseInt(userID));
+}
+
 function createTransaction(stripeID, productID, userID, cb) {
   return knex('transactions')
   .insert({
@@ -12,5 +17,6 @@ function createTransaction(stripeID, productID, userID, cb) {
 }
 
 module.exports = {
+  getTransactionsByUserID,
   createTransaction
 };

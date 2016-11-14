@@ -1,0 +1,25 @@
+{% extends '_base.html' %}
+
+{% block title %}{% endblock %}
+
+{% block content %}
+
+  <h1>Welcome, {{ user.email }}!</h1>
+  <hr><br>
+  <div class="row">
+    <div class="col-md-4">
+      <div class="container">
+        {% if transactions.length > 1 %}
+          <p>Products purchased:</p>
+          <br>
+          <ul>
+          {% for transaction in transactions %}
+            <li><a href="{{ base_url}}/products/{{ transaction.product_id }}">{{ transaction.product_id }}</a></li>
+          {% endfor %}
+          </ul>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
