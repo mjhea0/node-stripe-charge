@@ -6,7 +6,7 @@ const routeHelpers = require('./_helpers');
 const productQueries = require('../db/queries/products');
 
 router.get('/', (req, res, next) => {
-  productQueries.getAllProducts()
+  return productQueries.getAllProducts()
   .then((products) => {
     const renderObject = {
       title: 'all products',
@@ -23,7 +23,7 @@ router.get('/', (req, res, next) => {
 
 router.get('/:id', (req, res, next) => {
   const productID = parseInt(req.params.id);
-  productQueries.getSingleProduct(productID)
+  return productQueries.getSingleProduct(productID)
   .then((product) => {
     const renderObject = {
       title: product.name,
@@ -40,7 +40,7 @@ router.get('/:id', (req, res, next) => {
 
 router.get('/:id/charge', authHelpers.loginRequired, (req, res, next) => {
   const productID = parseInt(req.params.id);
-  productQueries.getSingleProduct(productID)
+  return productQueries.getSingleProduct(productID)
   .then((product) => {
     const renderObject = {
       title: `buy ${product.name}`,
@@ -69,7 +69,7 @@ router.post('/:id/stripe', authHelpers.loginRequired, (req, res, next) => {
       currency: product.currency,
       card: stripeToken
     };
-    routeHelpers.createCharge(charge, productID, userID);
+    return routeHelpers.createCharge(charge, productID, userID);
   })
   .then(() => {
     req.flash('messages', {
@@ -84,7 +84,7 @@ router.post('/:id/stripe', authHelpers.loginRequired, (req, res, next) => {
 });
 
 router.post('/', authHelpers.adminRequired, (req, res, next) => {
-  productQueries.addProduct(req.body)
+  return productQueries.addProduct(req.body)
   .then((product) => {
     if (!product) { throw new Error('Something went wrong'); }
     req.flash('messages', {

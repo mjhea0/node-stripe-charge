@@ -23,7 +23,7 @@ function validateProduct(productID, productAmount) {
 
 function createCharge(charge, productID, userID) {
   return new Promise((resolve, reject) => {
-    stripe.charges.create(charge, (err, res) => {
+    return stripe.charges.create(charge, (err, res) => {
       if (err) return reject(err);
       // create transaction
       transactionQueries.createTransaction(

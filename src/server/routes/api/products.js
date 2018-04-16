@@ -20,7 +20,7 @@ router.get('/', authHelpers.adminRequiredJSON, (req, res, next) => {
 
 // get SINGLE product
 router.get('/:id', authHelpers.adminRequiredJSON, (req, res, next) => {
-  productQueries.getSingleProduct(parseInt(req.params.id))
+  return productQueries.getSingleProduct(parseInt(req.params.id))
   .then((product) => {
     return res.status(200)
     .json({
@@ -34,7 +34,7 @@ router.get('/:id', authHelpers.adminRequiredJSON, (req, res, next) => {
 
 // add new product
 router.post('/', authHelpers.adminRequiredJSON, (req, res, next) => {
-  productQueries.addProduct(req.body)
+  return productQueries.addProduct(req.body)
   .then((product) => {
     return res.status(200)
     .json({
@@ -48,7 +48,7 @@ router.post('/', authHelpers.adminRequiredJSON, (req, res, next) => {
 
 // update SINGLE product
 router.put('/:id', authHelpers.adminRequiredJSON, (req, res, next) => {
-  productQueries.updateProduct(parseInt(req.params.id), req.body)
+  return productQueries.updateProduct(parseInt(req.params.id), req.body)
   .then((product) => {
     return res.status(200)
     .json({
@@ -62,7 +62,7 @@ router.put('/:id', authHelpers.adminRequiredJSON, (req, res, next) => {
 
 // delete SINGLE product
 router.delete('/:id', authHelpers.adminRequiredJSON, (req, res, next) => {
-  productQueries.deleteProduct(parseInt(req.params.id))
+  return productQueries.deleteProduct(parseInt(req.params.id))
   .then((product) => {
     return res.status(200)
     .json({

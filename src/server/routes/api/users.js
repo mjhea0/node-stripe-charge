@@ -20,7 +20,7 @@ router.get('/', authHelpers.adminRequiredJSON, (req, res, next) => {
 
 // get SINGLE user
 router.get('/:id', authHelpers.adminRequiredJSON, (req, res, next) => {
-  userQueries.getUserByID(parseInt(req.params.id))
+  return userQueries.getUserByID(parseInt(req.params.id))
   .then((user) => {
     return res.status(200)
     .json({
@@ -37,7 +37,7 @@ router.get('/:id', authHelpers.adminRequiredJSON, (req, res, next) => {
 
 // add new user
 router.post('/', authHelpers.adminRequiredJSON, (req, res, next) => {
-  userQueries.addUser(req.body)
+  return userQueries.addUser(req.body)
   .then((user) => {
     return res.status(200)
     .json({
@@ -54,7 +54,7 @@ router.post('/', authHelpers.adminRequiredJSON, (req, res, next) => {
 
 // update SINGLE user
 router.put('/:id', authHelpers.adminRequiredJSON, (req, res, next) => {
-  userQueries.updateUser(parseInt(req.params.id), req.body)
+  return userQueries.updateUser(parseInt(req.params.id), req.body)
   .then((user) => {
     return res.status(200)
     .json({
@@ -71,7 +71,7 @@ router.put('/:id', authHelpers.adminRequiredJSON, (req, res, next) => {
 
 // delete SINGLE user
 router.delete('/:id', authHelpers.adminRequiredJSON, (req, res, next) => {
-  userQueries.deleteUser(parseInt(req.params.id))
+  return userQueries.deleteUser(parseInt(req.params.id))
   .then((user) => {
     return res.status(200)
     .json({

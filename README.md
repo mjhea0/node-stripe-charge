@@ -5,6 +5,8 @@
 
 This is a template for you to use on your own projects for processing one-time Stripe charges. Follow the directions below to get started.
 
+![main](https://raw.github.com/mjhea0/node-stripe-charge/master/images/final.gif)
+
 > Looking for a simple example? [Node Stripe Example](https://github.com/mjhea0/node-stripe-example)
 
 The back-end API includes:
@@ -78,16 +80,12 @@ Admin required for all routes!
 
 ### Main Page
 
-![main](https://raw.github.com/mjhea0/node-stripe-charge/master/images/main.png)
+![main](https://raw.githubusercontent.com/mjhea0/node-stripe-charge/master/images/main.png)
 
 ### Charge Page
 
-![charge](https://raw.github.com/mjhea0/node-stripe-charge/master/images/charge.png)
-
-### Successful Charge
-
-![success](https://raw.github.com/mjhea0/node-stripe-charge/master/images/success.png)
+![charge](https://raw.githubusercontent.com/mjhea0/node-stripe-charge/master/images/charge.png)
 
 ### Admin Page
 
-![admin](https://raw.github.com/mjhea0/node-stripe-charge/master/images/admin.png)
+![admin](https://raw.githubusercontent.com/mjhea0/node-stripe-charge/master/images/admin.png)
