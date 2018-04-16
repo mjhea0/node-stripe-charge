@@ -17,17 +17,18 @@ The back-end API includes:
 ## Quick Start
 
 1. Fork/Clone
-1. Install dependencies - npm install
+1. Install dependencies - `npm install`
 1. Rename the *.env_sample* file to *.env* and update
 1. Create two local Postgres databases - `node_stripe_charge` and `node_stripe_charge_test`
-1. Migrate - knex migrate:latest --env development
-1. Seed - knex seed:run --env development
-1. Run the development server - gulp
+1. Migrate - `knex migrate:latest --env development`
+1. Seed - `knex seed:run --env development`
+1. Run the development server - `gulp`
+1. Server should be listening on [http://localhost:3000](http://localhost:3000)
 
 ## Development Workflow
 
 1. Create feature branch
-1. Develop/test locally (hack! hack! hack!)
+1. Develop/test locally
 1. Create PR, which triggers Travis CI
 1. After tests pass, merge the PR
 1. Tests run again on Travis CI

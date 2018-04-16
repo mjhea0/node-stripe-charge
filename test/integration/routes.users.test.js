@@ -67,7 +67,7 @@ describe('routes : auth', () => {
         chai.request(server)
         .get('/users/999')
         .end((err, res) => {
-          should.exist(err);
+          should.not.exist(err);
           res.redirects.length.should.eql(0);
           res.status.should.eql(500);
           res.type.should.eql('text/html');
@@ -102,7 +102,7 @@ describe('routes : auth', () => {
       chai.request(server)
       .get('/users/4/admin')
       .end((err, res) => {
-        should.exist(err);
+        should.not.exist(err);
         res.redirects.length.should.eql(0);
         res.status.should.eql(500);
         res.type.should.eql('text/html');
@@ -120,7 +120,7 @@ describe('routes : auth', () => {
         chai.request(server)
         .get('/users/999/admin')
         .end((err, res) => {
-          should.exist(err);
+          should.not.exist(err);
           res.redirects.length.should.eql(0);
           res.status.should.eql(500);
           res.type.should.eql('text/html');

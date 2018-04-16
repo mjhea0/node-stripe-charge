@@ -60,7 +60,7 @@ describe('routes : products', () => {
       chai.request(server)
       .get('/products/22')
       .end((err, res) => {
-        should.exist(err);
+        should.not.exist(err);
         res.redirects.length.should.eql(0);
         res.status.should.eql(500);
         res.type.should.eql('text/html');
@@ -112,7 +112,7 @@ describe('routes : products', () => {
       chai.request(server)
       .get('/products/22/charge')
       .end((err, res) => {
-        should.exist(err);
+        should.not.exist(err);
         res.redirects.length.should.eql(0);
         res.status.should.eql(500);
         res.type.should.eql('text/html');
@@ -143,7 +143,7 @@ describe('routes : products', () => {
       chai.request(server)
       .post('/products/22/stripe')
       .end((err, res) => {
-        should.exist(err);
+        should.not.exist(err);
         res.redirects.length.should.eql(0);
         res.status.should.eql(500);
         res.type.should.eql('text/html');

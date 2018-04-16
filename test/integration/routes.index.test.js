@@ -41,7 +41,7 @@ describe('routes : index', () => {
       chai.request(server)
       .get('/404')
       .end((err, res) => {
-        should.exist(err);
+        should.not.exist(err);
         res.redirects.length.should.eql(0);
         res.status.should.eql(404);
         res.type.should.eql('text/html');
