@@ -1,9 +1,10 @@
 {% if messages.length %}
   <br>
-  <div class="alert alert-{{ messages[0].status}} alert-dismissible" role="alert">
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+  <div class="alert alert-{{ messages[0].status}} alert-dismissible fade show" role="alert">
+    {{ messages[0].value }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close" style="font-size: 1rem;">
       <span aria-hidden="true">&times;</span>
     </button>
-    <p>{{ messages[0].value }}</p>
   </div>
+  <br><br>
 {% endif %}

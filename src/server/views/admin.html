@@ -6,10 +6,12 @@
 
 <div class="container">
   <h1>Admin Portal</h1>
-  <hr><br>
+  <hr><br><br>
   <span>You are currently logged in as <strong>{{ user.email }}</strong>.</span>
   <br>
   <a href="{{ base_url }}/auth/logout">Logout</a>
+
+  <br><br><br>
 
   <div class="row">
     <div class="col-md-4">
@@ -33,7 +35,7 @@
       <p id="product-response"></p>
     </div>
 
-    <div class="col-md-6 col-md-offset-1">
+    <div class="col-md-7 col-md-offset-1">
       {% if transactions.length %}
         <h3>Total transactions: <span class="total"><em>{{ transactions.length }}</em></span></h3>
         <br>

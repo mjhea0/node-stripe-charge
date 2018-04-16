@@ -39,6 +39,39 @@ describe('routes : products', () => {
     });
   });
 
+  describe('POST /products', () => {
+    it('should add a product and return a view', (done) => {
+      passportStub.login({
+        email: 'ad@min.com',
+        password: 'admin'
+      });
+      const product = {
+        name: 'boots',
+        description: 'just a test',
+        amount: '9.89'
+      };
+      chai.request(server)
+      .post('/products')
+      .send(product)
+      .end((err, res) => {
+        should.not.exist(err);
+        res.redirects.length.should.eql(1);
+        res.should.have.status(200);
+        res.type.should.eql('text/html');
+        res.text.should.contain.contain('<h1>Node + Stripe + Express</h1>');
+        chai.request(server)
+        .get('/products')
+        .end((err, res) => {
+          should.not.exist(err);
+          res.should.have.status(200);
+          res.type.should.eql('text/html');
+          res.text.should.contain.contain('boots');
+          done();
+        });
+      });
+    });
+  });
+
   describe('GET /products/:id', () => {
     it('should return a view', (done) => {
       productQueries.getSingleProduct(1)

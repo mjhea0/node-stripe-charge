@@ -145,7 +145,7 @@ describe('routes : auth', () => {
         res.type.should.eql('text/html');
         res.text.should.contain('<h1>Node + Stripe + Express</h1>');
         res.text.should.contain(
-          '<li><a href="/auth/login">Register/Login</a></li>');
+          '<a class="nav-link" href="/auth/login">Register/Login</a>');
         res.text.should.not.contain(
           '<li><a href="/auth/logout">Logout</a></li>');
         done();

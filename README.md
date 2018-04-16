@@ -1,7 +1,6 @@
 ## Node + Stripe
 
 [![Build Status](https://travis-ci.org/mjhea0/node-stripe-charge.svg?branch=master)](https://travis-ci.org/mjhea0/node-stripe-charge)
-
 [![Coverage Status](https://coveralls.io/repos/github/mjhea0/node-stripe-charge/badge.svg?branch=master)](https://coveralls.io/github/mjhea0/node-stripe-charge?branch=master)
 
 This is a template for you to use on your own projects for processing one-time Stripe charges. Follow the directions below to get started.
@@ -49,7 +48,7 @@ $ npm run coverage
 
 ## Changelog
 
-1. 04/15/2018 - updated dependencies
+1. 04/15/2018 - updated dependencies, added bootstrap 4, increased test coverage
 1. 11/14/2016 - refactored all code, updated to es6, moved to postgres from mongo, added tests
 1. 02/09/2016 - refactored passport, tests, error handlers, client-side javascript (view [commit](https://github.com/mjhea0/node-stripe-charge/commit/f32c6eb731dbf14b194ac07795671931100139b4))
 1. 04/23/2015 - major refactor
