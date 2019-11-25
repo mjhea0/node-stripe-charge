@@ -17,7 +17,7 @@
     "dotenv": "^5.0.1",
     "express": "~4.16.3",
     "express-session": "^1.14.0",
-    "knex": "^0.14.6",
+    "knex": "^0.20.2",
     "morgan": "~1.9.0",
     "nunjucks": "^3.1.2",
     "passport": "0.3.2",
